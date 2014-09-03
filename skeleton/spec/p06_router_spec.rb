@@ -43,6 +43,7 @@ describe Phase6::Route do
       dummy_controller_instance = DummyController.new
       dummy_controller_instance.stub(:invoke_action)
       dummy_controller_class.stub(:new).with(req, res, {}) { dummy_controller_instance }
+      dummy_controller_class.stub(:new).with(req, res) { dummy_controller_instance }
       dummy_controller_instance.should_receive(:invoke_action)
       index_route = Phase6::Route.new(Regexp.new("^/users$"), :get, dummy_controller_class, :index)
       index_route.run(req, res)
