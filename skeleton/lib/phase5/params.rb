@@ -6,6 +6,9 @@ module Phase5
     # 1. query string
     # 2. post body
     # 3. route params
+    #
+    # You haven't done routing yet; but assume route params will be
+    # passed in as a hash to `Params.new` as below:
     def initialize(req, route_params = {})
     end
 
