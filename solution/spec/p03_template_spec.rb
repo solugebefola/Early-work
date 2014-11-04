@@ -44,6 +44,12 @@ describe Phase3::ControllerBase do
           cats_controller2.render(:index)
         end.to raise_error
       end
+
+      it "captures instance variables from the controller" do
+        cats_controller2.index
+        cats_controller2.render(:index)
+        expect(cats_controller2.res.body).to include("GIZMO")
+      end
     end
   end
 end
