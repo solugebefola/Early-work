@@ -6,7 +6,7 @@ module Phase4
     def redirect_to(url)
     end
 
-    def render_content(content, type)
+    def render_content(content, content_type)
     end
 
     # method exposing a `Session` object

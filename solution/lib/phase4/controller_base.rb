@@ -10,8 +10,8 @@ module Phase4
       nil
     end
 
-    def render_content(content, type)
-      super(content, type)
+    def render_content(content, content_type)
+      super(content, content_type)
       session.store_session(@res)
 
       nil
