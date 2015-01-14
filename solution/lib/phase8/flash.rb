@@ -2,21 +2,13 @@ require 'json'
 require 'webrick'
 
 module Phase8
-  class HashWithIndifferentAccess
-    def initialize
-      @hash = {}
-    end
-
+  class HashWithIndifferentAccess < Hash
     def [](key)
-      @hash[key.to_s]
+      super(key.to_s)
     end
 
     def []=(key, val)
-      @hash[key.to_s] = val
-    end
-
-    def to_json
-      @hash.to_json
+      super(key.to_s, val)
     end
   end
 
@@ -35,14 +27,15 @@ module Phase8
     end
 
     def now
-      @flash_now ||= HashWithIndifferentAccess.new
+      @flash_now
     end
 
     def [](key)
-      @data[key] || now[key]
+      now[key] || @data[key]
     end
 
     def []=(key, val)
+      now[key] = val
       @data[key] = val
     end
 
