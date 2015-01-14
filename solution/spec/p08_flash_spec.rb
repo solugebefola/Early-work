@@ -16,7 +16,7 @@ describe Phase8::Flash do
   end
 
   describe '#now' do
-    it 'returns a hash' do
+    it 'allows access to values with :[]' do
       flash = Phase8::Flash.new(req)
       expect(flash.now).to respond_to(:[])
     end
@@ -31,7 +31,7 @@ describe Phase8::Flash do
       expect(flash2.now[:errors]).to be_nil
     end
 
-    it 'allows access to the data from top level flash :[]' do
+    it 'allows access to data via the top level flash :[]' do
       flash = Phase8::Flash.new(req)
       flash.now[:errors] = "Error"
       expect(flash[:errors]).to eq("Error")
