@@ -1,5 +1,6 @@
 require_relative '../phase2/controller_base'
 require 'active_support'
+require 'active_support/core_ext'
 require 'erb'
 
 module Phase3
