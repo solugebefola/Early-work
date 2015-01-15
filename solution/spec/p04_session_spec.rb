@@ -1,6 +1,6 @@
 require 'webrick'
-require 'phase4/session'
-require 'phase4/controller_base'
+require_relative '../lib/phase4/session'
+require_relative '../lib/phase4/controller_base'
 
 describe Phase4::Session do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }

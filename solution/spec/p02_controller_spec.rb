@@ -1,5 +1,5 @@
 require 'webrick'
-require 'phase2/controller_base'
+require_relative '../lib/phase2/controller_base'
 
 describe Phase2::ControllerBase do
   before(:all) do

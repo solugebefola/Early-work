@@ -1,6 +1,6 @@
 require 'webrick'
-require 'phase6/controller_base'
-require 'phase6/router'
+require_relative '../lib/phase6/controller_base'
+require_relative '../lib/phase6/router'
 
 describe "the symphony of things" do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }

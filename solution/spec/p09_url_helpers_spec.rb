@@ -1,7 +1,7 @@
 require 'webrick'
-require 'phase9/url_helpers'
-require 'phase9/controller_base'
-require 'phase9/router'
+require_relative '../lib/phase9/url_helpers'
+require_relative '../lib/phase9/controller_base'
+require_relative '../lib/phase9/router'
 
 describe Phase9::Router do
   subject(:router) { Phase9::Router.new }

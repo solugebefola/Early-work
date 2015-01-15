@@ -1,6 +1,6 @@
 require 'webrick'
-require 'phase8/flash'
-require 'phase8/controller_base'
+require_relative '../lib/phase8/flash'
+require_relative '../lib/phase8/controller_base'
 
 describe Phase8::Flash do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
