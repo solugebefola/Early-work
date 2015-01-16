@@ -17,10 +17,7 @@ module Phase6
     def run(req, res)
       match_data = @pattern.match(req.path)
 
-      route_params = {}
-      match_data.names.each do |name|
-        route_params[name] = match_data[name]
-      end
+      route_params = Hash[match_data.names.zip(match_data.captures)]
 
       @controller_class
         .new(req, res, route_params)
