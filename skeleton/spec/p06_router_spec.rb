@@ -6,25 +6,26 @@ describe Phase6::Route do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
 
+  before(:each) do
+    allow(req).to receive(:request_method).and_return("GET")
+  end
+
   describe "#matches?" do
     it "matches simple regular expression" do
       index_route = Phase6::Route.new(Regexp.new("^/users$"), :get, "x", :x)
-      req.stub(:path) { "/users" }
-      req.stub(:request_method) { "GET" }
+      allow(req).to receive(:path).and_return("/users")
       index_route.matches?(req).should be true
     end
 
     it "matches regular expression with capture" do
       index_route = Phase6::Route.new(Regexp.new("^/users/(?<id>\\d+)$"), :get, "x", :x)
-      req.stub(:path) { "/users/1" }
-      req.stub(:request_method) { "GET" }
+      allow(req).to receive(:path).and_return("/users/1")
       index_route.matches?(req).should be true
     end
 
     it "correctly doesn't matche regular expression with capture" do
       index_route = Phase6::Route.new(Regexp.new("^/users/(?<id>\\d+)$"), :get, "UsersController", :index)
-      req.stub(:path) { "/statuses/1" }
-      req.stub(:request_method) { "GET" }
+      allow(req).to receive(:path).and_return("/statuses/1")
       index_route.matches?(req).should be false
     end
   end
@@ -37,7 +38,7 @@ describe Phase6::Route do
       # reader beware. hairy adventures ahead.
       # this is really checking way too much implementation,
       # but tests the aproach recommended in the project
-      req.stub(:path) { "/users" }
+      allow(req).to receive(:path).and_return("/users")
 
       dummy_controller_class = DummyController
       dummy_controller_instance = DummyController.new
@@ -55,6 +56,10 @@ describe Phase6::Router do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
 
+  before(:each) do
+    allow(req).to receive(:request_method).and_return("GET")
+  end
+
   describe "#add_route" do
     it "adds a route" do
       subject.add_route(1, 2, 3, 4)
@@ -68,16 +73,14 @@ describe Phase6::Router do
   describe "#match" do
     it "matches a correct route" do
       subject.add_route(Regexp.new("^/users$"), :get, :x, :x)
-      req.stub(:path) { "/users" }
-      req.stub(:request_method) { "GET" }
+      allow(req).to receive(:path).and_return("/users")
       matched = subject.match(req)
       matched.should_not be_nil
     end
 
     it "doesn't match an incorrect route" do
       subject.add_route(Regexp.new("^/users$"), :get, :x, :x)
-      req.stub(:path) { "/incorrect_path" }
-      req.stub(:request_method) { "GET" }
+      allow(req).to receive(:path).and_return("/incorrect_path")
       matched = subject.match(req)
       matched.should be_nil
     end
@@ -86,8 +89,7 @@ describe Phase6::Router do
   describe "#run" do
     it "sets status to 404 if no route is found" do
       subject.add_route(1, 2, 3, 4)
-      req.stub(:path) { "/users" }
-      req.stub(:request_method) { "GET" }
+      allow(req).to receive(:path).and_return("/users")
       subject.run(req, res)
       res.status.should == 404
     end

@@ -28,7 +28,7 @@ describe "the symphony of things" do
     it "route instantiates controller and calls invoke action" do
       route = Phase6::Route.new(Regexp.new("^/statuses/(?<id>\\d+)$"), :get, Ctrlr, :route_render)
       req.stub(:path) { "/statuses/1" }
-      req.stub(:request_method) { :get }
+      req.stub(:request_method) { "GET" }
       route.run(req, res)
       res.body.should == "testing"
     end
@@ -36,7 +36,7 @@ describe "the symphony of things" do
     it "route adds to params" do
       route = Phase6::Route.new(Regexp.new("^/statuses/(?<id>\\d+)$"), :get, Ctrlr, :route_does_params)
       req.stub(:path) { "/statuses/1" }
-      req.stub(:request_method) { :get }
+      req.stub(:request_method) { "GET" }
       route.run(req, res)
       res.body.should == "got #1"
     end
