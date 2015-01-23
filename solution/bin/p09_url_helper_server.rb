@@ -6,7 +6,7 @@ class Dog
   attr_reader :name, :owner
 
   def self.all
-    @dog ||= []
+    @dogs ||= []
   end
 
   def initialize(params = {})
