@@ -1,5 +1,5 @@
 module Phase9
-  module URLHelpers
+  module RouteHelpers
     def link_to(title, path)
       "<a href='#{ path }'>#{ title }</a>"
     end

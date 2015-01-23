@@ -1,29 +1,29 @@
 require_relative '../phase6/router'
-require_relative './url_helpers'
+require_relative './route_helpers'
 
 module Phase9
   class Route < Phase6::Route
     def initialize(pattern, http_method, controller_class, action_name)
       super
-      add_url_helpers
+      add_route_helpers
     end
 
     private
 
-    def add_url_helpers
+    def add_route_helpers
       case action_name
       when :edit
         name = "edit_#{ class_name_singular }"
-        add_url_method(name, "/#{ class_name_plural }/:id/edit")
+        add_path_method(name, "/#{ class_name_plural }/:id/edit")
       when :new
         name = "new_#{ class_name_singular }"
-        add_url_method(name, "/#{ class_name_plural }/new")
+        add_path_method(name, "/#{ class_name_plural }/new")
       when :show, :destroy, :update
         name = "#{ class_name_singular }"
-        add_url_method(name, "/#{ class_name_plural }/:id")
+        add_path_method(name, "/#{ class_name_plural }/:id")
       when :index, :create
         name = "#{ class_name_plural }"
-        add_url_method(name, "/#{ name }")
+        add_path_method(name, "/#{ name }")
       end
     end
 
@@ -39,11 +39,11 @@ module Phase9
       class_name.singularize
     end
 
-    def add_url_method(name, path)
-      url_name = "#{ name }_url"
-      puts "#{ url_name } #=> #{ path }"
+    def add_path_method(name, path)
+      path_name = "#{ name }_path"
+      puts "#{ path_name } #=> #{ path }"
 
-      URLHelpers.send(:define_method, url_name) do |*args|
+      RouteHelpers.send(:define_method, path_name) do |*args|
         id = args.first.to_s
         if path.include?(':id') && !id.nil?
           path.gsub!(':id', id)

@@ -1,5 +1,5 @@
 require 'webrick'
-require_relative '../lib/phase9/url_helpers'
+require_relative '../lib/phase9/route_helpers'
 require_relative '../lib/phase9/controller_base'
 require_relative '../lib/phase9/router'
 
@@ -15,14 +15,14 @@ describe Phase9::Router do
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
   let(:cats_controller) { CatsController.new(req, res) }
 
-  it 'registers url helper methods when route is added' do
+  it 'registers route helper methods when route is added' do
     router.get Regexp.new("^/cats$"), CatsController, :index
-    expect(cats_controller.cats_url).to eq("/cats")
+    expect(cats_controller.cats_path).to eq("/cats")
   end
 
   it 'helper methods take arguments' do
     router.get Regexp.new("^/cats/(<id>\\d+)/edit$"), CatsController, :edit
-    expect(cats_controller.edit_cat_url(7)).to eq("/cats/7/edit")
+    expect(cats_controller.edit_cat_path(7)).to eq("/cats/7/edit")
   end
 end
 
