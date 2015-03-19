@@ -77,6 +77,14 @@ describe Phase5::Params do
     end
   end
 
+  context "indifferent access" do
+    it "responds to string and symbol keys" do
+      params = Phase5::Params.new(req, {"id" => 5})
+      expect(params["id"]).to eq(5)
+      expect(params[:id]).to eq(5)
+    end
+  end
+
   # describe "strong parameters" do
   #   describe "#permit" do
   #     it "allows the permitting of multiple attributes" do
