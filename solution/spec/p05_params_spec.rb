@@ -24,56 +24,49 @@ describe Phase5::Params do
     it "handles single key and value" do
       req.query_string = "key=val"
       params = Phase5::Params.new(req)
-      params["key"].should == "val"
+      expect(params["key"]).to eq("val")
     end
 
     it "handles multiple keys and values" do
       req.query_string = "key=val&key2=val2"
       params = Phase5::Params.new(req)
-      params["key"].should == "val"
-      params["key2"].should == "val2"
+      expect(params["key"]).to eq("val")
+      expect(params["key2"]).to eq("val2")
     end
 
     it "handles nested keys" do
       req.query_string = "user[address][street]=main"
       params = Phase5::Params.new(req)
-      params["user"]["address"]["street"].should == "main"
+      expect(params["user"]["address"]["street"]).to eq("main")
     end
   end
 
   context "post body" do
     it "handles single key and value" do
-      req.stub(:body) { "key=val" }
+      allow(req).to receive(:body) { "key=val" }
       params = Phase5::Params.new(req)
-      params["key"].should == "val"
+      expect(params["key"]).to eq("val")
     end
 
     it "handles multiple keys and values" do
-      req.stub(:body) { "key=val&key2=val2" }
+      allow(req).to receive(:body) { "key=val&key2=val2" }
       params = Phase5::Params.new(req)
-      params["key"].should == "val"
-      params["key2"].should == "val2"
+      expect(params["key"]).to eq("val")
+      expect(params["key2"]).to eq("val2")
     end
 
     it "handles nested keys" do
-      req.stub(:body) { "user[address][street]=main" }
+      allow(req).to receive(:body) { "user[address][street]=main" }
       params = Phase5::Params.new(req)
-      params["user"]["address"]["street"].should == "main"
-    end
-
-    it "handles multiple nested keys" do
-      req.stub(:body) { "user[address][street]=main&user[address][zip]=89436" }
-      params = Phase5::Params.new(req)
-      params["user"]["address"]["street"].should == "main"
-      params["user"]["address"]["zip"].should == "89436"
+      expect(params["user"]["address"]["street"]).to eq("main")
     end
   end
 
   context "route params" do
     it "handles route params" do
       params = Phase5::Params.new(req, {"id" => 5, "user_id" => 22})
-      params["id"].should == 5
-      params["user_id"].should == 22
+      expect(params["id"]).to eq(5)
+      expect(params["user_id"]).to eq(22)
     end
   end
 
@@ -91,9 +84,9 @@ describe Phase5::Params do
   #       req.query_string = "key=val&key2=val2&key3=val3"
   #       params = Phase5::Params.new(req)
   #       params.permit("key", "key2")
-  #       params.permitted?("key").should be true
-  #       params.permitted?("key2").should be true
-  #       params.permitted?("key3").should be false
+  #       expect(params.permitted?("key")).to be_truthy
+  #       expect(params.permitted?("key2")).to be_truthy
+  #       expect(params.permitted?("key3")).to be_falsey
   #     end
   #
   #     it "collects up permitted keys across multiple calls" do
@@ -101,9 +94,9 @@ describe Phase5::Params do
   #       params = Phase5::Params.new(req)
   #       params.permit("key")
   #       params.permit("key2")
-  #       params.permitted?("key").should be true
-  #       params.permitted?("key2").should be true
-  #       params.permitted?("key3").should be false
+  #       expect(params.permitted?("key")).to be_truthy
+  #       expect(params.permitted?("key2")).to be_truthy
+  #       expect(params.permitted?("key3")).to be_falsey
   #     end
   #   end
   #

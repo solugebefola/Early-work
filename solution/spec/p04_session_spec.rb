@@ -10,7 +10,7 @@ describe Phase4::Session do
   it "deserializes json cookie if one exists" do
     req.cookies << cook
     session = Phase4::Session.new(req)
-    session['xyz'].should == 'abc'
+    expect(session['xyz']).to eq('abc')
   end
 
   describe "#store_session" do
@@ -23,12 +23,12 @@ describe Phase4::Session do
 
       it "adds new cookie with '_rails_lite_app' name to response" do
         cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
-        cookie.should_not be_nil
+        expect(cookie).not_to be_nil
       end
 
       it "stores the cookie in json format" do
         cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
-        JSON.parse(cookie.value).should be_instance_of(Hash)
+        expect(JSON.parse(cookie.value)).to be_instance_of(Hash)
       end
     end
 
@@ -40,7 +40,7 @@ describe Phase4::Session do
 
       it "reads the pre-existing cookie data into hash" do
         session = Phase4::Session.new(req)
-        session['pho'].should == 'soup'
+        expect(session['pho']).to eq('soup')
       end
 
       it "saves new and old data to the cookie" do
@@ -49,8 +49,8 @@ describe Phase4::Session do
         session.store_session(res)
         cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
         h = JSON.parse(cookie.value)
-        h['pho'].should == 'soup'
-        h['machine'].should == 'mocha'
+        expect(h['pho']).to eq('soup')
+        expect(h['machine']).to eq('mocha')
       end
     end
   end

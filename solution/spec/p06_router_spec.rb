@@ -13,20 +13,23 @@ describe Phase6::Route do
   describe "#matches?" do
     it "matches simple regular expression" do
       index_route = Phase6::Route.new(Regexp.new("^/users$"), :get, "x", :x)
-      allow(req).to receive(:path).and_return("/users")
-      index_route.matches?(req).should be true
+      allow(req).to receive(:path) { "/users" }
+      allow(req).to receive(:request_method) { :get }
+      expect(index_route.matches?(req)).to be_truthy
     end
 
     it "matches regular expression with capture" do
       index_route = Phase6::Route.new(Regexp.new("^/users/(?<id>\\d+)$"), :get, "x", :x)
-      allow(req).to receive(:path).and_return("/users/1")
-      index_route.matches?(req).should be true
+      allow(req).to receive(:path) { "/users/1" }
+      allow(req).to receive(:request_method) { :get }
+      expect(index_route.matches?(req)).to be_truthy
     end
 
     it "correctly doesn't matche regular expression with capture" do
       index_route = Phase6::Route.new(Regexp.new("^/users/(?<id>\\d+)$"), :get, "UsersController", :index)
-      allow(req).to receive(:path).and_return("/statuses/1")
-      index_route.matches?(req).should be false
+      allow(req).to receive(:path) { "/statuses/1" }
+      allow(req).to receive(:request_method) { :get }
+      expect(index_route.matches?(req)).to be_falsey
     end
   end
 
@@ -38,14 +41,15 @@ describe Phase6::Route do
       # reader beware. hairy adventures ahead.
       # this is really checking way too much implementation,
       # but tests the aproach recommended in the project
-      allow(req).to receive(:path).and_return("/users")
+      allow(req).to receive(:path) { "/users" }
 
       dummy_controller_class = DummyController
       dummy_controller_instance = DummyController.new
-      dummy_controller_instance.stub(:invoke_action)
-      dummy_controller_class.stub(:new).with(req, res, {}) { dummy_controller_instance }
-      dummy_controller_class.stub(:new).with(req, res) { dummy_controller_instance }
-      dummy_controller_instance.should_receive(:invoke_action)
+      allow(dummy_controller_instance).to receive(:invoke_action)
+      allow(dummy_controller_class).to receive(:new).with(req, res, {}) do
+        dummy_controller_instance
+      end
+      expect(dummy_controller_instance).to receive(:invoke_action)
       index_route = Phase6::Route.new(Regexp.new("^/users$"), :get, dummy_controller_class, :index)
       index_route.run(req, res)
     end
@@ -56,33 +60,31 @@ describe Phase6::Router do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
 
-  before(:each) do
-    allow(req).to receive(:request_method).and_return("GET")
-  end
-
   describe "#add_route" do
     it "adds a route" do
       subject.add_route(1, 2, 3, 4)
-      subject.routes.count.should == 1
+      expect(subject.routes.count).to eq(1)
       subject.add_route(1, 2, 3, 4)
       subject.add_route(1, 2, 3, 4)
-      subject.routes.count.should == 3
+      expect(subject.routes.count).to eq(3)
     end
   end
 
   describe "#match" do
     it "matches a correct route" do
       subject.add_route(Regexp.new("^/users$"), :get, :x, :x)
-      allow(req).to receive(:path).and_return("/users")
+      allow(req).to receive(:path) { "/users" }
+      allow(req).to receive(:request_method) { :get }
       matched = subject.match(req)
-      matched.should_not be_nil
+      expect(matched).not_to be_nil
     end
 
     it "doesn't match an incorrect route" do
       subject.add_route(Regexp.new("^/users$"), :get, :x, :x)
-      allow(req).to receive(:path).and_return("/incorrect_path")
+      allow(req).to receive(:path) { "/incorrect_path" }
+      allow(req).to receive(:request_method) { :get }
       matched = subject.match(req)
-      matched.should be_nil
+      expect(matched).to be_nil
     end
   end
 
@@ -92,23 +94,23 @@ describe Phase6::Router do
       allow(req).to receive(:path).and_return("/incorrect_path")
       allow(req).to receive(:request_method).and_return("GET")
       subject.run(req, res)
-      res.status.should == 404
+      expect(res.status).to eq(404)
     end
   end
 
   describe "http method (get, put, post, delete)" do
     it "adds methods get, put, post and delete" do
       router = Phase6::Router.new
-      (router.methods - Class.new.methods).should include(:get)
-      (router.methods - Class.new.methods).should include(:put)
-      (router.methods - Class.new.methods).should include(:post)
-      (router.methods - Class.new.methods).should include(:delete)
+      expect((router.methods - Class.new.methods)).to include(:get)
+      expect((router.methods - Class.new.methods)).to include(:put)
+      expect((router.methods - Class.new.methods)).to include(:post)
+      expect((router.methods - Class.new.methods)).to include(:delete)
     end
 
     it "adds a route when an http method method is called" do
       router = Phase6::Router.new
       router.get Regexp.new("^/users$"), Phase6::ControllerBase, :index
-      router.routes.count.should == 1
+      expect(router.routes.count).to eq(1)
     end
   end
 end

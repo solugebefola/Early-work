@@ -20,23 +20,23 @@ describe Phase2::ControllerBase do
     end
 
     it "sets the response content type" do
-      users_controller.res.content_type.should == "text/html"
+      expect(users_controller.res.content_type).to eq("text/html")
     end
 
     it "sets the response body" do
-      users_controller.res.body.should == "somebody"
+      expect(users_controller.res.body).to eq("somebody")
     end
 
     describe "#already_built_response?" do
       let(:users_controller2) { UsersController.new(req, res) }
 
       it "is false before rendering" do
-        users_controller2.already_built_response?.should be false
+        expect(users_controller2.already_built_response?).to be_falsey
       end
 
       it "is true after rendering content" do
         users_controller2.render_content "sombody", "text/html"
-        users_controller2.already_built_response?.should be true
+        expect(users_controller2.already_built_response?).to be_truthy
       end
 
       it "raises an error when attempting to render twice" do
@@ -54,23 +54,23 @@ describe Phase2::ControllerBase do
     end
 
     it "sets the header" do
-      users_controller.res.header["location"].should == "http://www.google.com"
+      expect(users_controller.res.header["location"]).to eq("http://www.google.com")
     end
 
     it "sets the status" do
-      users_controller.res.status.should == 302
+      expect(users_controller.res.status).to eq(302)
     end
 
     describe "#already_built_response?" do
       let(:users_controller2) { UsersController.new(req, res) }
 
       it "is false before rendering" do
-        users_controller2.already_built_response?.should be false
+        expect(users_controller2.already_built_response?).to be_falsey
       end
 
       it "is true after rendering content" do
         users_controller2.redirect_to("http://google.com")
-        users_controller2.already_built_response?.should be true
+        expect(users_controller2.already_built_response?).to be_truthy
       end
 
       it "raises an error when attempting to render twice" do

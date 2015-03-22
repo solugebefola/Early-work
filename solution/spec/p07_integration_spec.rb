@@ -25,21 +25,20 @@ describe "the symphony of things" do
   after(:all) { Object.send(:remove_const, "Ctrlr") }
 
   describe "routes and params" do
-    before(:each) do
-      allow(req).to receive(:request_method).and_return("GET")
-      allow(req).to receive(:path).and_return("/statuses/1")
-    end
-
     it "route instantiates controller and calls invoke action" do
       route = Phase6::Route.new(Regexp.new("^/statuses/(?<id>\\d+)$"), :get, Ctrlr, :route_render)
+      allow(req).to receive(:path) { "/statuses/1" }
+      allow(req).to receive(:request_method) { :get }
       route.run(req, res)
-      res.body.should == "testing"
+      expect(res.body).to eq("testing")
     end
 
     it "route adds to params" do
       route = Phase6::Route.new(Regexp.new("^/statuses/(?<id>\\d+)$"), :get, Ctrlr, :route_does_params)
+      allow(req).to receive(:path) { "/statuses/1" }
+      allow(req).to receive(:request_method) { :get }
       route.run(req, res)
-      res.body.should == "got #1"
+      expect(res.body).to eq("got #1")
     end
   end
 
@@ -47,13 +46,15 @@ describe "the symphony of things" do
     let(:ctrlr) { Ctrlr.new(req, res) }
 
     it "exposes a session via the session method" do
-      ctrlr.session.should be_instance_of(Phase4::Session)
+      expect(ctrlr.session).to be_instance_of(Phase4::Session)
     end
 
     it "saves the session after rendering content" do
       ctrlr.update_session
-      res.cookies.count.should == 1
-      JSON.parse(res.cookies[0].value)["token"].should == "testing"
+      # Currently broken when flash is used. Need to store flash in the cookie
+      # or change this spec.
+      expect(res.cookies.count).to eq(1)
+      expect(JSON.parse(res.cookies[0].value)["token"]).to eq("testing")
     end
   end
 end
