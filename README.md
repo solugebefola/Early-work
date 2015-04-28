@@ -335,10 +335,10 @@ attention to colors and typography.
 - [Screenshot B][ss-05-b]
 - [Live][live-05]
 
-Create a `.content-header` section and put it in top of the `.content`
-container, above the sidebar and main section. Give it a height and use
-the supplied `./shared/img/cats.jpg` image as a background. Make sure
-the background image covers the full section.
+Create a `.content-header` section and put it at the top inside of the 
+`.content` container, above the sidebar and main section. Give it a 
+height and use the supplied `./shared/img/cats.jpg` image as a 
+background. Make sure the background image covers the full section.
 
 Add a heading and button and position them absolute at the bottom. To
 keep the heading legible on a varied background, use the `text-shadow`
@@ -436,14 +436,16 @@ of everything so far!
 - [Screenshot B][ss-08-b]
 - [Live][live-08]
 
-A grid of friends! Use a list and float them all! Spacing them out
-properly will be tricky. You will need to use `:nth-child()`
+A grid of friends! Use a list and float every `<li>`! Spacing them 
+out properly will be tricky. You will need to use `:nth-child()`
 pseudo-selectors to add some left and right margin to the middle of
 every three `<li>`s.
 
 Create a `.thumb` class to style the links that contain the thumbnails.
-You can use the same `./shared/img/cat.jpg` picture for the image tag.
-We will want to reuse this `.thumb` class later.
+You can use the same `./shared/img/cat.jpg` picture for the `<img>` tag.
+We will want to reuse this `.thumb` class later. Note that we're not
+using this `.thumb` class to float or space the grid, that task is left
+to the `<li>`s.
 
 Add `title` attributes containing friend names to the link tags. You
 should have something like:
