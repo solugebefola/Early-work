@@ -15,8 +15,9 @@ module Phase5
     def [](key)
     end
 
+    # this will be useful if we want to `puts params` in the server log
     def to_s
-      @params.to_json.to_s
+      @params.to_s
     end
 
     class AttributeNotFoundError < ArgumentError; end;
