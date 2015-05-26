@@ -91,7 +91,7 @@ Let's make all images `block` elements, have them expand to the full
 `auto`, which means proportionally.
 
 Remove the bullets from list items, strip the default styling from form
-input elements by setting their appearance to none, and show the little
+input elements by setting their appearance to none (see [here][appearance-info]), and show the little
 pointer hand on buttons to make it obvious you can click. Finally
 include the clearfix in your code. We'll be using it a lot!
 
@@ -104,6 +104,7 @@ include the clearfix in your code. We'll be using it a lot!
 [t-box-model]: https://github.com/appacademy/css-demos/#box-model
 [t-box-sizing]: http://appacademy.github.io/css-demos/box-sizing.html
 [t-cursor]: https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+[appearance-info]: https://css-tricks.com/almanac/properties/a/appearance/
 
 
 ## Phase 1: Header
