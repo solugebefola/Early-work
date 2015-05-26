@@ -90,8 +90,8 @@ Let's make all images `block` elements, have them expand to the full
 `100%` width of their parent container, and have their height grow
 `auto`, which means proportionally.
 
-Remove the bullets from list items, strip the browser chrome from form
-input elements by setting its appearance to none, and show the little
+Remove the bullets from list items, strip the default styling from form
+input elements by setting their appearance to none, and show the little
 pointer hand on buttons to make it obvious you can click. Finally
 include the clearfix in your code. We'll be using it a lot!
 
