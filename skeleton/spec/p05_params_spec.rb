@@ -39,6 +39,13 @@ describe Phase5::Params do
       params = Phase5::Params.new(req)
       expect(params["user"]["address"]["street"]).to eq("main")
     end
+
+    it "handles multiple nested keys and values" do
+      req.query_string =  "user[fname]=rebecca&user[lname]=smith"
+      params = Phase5::Params.new(req)
+      expect(params["user"]["fname"]).to eq("rebecca")
+      expect(params["user"]["lname"]).to eq("smith")
+    end
   end
 
   context "post body" do
@@ -59,6 +66,13 @@ describe Phase5::Params do
       allow(req).to receive(:body) { "user[address][street]=main" }
       params = Phase5::Params.new(req)
       expect(params["user"]["address"]["street"]).to eq("main")
+    end
+
+    it "handles multiple nested keys and values" do
+      allow(req).to receive(:body) { "user[fname]=rebecca&user[lname]=smith" }
+      params = Phase5::Params.new(req)
+      expect(params["user"]["fname"]).to eq("rebecca")
+      expect(params["user"]["lname"]).to eq("smith")
     end
   end
 
