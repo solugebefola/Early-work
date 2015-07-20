@@ -85,8 +85,13 @@ describe Phase5::Params do
   end
 
   context "indifferent access" do
-    it "responds to string and symbol keys" do
+    it "responds to string and symbol keys when stored as a string" do
       params = Phase5::Params.new(req, {"id" => 5})
+      expect(params["id"]).to eq(5)
+      expect(params[:id]).to eq(5)
+    end
+    it "responds to string and symbol keys when stored as a symbol" do
+      params = Phase5::Params.new(req, {:id => 5})
       expect(params["id"]).to eq(5)
       expect(params[:id]).to eq(5)
     end
