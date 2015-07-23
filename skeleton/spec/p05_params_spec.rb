@@ -135,3 +135,25 @@ describe Phase5::Params do
   #   end
   # end
 end
+
+describe 'Phase5::ControllerBase#initialize' do
+  before(:all) do
+    class CatsController < Phase5::ControllerBase
+      def index
+        @cats = ["Gizmo"]
+      end
+    end
+  end
+
+  after(:all) { Object.send(:remove_const, "CatsController") }
+
+  let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
+  let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
+  let(:cats_controller) { CatsController.new(req, res) }
+
+  context '#initialize' do
+    it "sets params var to new Params object" do
+      expect(cats_controller.params).to be_instance_of(Phase5::Params)
+    end
+  end
+end
