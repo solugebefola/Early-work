@@ -11,14 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921152211) do
+ActiveRecord::Schema.define(version: 20150922034610) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "article_id"
+    t.string   "image_file_name"
+    t.string   "image_file_type"
+    t.integer  "image_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "attachments", ["article_id"], name: "index_attachments_on_article_id"
 
   create_table "comments", force: :cascade do |t|
     t.string   "author_name"
