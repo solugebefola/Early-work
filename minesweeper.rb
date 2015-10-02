@@ -1,11 +1,42 @@
 class Minesweeper
   attr_reader :board
 
-  def initialize(board = Board.new(3,6))
+  def initialize(board = Board.new(1,6))
     @board = board
   end
 
   def play
+    board.populate_board
+    until over?
+      display
+      revealed
+    end
+    puts won? ? "YOU WIN!" : "YOU LOST!"
+  end
+
+  def over?
+    won? || lost?
+  end
+
+  def display
+    board.display
+  end
+
+  def tiles
+    board.grid.flatten
+  end
+
+  def won?
+    tiles.all? do |tile|
+      (tile.bomb == true && tile.flagged == true) ||
+      (tile.bomb == false && tile.revealed == true)
+    end
+  end
+
+  def lost?
+    tiles.any? do |tile|
+      tile.bomb == true && tile.revealed == true
+    end
   end
 
   def revealed
@@ -18,8 +49,6 @@ class Minesweeper
     else
       tile.toggle_flag
     end
-
-
   end
 
   def check_valid_pos(pos)
@@ -33,10 +62,10 @@ class Minesweeper
 
 
   def ask_for_position
-      p "Enter position (x,y): "
-      position = STDIN.gets.chomp
-      x, y = position.split(",")
-      [Integer(x),Integer(y)]
+    p "Enter position (x,y): "
+    position = STDIN.gets.chomp
+    x, y = position.split(",")
+    [Integer(x),Integer(y)]
   end
 
   def revealed_zero_tile(pos)
@@ -76,6 +105,7 @@ class Board
   end
 
   def display
+    print "   #{(0...length).to_a.join(" ")}\n" 
     grid.each_index do |row|
       puts "#{row}: #{grid[row].join(" ")}"
     end
@@ -152,13 +182,14 @@ class Tile
   end
 
   def reveal_tile
-    self.revealed = true
+    self.revealed = true unless flagged
   end
 
   def to_s
     return "F" if flagged
     return "*" unless revealed
     return "B" if bomb
+    return "_" if num_bombs_nearby == 0
     num_bombs_nearby.to_s
   end
 
