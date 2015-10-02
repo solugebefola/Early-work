@@ -5,8 +5,38 @@ class Minesweeper
     @board = board
   end
 
-  def revealed
+  def play
+  end
 
+  def revealed
+    command = ask_for_command
+    pos = ask_for_position
+    tile = board[pos]
+    unless command == "F"
+      tile.reveal_tile
+      revealed_zero_tile(pos) if tile.num_bombs_nearby == 0
+    else
+      tile.toggle_flag
+    end
+
+
+  end
+
+  def check_valid_pos(pos)
+
+  end
+
+  def ask_for_command
+    p "Enter command: F for flag, R for reveal"
+    STDIN.gets.chomp.upcase
+  end
+
+
+  def ask_for_position
+      p "Enter position (x,y): "
+      position = STDIN.gets.chomp
+      x, y = position.split(",")
+      [Integer(x),Integer(y)]
   end
 
   def revealed_zero_tile(pos)
@@ -16,7 +46,7 @@ class Minesweeper
       next if [x,y].any? { |val| !val.between?(0,board.length-1) }
       candidate_tile = board[[x,y]]
       unless candidate_tile.revealed
-        candidate_tile.reveal_tile
+        candidate_tile.reveal_tile unless candidate_tile.flagged
         revealed_zero_tile([x,y]) if candidate_tile.num_bombs_nearby == 0
       end
 
@@ -126,8 +156,8 @@ class Tile
   end
 
   def to_s
-    return "*" unless revealed
     return "F" if flagged
+    return "*" unless revealed
     return "B" if bomb
     num_bombs_nearby.to_s
   end
