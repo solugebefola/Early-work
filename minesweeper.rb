@@ -31,17 +31,13 @@ class Board
   def populate_board
 
     raise "Too many bombs." if num_bombs > length ** 2
-    # (0...length).each do |row|
-    #   (0...length).each do |col|
-    #     grid[row][column] = Tile.new
-    #   end
-    # end
 
     grid.each do |row|
       row.map! { |square| Tile.new }
     end
 
     place_bombs
+    place_numbers
   end
 
   def [](pos)
@@ -60,6 +56,14 @@ class Board
     end
   end
 
+  def place_numbers
+    (0...length).each do |row|
+      (0...length).each do |col|
+        set_tile_bomb_count([row,col])
+      end
+    end
+  end
+
   def num_adjacent_bombs(pos)
     num_bombs = 0
     ADJACENT_SPOTS.each do |(dx, dy)|
@@ -69,6 +73,10 @@ class Board
       num_bombs += 1 if bomb_next_to?([x,y])
     end
     num_bombs
+  end
+
+  def set_tile_bomb_count(pos)
+    self[pos].num_bombs_nearby = num_adjacent_bombs(pos)
   end
 
   def bomb_next_to?(other_pos)
@@ -81,10 +89,12 @@ end
 class Tile
 
   attr_reader :revealed, :bomb
+  attr_accessor :num_bombs_nearby
 
   def initialize(bomb = false)
     @bomb = bomb
     @revealed = false
+    @num_bombs_nearby = 0
   end
 
   def reveal_tile
