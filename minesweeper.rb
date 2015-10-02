@@ -2,9 +2,11 @@ class Minesweeper
 
   def initialize
     @board
-    @flagged_tiles
   end
 
+  def flag_tile(pos)
+
+  end
 
 end
 
@@ -26,6 +28,12 @@ class Board
     @num_bombs = num_bombs
     @length = length
     @grid = Array.new(length){Array.new(length)}
+  end
+
+  def display
+    grid.each_index do |row|
+      puts "#{row}: "
+    end
   end
 
   def populate_board
@@ -89,20 +97,32 @@ end
 class Tile
 
   attr_reader :revealed, :bomb
-  attr_accessor :num_bombs_nearby
+  attr_accessor :num_bombs_nearby, :flagged
 
   def initialize(bomb = false)
     @bomb = bomb
     @revealed = false
     @num_bombs_nearby = 0
+    @flagged = false
   end
 
   def reveal_tile
     revealed = true
   end
 
+  def to_s
+    return "*" unless revealed
+    return "F" if flagged
+    return "B" if bomb
+    num_bombs_nearby
+  end
+
   def add_bomb
     @bomb = true
+  end
+
+  def toggle_flag
+    self.flagged = flagged ? false : true
   end
 
 end
