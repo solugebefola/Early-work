@@ -1,11 +1,26 @@
 class Minesweeper
+  attr_reader :board
 
-  def initialize
-    @board
+  def initialize(board = Board.new(3,6))
+    @board = board
   end
 
-  def flag_tile(pos)
+  def revealed
 
+  end
+
+  def revealed_zero_tile(pos)
+    Board::ADJACENT_SPOTS.each do |(dx, dy)|
+      x = dx+pos[0]
+      y = dy+pos[1]
+      next if [x,y].any? { |val| !val.between?(0,board.length-1) }
+      candidate_tile = board[[x,y]]
+      unless candidate_tile.revealed
+        candidate_tile.reveal_tile
+        revealed_zero_tile([x,y]) if candidate_tile.num_bombs_nearby == 0
+      end
+
+    end
   end
 
 end
@@ -32,8 +47,9 @@ class Board
 
   def display
     grid.each_index do |row|
-      puts "#{row}: "
+      puts "#{row}: #{grid[row].join(" ")}"
     end
+    nil
   end
 
   def populate_board
@@ -96,8 +112,7 @@ end
 
 class Tile
 
-  attr_reader :revealed, :bomb
-  attr_accessor :num_bombs_nearby, :flagged
+  attr_accessor :num_bombs_nearby, :flagged, :revealed, :bomb
 
   def initialize(bomb = false)
     @bomb = bomb
@@ -107,18 +122,18 @@ class Tile
   end
 
   def reveal_tile
-    revealed = true
+    self.revealed = true
   end
 
   def to_s
     return "*" unless revealed
     return "F" if flagged
     return "B" if bomb
-    num_bombs_nearby
+    num_bombs_nearby.to_s
   end
 
   def add_bomb
-    @bomb = true
+    self.bomb = true
   end
 
   def toggle_flag
