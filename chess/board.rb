@@ -6,6 +6,7 @@ class Board
   def initialize
 
     @grid = Array.new(8) { Array.new(8) {nil} }
+
     place_starting_board
   end
 
@@ -15,15 +16,26 @@ class Board
                    Knight.new, Rook.new]
     black_start = white_start.reverse
     grid.first.each_index do |idx|
-      grid[0][idx] = white_start[idx]
-      grid[7][idx] = black_start[idx]
+      self[[0, idx]] = white_start[idx]
+      self[[7, idx]] = black_start[idx]
     end
 
     grid[1].each_index do |idx|
-      grid[1][idx] = Pawn.new
-      grid[6][idx] = Pawn.new
-    end      
+      self[[1, idx]] = Pawn.new
+      self[[6, idx]] = Pawn.new
+    end
 
+  end
+
+  def move(start, end_pos)
+    if self[start].is_a?(Piece)
+      moving_piece = self[start]
+      if moving_piece.movable?(end_pos)
+         self[end_pos] = moving_piece
+      end
+    else
+      raise EmptySpaceError.new "No piece at start position"
+    end
   end
 
   def [](pos)
