@@ -5,7 +5,7 @@ class Board
 
   def initialize
 
-    @grid = Array.new(8) { Array.new(8) {nil} }
+    @grid = Array.new(8) { Array.new(8) { NullPiece.new } }
 
     place_starting_board
   end
@@ -32,6 +32,7 @@ class Board
       moving_piece = self[start]
       if moving_piece.movable?(end_pos)
          self[end_pos] = moving_piece
+         self[start] = nil
       end
     else
       raise EmptySpaceError.new "No piece at start position"
