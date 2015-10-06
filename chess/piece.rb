@@ -18,10 +18,8 @@ class Piece
 
   def move_into_check?(end_pos)
     next_move_board = board.dup
-    piece_dup = self.dup(next_move_board)
-    piece_dup.pos = end_pos
-    next_move_board[end_pos] = piece_dup
-    next_move_board.in_check?(piece_dup.color)
+    next_move_board.move(pos, end_pos)
+    next_move_board.in_check?(color)
 
   end
 
