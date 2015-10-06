@@ -29,6 +29,10 @@ class Piece
     self.class.new(board, pos, color)
   end
 
+  def inspect
+    self.class
+  end
+
 
   # def update_pos(new_pos)
   #   @pos = new_pos

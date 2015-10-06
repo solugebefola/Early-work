@@ -75,9 +75,9 @@ class Board
 
   def dup
     duppy = Board.blank_board
-    self.grid.each do |row|
-      row.each.with_index do |el, col|
-        duppy[[row,col]] << el.dup(duppy)
+    self.grid.each_with_index do |row, row_idx|
+      row.each_with_index do |el, col_idx|
+        duppy[[row_idx,col_idx]] = el.dup(duppy) unless el.is_a?(NullPiece)
       end
     end
     duppy
