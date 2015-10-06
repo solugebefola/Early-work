@@ -4,10 +4,8 @@ class Board
   attr_accessor :grid
 
   def initialize
-
     @grid = Array.new(8) { Array.new(8) { NullPiece.new } }
-
-     place_starting_board
+    place_starting_board
   end
 
   def out_of_bounds?(coordinates)
@@ -30,7 +28,6 @@ class Board
     end
 
     grid.flatten.each { |piece| piece.board = self unless piece.is_a?(NullPiece) }
-    p self
 
   end
 
@@ -48,11 +45,12 @@ class Board
   end
 
   def in_check?(color)
-     find_the_king(color)
-     opp_color_pieces(color)
+    opp_color_pieces(color).any? do |piece|
+      piece.possible_moves.include?(king_position(color))
+    end
   end
 
-  def find_the_king(color)
+  def king_position(color)
     grid.flatten.each do |piece|
       return piece.pos if piece.is_a?(King) && (piece.color == color)
     end
@@ -63,6 +61,10 @@ class Board
     grid.flatten.select do |piece|
       piece.color == color_opposite[color]
     end
+  end
+
+  def inspect
+    grid
   end
 
   def [](pos)

@@ -35,6 +35,7 @@ class Display
 
   def render
     colorize_grid.each { |row| puts row.join }
+    nil
   end
 
 end
