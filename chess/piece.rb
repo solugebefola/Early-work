@@ -1,6 +1,6 @@
 class Piece
   attr_reader :color
-  attr_accessor :pos
+  attr_accessor :pos, :board
 
   def initialize(board, pos, color)
     @board = board
@@ -24,6 +24,11 @@ class Piece
 end
 
 class NullPiece
+
+  def initialize(color = nil)
+    @color = color
+  end
+
   def present?
     false
   end
@@ -98,7 +103,7 @@ class SteppingPiece < Piece
 
     self.class::MOVES.each do |(dx,dy)|
       x,y = pos
-      if [x + dx, y + dy].all? {|coord| coord.between?(0,7)}
+      if board.out_of_bounds?([x + dx, y + dy])
         possibles << [x + dx, y + dy]
       end
     end
@@ -118,7 +123,7 @@ class Pawn < Piece
       x,y = pos
       new_move = [x + (col_direction * dx), y + dy]
 
-      if new_move.all? { |coord| coord.between?(0,7) }
+      if board.out_of_bounds?(new_move)
         possibles << new_move
       end
     end
