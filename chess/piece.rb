@@ -8,6 +8,15 @@ class Piece
     @color = color
   end
 
+  def legal_moves(end_pos)
+    raise ImpossibleMoveError unless possible_moves.include?(end_pos)
+    x_end, y_end = end_pos
+    x_start, y_start = pos
+    possible_moves.select do |(x, y)|
+      x.between?(*[x_start, x_end].sort) && y.between?(*[y_start, y_end].sort)
+    end
+  end
+
   # def update_pos(new_pos)
   #   @pos = new_pos
   # end
@@ -25,36 +34,60 @@ class NullPiece
 end
 
 class SlidingPiece < Piece
-  def diag_possible_moves
-    possibles = []
-    i = 1
+  def possible_moves
+   possibles = []
+   self.class::MOVES.each do|(dx,dy)|
+    i = 0
     until i > 7
-      [-1,1].each do |j|
-        [-1,1].each do |k|
-          x, y = pos
-          candidate = [x + (i * j) , y + (i * k)]
-          possibles << candidate
-        end
-      end
       i += 1
-    end
-    possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
-  end
-
-  def straight_possible_moves
-    possibles = []
-    i = 1
-    until i > 7
       x, y = pos
-      [-1,1].each do |k|
-        candidate_x = [x + (i * k) , y]
-        candidate_y = [x , y + (i * k)]
-        (possibles << candidate_x) << candidate_y
+      candidate = [x + (dx * i), y + (dy * i)]
+      next if board.out_of_bounds?(candidate)
+
+      case board[candidate].color
+      when nil
+        possibles << candidate
+      when self.color
+        i = 8
+      else
+        possibles << candidate
+        i = 8
       end
-      i += 1
+
     end
-    possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
-  end
+   end
+
+end
+  # def diag_possible_moves
+  #   possibles = []
+  #   i = 1
+  #   until i > 7
+  #     [-1,1].each do |j|
+  #       [-1,1].each do |k|
+  #         x, y = pos
+  #         candidate = [x + (i * j) , y + (i * k)]
+  #         possibles << candidate
+  #       end
+  #     end
+  #     i += 1
+  #   end
+  #   possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
+  # end
+
+  # def straight_possible_moves
+  #   possibles = []
+  #   i = 1
+  #   until i > 7
+  #     x, y = pos
+  #     [-1,1].each do |k|
+  #       candidate_x = [x + (i * k) , y]
+  #       candidate_y = [x , y + (i * k)]
+  #       (possibles << candidate_x) << candidate_y
+  #     end
+  #     i += 1
+  #   end
+  #   possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
+  # end
 
 end
 
@@ -95,18 +128,22 @@ class Pawn < Piece
 end
 
 class Bishop < SlidingPiece
+  MOVES = [[1,1],[-1,-1],[1,-1],[-1,1]]
   def possible_moves
     diag_possible_moves
   end
 end
 
 class Rook < SlidingPiece
+  MOVES = [[-1,0],[1,0],[0,1],[0,-1]]
   def possible_moves
     straight_possible_moves
   end
 end
 
 class Queen < SlidingPiece
+  MOVES = [[-1,-1], [-1,0], [-1,1], [0,1],
+           [1,1], [1,0], [1,-1], [0,-1]]
   def possible_moves
     diag_possible_moves + straight_possible_moves
   end
