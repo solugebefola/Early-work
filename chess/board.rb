@@ -7,7 +7,7 @@ class Board
 
     @grid = Array.new(8) { Array.new(8) { NullPiece.new } }
 
-    place_starting_board
+     place_starting_board
   end
 
   def out_of_bounds?(coordinates)

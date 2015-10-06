@@ -18,13 +18,13 @@ class Display
   end
 
   def colors_for(i, j, b_w = nil)
-    if b_w == "black"
+    if b_w == :black
       piece_color = :black
     else
       piece_color = :white
     end
     if [i, j] == @cursor_pos
-      bg = :light_red
+      bg = :red
     elsif (i + j).odd?
       bg = :light_blue
     else

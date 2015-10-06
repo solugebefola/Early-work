@@ -1,3 +1,4 @@
+require 'byebug'
 class Piece
   attr_reader :color
   attr_accessor :pos, :board
@@ -24,6 +25,7 @@ class Piece
 end
 
 class NullPiece
+  attr_reader :color
 
   def initialize(color = nil)
     @color = color
@@ -39,62 +41,34 @@ class NullPiece
 end
 
 class SlidingPiece < Piece
+
   def possible_moves
-   possibles = []
-   self.class::MOVES.each do|(dx,dy)|
-    i = 0
-    until i > 7
-      i += 1
-      x, y = pos
-      candidate = [x + (dx * i), y + (dy * i)]
-      next if board.out_of_bounds?(candidate)
+    possibles = []
+    self.class::MOVES.each do|(dx,dy)|
+      multiplier = 0
+      until multiplier > 7
+        multiplier += 1
+        x, y = pos
+        candidate = [x + (dx * multiplier), y + (dy * multiplier)]
+        next unless board.out_of_bounds?(candidate)
 
-      case board[candidate].color
-      when nil
-        possibles << candidate
-      when self.color
-        i = 8
-      else
-        possibles << candidate
-        i = 8
+        case board[candidate].color
+        when nil
+          possibles << candidate
+        when self.color
+          multiplier = 8
+        else
+          possibles << candidate
+          multiplier = 8
+        end
+
       end
-
     end
-   end
+    possibles
+  end
 
 end
-  # def diag_possible_moves
-  #   possibles = []
-  #   i = 1
-  #   until i > 7
-  #     [-1,1].each do |j|
-  #       [-1,1].each do |k|
-  #         x, y = pos
-  #         candidate = [x + (i * j) , y + (i * k)]
-  #         possibles << candidate
-  #       end
-  #     end
-  #     i += 1
-  #   end
-  #   possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
-  # end
 
-  # def straight_possible_moves
-  #   possibles = []
-  #   i = 1
-  #   until i > 7
-  #     x, y = pos
-  #     [-1,1].each do |k|
-  #       candidate_x = [x + (i * k) , y]
-  #       candidate_y = [x , y + (i * k)]
-  #       (possibles << candidate_x) << candidate_y
-  #     end
-  #     i += 1
-  #   end
-  #   possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
-  # end
-
-end
 
 class SteppingPiece < Piece
 
@@ -103,9 +77,19 @@ class SteppingPiece < Piece
 
     self.class::MOVES.each do |(dx,dy)|
       x,y = pos
-      if board.out_of_bounds?([x + dx, y + dy])
-        possibles << [x + dx, y + dy]
+      candidate = [x + dx, y + dy]
+
+      next unless board.out_of_bounds?(candidate)
+      # p candidate
+      case board[candidate].color
+      when nil
+        possibles << candidate
+      when self.color
+        next
+      else
+        possibles << candidate
       end
+
     end
     possibles
   end
@@ -130,36 +114,56 @@ class Pawn < Piece
     possibles
   end
 
+  def to_s
+    pawn = color == :white ? "\u2659" : "\u265F"
+    " #{pawn.encode("utf-8")} "
+  end
+
 end
 
 class Bishop < SlidingPiece
   MOVES = [[1,1],[-1,-1],[1,-1],[-1,1]]
-  def possible_moves
-    diag_possible_moves
+
+  def to_s
+    bishop = color == :white ? "\u2657" : "\u265D"
+    " #{bishop.encode("utf-8")} "
   end
 end
 
 class Rook < SlidingPiece
   MOVES = [[-1,0],[1,0],[0,1],[0,-1]]
-  def possible_moves
-    straight_possible_moves
+
+  def to_s
+    rook = color == :white ? "\u2656" : "\u265C"
+    " #{rook.encode("utf-8")} "
   end
 end
 
 class Queen < SlidingPiece
   MOVES = [[-1,-1], [-1,0], [-1,1], [0,1],
            [1,1], [1,0], [1,-1], [0,-1]]
-  def possible_moves
-    diag_possible_moves + straight_possible_moves
+
+  def to_s
+    queen = color == :white ? "\u2655" : "\u265B"
+    " #{queen.encode("utf-8")} "
   end
 end
 
 class Knight < SteppingPiece
   MOVES = [[-2,1], [-1,2], [1,2], [2,1],
            [2,-1], [1,-2], [-1,-2], [-2,-1]]
+
+   def to_s
+     knight = color == :white ? "\u2658" : "\u265E"
+     " #{knight.encode("utf-8")} "
+   end
 end
 
 class King < SteppingPiece
   MOVES = [[-1,-1], [-1,0], [-1,1], [0,1],
            [1,1], [1,0], [1,-1], [0,-1]]
+   def to_s
+     king = color == :white ? "\u2654" : "\u265A"
+     " #{king.encode("utf-8")} "
+   end
 end
