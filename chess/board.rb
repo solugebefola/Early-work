@@ -56,6 +56,12 @@ class Board
     end
   end
 
+  def checkmate?(color)
+    all_color_pieces.all? do |piece|
+      piece.possible_moves.all? { |move| self.move_into_check?(move) }
+    end
+  end
+
   def king_position(color)
     grid.flatten.each do |piece|
       return piece.pos if piece.is_a?(King) && (piece.color == color)
@@ -66,6 +72,12 @@ class Board
     color_opposite = {:black => :white , :white => :black}
     grid.flatten.select do |piece|
       piece.color == color_opposite[color]
+    end
+  end
+
+  def all_color_pieces(color)
+    grid.flatten.select do |piece|
+      piece.color == color
     end
   end
 

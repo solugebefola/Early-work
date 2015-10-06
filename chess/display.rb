@@ -1,9 +1,11 @@
 #Ursula and Solar's version
 require "colorize"
 require_relative "board"
+require_relative "cursorable"
 
 class Display
-
+  include Cursorable
+  
   def initialize(board)
     @board = board
     @cursor_pos = [0,0]
@@ -34,7 +36,11 @@ class Display
   end
 
   def render
-    colorize_grid.each { |row| puts row.join }
+    while true
+      colorize_grid.each { |row| puts row.join }
+
+      Cursorable::get_input
+    end
     nil
   end
 
