@@ -10,6 +10,7 @@ class Display
   def initialize(board)
     @board = board
     @cursor_pos = [0,0]
+    @piece_selected = false
   end
 
   def colorize_grid
@@ -29,25 +30,25 @@ class Display
     if [i, j] == @cursor_pos
       bg = :red
     elsif (i + j).odd?
-      bg = :light_blue
-    else
       bg = :blue
+    else
+      bg = :light_blue
     end
     { background: bg, color: piece_color }
   end
 
   def render
-    while true
-      system('clear')
-      colorize_grid.each { |row| puts row.join }
-      p @cursor_pos
-      key = self.get_input
-      if key == @cursor_pos
-        moving_piece = board.select_piece(@cursor_pos)
-        p moving_piece
-      end
-    end
+    system('clear')
+    puts "   0  1  2  3  4  5  6  7 "
+    colorize_grid.each.with_index { |row, idx| puts "#{idx} #{row.join}" }
     nil
+  end
+
+  def positioning
+    key = self.get_input
+    if key == @cursor_pos
+      board.select_piece(@cursor_pos)
+    end
   end
 
 end

@@ -1,4 +1,4 @@
-require 'byebug'
+# require 'byebug'
 class Piece
   attr_reader :color
   attr_accessor :pos, :board
@@ -9,6 +9,9 @@ class Piece
     @color = color
   end
 
+  def move(end_pos)
+    board.move(self.pos, end_pos)
+  end
 
   def possible_moves
     moves = []

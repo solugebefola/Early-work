@@ -11,6 +11,7 @@ class Board
 
   def initialize
     @grid = Array.new(8) { Array.new(8) { NullPiece.new } }
+    @selected_piece = nil
     place_starting_board
   end
 
@@ -19,8 +20,8 @@ class Board
   end
 
   def place_starting_board
-    white_start = [Rook, Knight, Bishop, King,
-                   Queen, Bishop,Knight, Rook]
+    white_start = [Rook, Knight, Bishop, Queen,
+                   King, Bishop,Knight, Rook]
 
     black_start = white_start
     grid.first.each_index do |idx|
@@ -82,8 +83,10 @@ class Board
   end
 
   def select_piece(pos)
-    return self[pos] if self[pos].is_a?(Piece)
-    nil
+    if self[pos].is_a?(Piece)
+      @selected_piece = self[pos]
+    end
+    @selected_piece
   end
 
   def inspect
