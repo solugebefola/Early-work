@@ -9,18 +9,27 @@ class Piece
     @color = color
   end
 
-  def move
+
+  def possible_moves
+    moves = []
+    (0..7).each do |row|
+      (0..7).each do |col|
+        moves << [row,col]
+      end
+    end
+    moves
   end
 
   def valid_moves(end_pos)
-
+    possible_moves.reject do |move|
+      move_into_check?(move)
+    end
   end
 
   def move_into_check?(end_pos)
     next_move_board = board.dup
     next_move_board.move(pos, end_pos)
     next_move_board.in_check?(color)
-
   end
 
   def dup(board)

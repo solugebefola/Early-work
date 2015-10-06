@@ -42,6 +42,10 @@ class Display
       colorize_grid.each { |row| puts row.join }
       p @cursor_pos
       key = self.get_input
+      if key == @cursor_pos
+        moving_piece = board.select_piece(@cursor_pos)
+        p moving_piece
+      end
     end
     nil
   end

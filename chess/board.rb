@@ -81,6 +81,11 @@ class Board
     end
   end
 
+  def select_piece(pos)
+    return self[pos] if self[pos].is_a?(Piece)
+    nil
+  end
+
   def inspect
     grid
   end
