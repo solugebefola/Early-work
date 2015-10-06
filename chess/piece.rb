@@ -102,16 +102,38 @@ class Pawn < Piece
   def possible_moves
     col_direction = color == :white ? 1 : -1
     possibles = []
+    color_opposite = {:black => :white , :white => :black}
 
     MOVES.each do |(dx,dy)|
       x,y = pos
-      new_move = [x + (col_direction * dx), y + dy]
+      candidate = [x + (col_direction * dx), y + dy]
+      next unless board.out_of_bounds?(candidate)
 
-      if board.out_of_bounds?(new_move)
-        possibles << new_move
+      if dy == 0 && dx == 1
+        possibles << candidate if board[candidate].is_a?(NullPiece)
       end
+
+      if dy == 0 && dx == 2
+        if starting_position?(x)
+          if board[[x + 1, y]].is_a?(NullPiece) && board[candidate].is_a?(NullPiece)
+            possibles << candidate
+          end
+        end
+      end
+
+      if dy != 0 # capture on diagonal
+        if board[candidate].color == color_opposite[self.color]
+          possibles << candidate
+        end
+      end
+
+
     end
     possibles
+  end
+
+  def starting_position?(row)
+    (color == :white && row == 1) || (color == :black && row == 6)
   end
 
   def to_s
