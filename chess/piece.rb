@@ -9,14 +9,26 @@ class Piece
     @color = color
   end
 
-  def legal_moves(end_pos)
-    raise ImpossibleMoveError unless possible_moves.include?(end_pos)
-    x_end, y_end = end_pos
-    x_start, y_start = pos
-    possible_moves.select do |(x, y)|
-      x.between?(*[x_start, x_end].sort) && y.between?(*[y_start, y_end].sort)
-    end
+  def move
   end
+
+  def valid_moves(end_pos)
+
+  end
+
+  def move_into_check?(end_pos)
+    next_move_board = board.dup
+    piece_dup = self.dup(next_move_board)
+    piece_dup.pos = end_pos
+    next_move_board[end_pos] = piece_dup
+    next_move_board.in_check?(piece_dup.color)
+
+  end
+
+  def dup(board)
+    self.class.new(board, pos, color)
+  end
+
 
   # def update_pos(new_pos)
   #   @pos = new_pos

@@ -3,6 +3,12 @@ require_relative "piece"
 class Board
   attr_accessor :grid
 
+  def self.blank_board
+    blank = self.new
+    blank.grid = Array.new(8) { Array.new(8) { NullPiece.new } }
+    blank
+  end
+
   def initialize
     @grid = Array.new(8) { Array.new(8) { NullPiece.new } }
     place_starting_board
@@ -65,6 +71,16 @@ class Board
 
   def inspect
     grid
+  end
+
+  def dup
+    duppy = Board.blank_board
+    self.grid.each do |row|
+      row.each.with_index do |el, col|
+        duppy[[row,col]] << el.dup(duppy)
+      end
+    end
+    duppy
   end
 
   def [](pos)
