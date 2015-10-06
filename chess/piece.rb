@@ -1,4 +1,11 @@
 class Piece
+  attr_reader :color
+  attr_accessor :pos
+
+  def initialize(pos, color)
+    @pos = pos
+    @color = color
+  end
 
 end
 
@@ -44,7 +51,6 @@ class SlidingPiece < Piece
     possibles.select{|coor| coor.all?{|el| el.between?(0,7)}}
   end
 
-
 end
 
 class SteppingPiece < Piece
@@ -54,7 +60,7 @@ class SteppingPiece < Piece
 
     self.class::MOVES.each do |(dx,dy)|
       x,y = pos
-      if [x + dx, y + dy].all? {|el| el.between?(0,7)}
+      if [x + dx, y + dy].all? {|coord| coord.between?(0,7)}
         possibles << [x + dx, y + dy]
       end
     end
@@ -64,18 +70,41 @@ class SteppingPiece < Piece
 end
 
 class Pawn < Piece
+  MOVES = [[1,0] ,[2,0],[1,-1],[1,1]]
+
+  def possible_moves(pos)
+    col_direction = color == :white ? 1 : -1
+    possibles = []
+
+    MOVES.each do |(dx,dy)|
+      x,y = pos
+      new_move = [x + (col_direction * dx), y + dy]
+      p new_move
+
+      if new_move.all? { |coord| coord.between?(0,7) }
+        p "add new_move"
+        possibles << new_move
+      end
+    end
+    possibles
+  end
+
 end
 
 class Bishop < SlidingPiece
-
+  def possible_moves(pos)
+    diag_possible_moves(pos)
+  end
 end
 
 class Rook < SlidingPiece
-
+  def possible_moves(pos)
+    straight_possible_moves(pos)
+  end
 end
 
 class Queen < SlidingPiece
-  def move(pos)
+  def possible_moves(pos)
     diag_possible_moves(pos) + straight_possible_moves(pos)
   end
 end
