@@ -1,16 +1,17 @@
 require "io/console"
+# require_relative "board"
 
 module Cursorable
   KEYMAP = {
     " " => :space,
-    # "h" => :left,
-    # "j" => :down,
-    # "k" => :up,
-    # "l" => :right,
-    # "w" => :up,
-    # "a" => :left,
-    # "s" => :down,
-    # "d" => :right,
+    "h" => :left,
+    "j" => :down,
+    "k" => :up,
+    "l" => :right,
+    "w" => :up,
+    "a" => :left,
+    "s" => :down,
+    "d" => :right,
     "\t" => :tab,
     "\r" => :return,
     "\n" => :newline,
@@ -68,6 +69,6 @@ module Cursorable
 
   def update_pos(diff)
     new_pos = [@cursor_pos[0] + diff[0], @cursor_pos[1] + diff[1]]
-    @cursor_pos = new_pos if @board.in_bounds?(new_pos)
+    @cursor_pos = new_pos if @board.out_of_bounds?(new_pos)
   end
 end

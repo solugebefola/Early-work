@@ -4,8 +4,9 @@ require_relative "board"
 require_relative "cursorable"
 
 class Display
+  attr_reader :board
   include Cursorable
-  
+
   def initialize(board)
     @board = board
     @cursor_pos = [0,0]
@@ -37,9 +38,10 @@ class Display
 
   def render
     while true
+      system('clear')
       colorize_grid.each { |row| puts row.join }
-
-      Cursorable::get_input
+      p @cursor_pos
+      key = self.get_input
     end
     nil
   end
