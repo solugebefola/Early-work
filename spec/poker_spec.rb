@@ -70,4 +70,87 @@ describe Hand do
     end
 
   end
+
+  describe '#what_hand' do
+    it "should recognize a straight flush" do
+      hand.cards_in_hand = [Card.new(:hearts,13),
+                            Card.new(:hearts,12),
+                            Card.new(:hearts,11),
+                            Card.new(:hearts,10),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:straight_flush)
+    end
+    it "should recognize a four-of-a-kind" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,13),
+                            Card.new(:clubs,13),
+                            Card.new(:diamonds,13),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:four_kind)
+    end
+    it "should recognize a full house" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,13),
+                            Card.new(:clubs,13),
+                            Card.new(:diamonds,9),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:full_house)
+    end
+    it "should recognize a flush" do
+      hand.cards_in_hand = [Card.new(:hearts,13),
+                            Card.new(:hearts,8),
+                            Card.new(:hearts,4),
+                            Card.new(:hearts,10),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:flush)
+    end
+    it "should recognize a straight" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,12),
+                            Card.new(:clubs,11),
+                            Card.new(:diamonds,10),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:straight)
+    end
+    it "should recognize a three-of-a-kind" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,13),
+                            Card.new(:clubs,13),
+                            Card.new(:diamonds,4),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:three_kind)
+    end
+    it "should recognize two-pair" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,13),
+                            Card.new(:clubs,11),
+                            Card.new(:diamonds,11),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:two_pair)
+    end
+    it "should recognize a pair" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,13),
+                            Card.new(:clubs,4),
+                            Card.new(:diamonds,6),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:pair)
+    end
+    it "should recognize high card" do
+      hand.cards_in_hand = [Card.new(:spades,13),
+                            Card.new(:hearts,8),
+                            Card.new(:clubs,6),
+                            Card.new(:diamonds,2),
+                            Card.new(:hearts,9)]
+      expect(hand.what_hand).to eq(:high_card)
+    end
+    # it "should make sure there are five cards in the hand" do
+    #   hand.cards_in_hand = [Card.new(:spades,13),
+    #                         Card.new(:hearts,13),
+    #                         Card.new(:clubs,13),
+    #                         Card.new(:diamonds,13)]
+    #   expect(hand.what_hand).to raise(:four_kind)
+    # end
+
+  end
 end
