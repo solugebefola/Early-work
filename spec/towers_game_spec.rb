@@ -37,4 +37,23 @@ let(:game) { TowersGame.new }
     end
   end
 
+  describe '#won?' do
+    it "returns true when the game is won" do
+      game.board = [[],[3,2,1],[]]
+      expect(game.won?).to be_truthy
+    end
+
+    it "returns false when the game is not won" do
+      game.board = [[],[3,2],[1]]
+      expect(game.won?).to be_falsey
+    end
+  end
+
+  describe '#display' do
+    it "puts out an image of the board" do
+      game.display
+      expect(STDOUT.to_s).to eq("[[3, 2, 1], [], []]")
+    end
+  end
+
 end

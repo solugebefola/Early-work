@@ -1,6 +1,6 @@
 class TowersGame
 
-  attr_reader :board
+  attr_accessor :board
 
   def initialize
     @board = Array.new(3) { [] }
@@ -21,5 +21,12 @@ class TowersGame
     true
   end
 
+  def won?
+    board == [[],[3,2,1],[]] || board == [[],[],[3,2,1]]
+  end
+
+  def display
+    puts "#{board}"
+  end
 
 end
