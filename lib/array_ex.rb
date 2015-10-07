@@ -34,4 +34,8 @@ class Array
 
     transposed
   end
+
+  def stock_picker
+    []
+  end
 end

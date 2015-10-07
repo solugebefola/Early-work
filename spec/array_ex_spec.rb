@@ -49,15 +49,33 @@ describe Array do
     it "returns an empty array when operating on an empty array" do
       expect([].my_transpose).to eq([])
     end
+
     it "works on a square array" do
-      arr = [[1,2],
-             [3,4]]
-      expect(arr.my_transpose).to eq([[1,3],
-                                      [2,4]])
+      arr = [[1,2], [3,4]]
+      expect(arr.my_transpose).to eq([[1,3], [2,4]])
     end
-    it "works on a rectangular array"
-    it "does not modify the original"
+
+    it "works on a rectangular array" do
+      arr = [[1,2], [3,4], ["cat", "bob"]]
+      expect(arr.my_transpose).to eq([[1,3, "cat"], [2,4, "bob"]])
+    end
+
+    it "does not modify the original" do
+      arr = [[1,2], [3,4]]
+      arr.my_transpose
+      expect(arr).to eq([[1,2], [3,4]])
+    end
   end
 
+  describe '#stock_picker' do
+    it "returns an empty array when called on an empty array" do
+      expect([].stock_picker).to eq([])
+    end
+    it "outputs most profitable pair of days" do
+      arr = [20, 40, 10, 30, 60, 20, 0]
+      expect(arr.stock_picker).to eq([2,4])
+    end
+    it "does not modify the original"
+  end
 
 end
