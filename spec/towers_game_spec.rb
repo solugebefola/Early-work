@@ -51,8 +51,24 @@ let(:game) { TowersGame.new }
 
   describe '#display' do
     it "puts out an image of the board" do
-      game.display
-      expect(STDOUT.to_s).to eq("[[3, 2, 1], [], []]")
+      expect {game.display}.to output("[[3, 2, 1], [], []]\n").to_stdout
+    end
+  end
+
+  describe '#take_turn' do
+    it "performs a move based on user input" do
+      allow(game).to receive(:gets).and_return("0,1\n")
+      game.take_turn
+      expect(game.board).to eq([[3,2],[1],[]])
+    end
+  end
+
+  describe '#start' do
+    it "returns when the game is won" do
+      game.board = [[1],[3,2],[]]
+      allow(game).to receive(:gets).and_return("0,1\n")
+      game.take_turn
+      expect {game.start}.to output("YOU WON!\n").to_stdout
     end
   end
 

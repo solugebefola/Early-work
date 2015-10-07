@@ -29,4 +29,20 @@ class TowersGame
     puts "#{board}"
   end
 
+  def take_turn
+    puts "Please input a starting peg and ending peg: 'S,E'"
+    input = gets.chomp
+    input_array = input.split(',').map {|el| el.to_i }
+    start_peg, end_peg = input_array
+    move(start_peg, end_peg)
+  end
+
+  def start
+    until won?
+      take_turn
+    end
+    puts "YOU WON!"
+  end
+
+
 end
