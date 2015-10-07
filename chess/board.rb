@@ -40,6 +40,9 @@ class Board
 
   def move(start, end_pos)
     raise NoPieceError "no piece there" if self[start].is_a?(NullPiece)
+    if self[start].move_into_check?(end_pos)
+      raise StillCheckError "that move keeps you in check"
+    end
     if self[start].possible_moves.include?(end_pos)
       update_position(start, end_pos)
     end
