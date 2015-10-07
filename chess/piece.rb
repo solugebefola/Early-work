@@ -165,7 +165,7 @@ class Pawn < Piece
 
   def to_s
     pawn = color == :white ? "\u2659" : "\u265F"
-    " #{pawn.encode("utf-8")} ".colorize(color)
+    " #{pawn.colorize(color)} "
   end
 
 end
@@ -175,7 +175,7 @@ class Bishop < SlidingPiece
 
   def to_s
     bishop = color == :white ? "\u2657" : "\u265D"
-    " #{bishop.encode("utf-8")} ".colorize(color)
+    " #{bishop..colorize(color)} "
   end
 end
 
@@ -184,7 +184,7 @@ class Rook < SlidingPiece
 
   def to_s
     rook = color == :white ? "\u2656" : "\u265C"
-    " #{rook.encode("utf-8")} ".colorize(color)
+    " #{rook..colorize(color)} ".colorize(color)
   end
 end
 
@@ -194,7 +194,7 @@ class Queen < SlidingPiece
 
   def to_s
     queen = color == :white ? "\u2655" : "\u265B"
-    " #{queen.encode("utf-8")} ".colorize(color)
+    " #{queen.colorize(color)} ".colorize(color)
   end
 end
 
@@ -204,7 +204,7 @@ class Knight < SteppingPiece
 
    def to_s
      knight = color == :white ? "\u2658" : "\u265E"
-     " #{knight.encode("utf-8")} ".colorize(color)
+     " #{knight.colorize(color)} "
    end
 end
 
@@ -213,6 +213,6 @@ class King < SteppingPiece
            [1,1], [1,0], [1,-1], [0,-1]]
    def to_s
      king = color == :white ? "\u2654" : "\u265A"
-     " #{king.encode("utf-8")} ".colorize(color)
+     " #{king.colorize(color)} "
    end
 end

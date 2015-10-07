@@ -63,6 +63,7 @@ class Display
       @selected_piece = board.select_piece(@cursor_pos)
     elsif key == @cursor_pos
       @selected_piece.move(@cursor_pos)
+      @selected_piece = nil
     end
   end
 
