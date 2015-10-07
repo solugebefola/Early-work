@@ -10,7 +10,15 @@ class Array
   end
 
   def two_sum
-    pair_indexes = []
-    pair_indexes
+    pair_indices = []
+
+    self.each_with_index do |el, i|
+      self.each_index do |j|
+        pair_index = [i, j]
+        pair_indices << pair_index if self[i] + self[j] == 0 && j > i
+      end
+    end
+
+    pair_indices
   end
 end
