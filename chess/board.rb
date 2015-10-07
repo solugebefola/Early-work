@@ -83,10 +83,8 @@ class Board
   end
 
   def select_piece(pos)
-    if self[pos].is_a?(Piece)
-      @selected_piece = self[pos]
-    end
-    @selected_piece
+    return self[pos] if self[pos].is_a?(Piece)
+    nil
   end
 
   def inspect

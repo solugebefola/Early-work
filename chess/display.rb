@@ -5,12 +5,15 @@ require_relative "cursorable"
 
 class Display
   attr_reader :board
+  attr_accessor :selected_piece, :cursor_pos
+
   include Cursorable
 
   def initialize(board)
     @board = board
     @cursor_pos = [0,0]
-    @piece_selected = false
+    @selected_pos = nil
+    @selected_piece = nil
   end
 
   def colorize_grid
@@ -37,6 +40,15 @@ class Display
     { background: bg, color: piece_color }
   end
 
+  def show_movement
+    while true
+      render
+      p @selected_piece
+      p @cursor_pos
+      position_cursor
+    end
+  end
+
   def render
     system('clear')
     puts "   0  1  2  3  4  5  6  7 "
@@ -44,10 +56,13 @@ class Display
     nil
   end
 
-  def positioning
+  def position_cursor
     key = self.get_input
-    if key == @cursor_pos
-      board.select_piece(@cursor_pos)
+
+    if key == @cursor_pos && selected_piece.nil?
+      @selected_piece = board.select_piece(@cursor_pos)
+    elsif key == @cursor_pos
+      @selected_piece.move(@cursor_pos)
     end
   end
 
