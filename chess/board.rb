@@ -58,8 +58,8 @@ class Board
   end
 
   def checkmate?(color)
-    all_color_pieces.all? do |piece|
-      piece.possible_moves.all? { |move| self.move_into_check?(move) }
+    all_color_pieces(color).all? do |piece|
+      piece.possible_moves.all? { |move| piece.move_into_check?(move) }
     end
   end
 

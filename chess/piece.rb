@@ -142,7 +142,7 @@ class Pawn < Piece
 
       if dy == 0 && dx == 2
         if starting_position?
-          if board[[x + 1, y]].is_a?(NullPiece) && board[candidate].is_a?(NullPiece)
+          if board[[x + (1 * col_direction), y]].is_a?(NullPiece) && board[candidate].is_a?(NullPiece)
             possibles << candidate
           end
         end

@@ -41,11 +41,14 @@ class Display
   end
 
   def show_movement
-    while true
+    key = nil
+    until key == :escape
       render
       p @selected_piece
       p @cursor_pos
-      position_cursor
+      p "chb#{board.checkmate?(:black)} chw#{board.checkmate?(:white)}"
+      p "king check? #{board.in_check?(:white)}"
+      key = position_cursor
     end
   end
 
@@ -65,6 +68,7 @@ class Display
       @selected_piece.move(@cursor_pos)
       @selected_piece = nil
     end
+    key
   end
 
 end
