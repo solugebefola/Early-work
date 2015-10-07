@@ -124,7 +124,7 @@ class SteppingPiece < Piece
 end
 
 class Pawn < Piece
-  MOVES = [[1,0] ,[2,0],[1,-1],[1,1]]
+  MOVES = [[1,0], [2,0], [1,-1], [1,1]]
 
   def possible_moves
     col_direction = color == :white ? 1 : -1
@@ -141,7 +141,7 @@ class Pawn < Piece
       end
 
       if dy == 0 && dx == 2
-        if starting_position?(x)
+        if starting_position?
           if board[[x + 1, y]].is_a?(NullPiece) && board[candidate].is_a?(NullPiece)
             possibles << candidate
           end
@@ -159,8 +159,8 @@ class Pawn < Piece
     possibles
   end
 
-  def starting_position?(row)
-    (color == :white && row == 1) || (color == :black && row == 6)
+  def starting_position?
+    (color == :white && pos[0] == 1) || (color == :black && pos[0] == 6)
   end
 
   def to_s
@@ -175,7 +175,7 @@ class Bishop < SlidingPiece
 
   def to_s
     bishop = color == :white ? "\u2657" : "\u265D"
-    " #{bishop..colorize(color)} "
+    " #{bishop.colorize(color)} "
   end
 end
 
@@ -184,7 +184,7 @@ class Rook < SlidingPiece
 
   def to_s
     rook = color == :white ? "\u2656" : "\u265C"
-    " #{rook..colorize(color)} ".colorize(color)
+    " #{rook.colorize(color)} ".colorize(color)
   end
 end
 
