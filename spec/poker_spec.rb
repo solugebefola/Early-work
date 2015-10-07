@@ -10,8 +10,9 @@ describe Card do
 end
 
 describe Deck do
+  let(:deck) { Deck.new }
+
   describe '#initialize' do
-    let(:deck) { Deck.new }
 
     it "creates a 52 card deck" do
       expect(deck.cards.length).to eq(52)
@@ -25,18 +26,35 @@ describe Deck do
       expect(queens.length).to eq(4)
     end
   end
+
+  describe '#remove' do
+    it "takes a card and removes it from the deck" do
+      eight_of_hearts = (deck.cards.select {|card| card.value == 8 && card.suit == :hearts }).first
+      deck.remove(eight_of_hearts)
+      expect(deck.cards.include?(eight_of_hearts)).to be_falsey
+    end
+  end
 end
 
 describe Hand do
   let(:deck) { Deck.new }
+  let(:hand) { Hand.new(deck) }
 
   describe '#initialize' do
     it "has a reference to the deck" do
-      expect(Hand.new(deck).cards).to be_a(Array)
+      expect(hand.deck.cards).to be_a(Array)
+    end
+    it "begins with an empty hand" do
+      expect(hand.cards_in_hand).to eq([])
     end
   end
 
-  # describe '#get_cards'do
-  #
-  # end
+  describe '#get_cards'do
+    it "takes a card from the deck" do
+      expect(hand.get_cards(1).size).to eq(1)
+    end
+    it "takes multiple cards from the deck" do
+      expect(hand.get_cards(3).size).to eq(3)
+    end
+  end
 end
