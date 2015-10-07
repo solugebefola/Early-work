@@ -75,7 +75,11 @@ describe Array do
       arr = [20, 40, 10, 30, 60, 20, 0]
       expect(arr.stock_picker).to eq([2,4])
     end
-    it "does not modify the original"
+    it "does not modify the original" do
+      arr = [20, 40, 10, 30, 60, 20, 0]
+      arr.stock_picker
+      expect(arr).to eq([20, 40, 10, 30, 60, 20, 0])
+    end
   end
 
 end

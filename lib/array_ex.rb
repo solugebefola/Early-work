@@ -36,6 +36,24 @@ class Array
   end
 
   def stock_picker
-    []
+    return [] if self.empty?
+
+    pair_indices = []
+    best_profit = 0
+
+    self[0...-1].each_with_index do |price, day|
+      next_day = day + 1
+      until next_day == self.length - 1
+        profit = self[next_day] - self[day]
+
+        if profit > best_profit
+          best_profit = profit
+          pair_indices = [day, next_day]
+        end
+        next_day += 1
+      end
+    end
+    pair_indices
   end
+
 end
