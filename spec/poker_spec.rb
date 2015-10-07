@@ -32,6 +32,7 @@ describe Deck do
       eight_of_hearts = (deck.cards.select {|card| card.value == 8 && card.suit == :hearts }).first
       deck.remove(eight_of_hearts)
       expect(deck.cards.include?(eight_of_hearts)).to be_falsey
+      expect(deck.cards.length).to eq(51)
     end
   end
 end
@@ -50,11 +51,23 @@ describe Hand do
   end
 
   describe '#get_cards'do
-    it "takes a card from the deck" do
-      expect(hand.get_cards(1).size).to eq(1)
+    it "adds the drawn cards to the hand" do
+      hand.get_cards(3)
+      expect(hand.cards_in_hand.size).to eq(3)
     end
-    it "takes multiple cards from the deck" do
-      expect(hand.get_cards(3).size).to eq(3)
+  end
+
+  describe '#put_cards' do
+    it "takes cards from the hand" do
+      hand.get_cards(3)
+      hand.put_cards(1)
+      expect(hand.cards_in_hand.length).to eq(2)
     end
+    it "places the discarded cards in the deck" do
+      hand.get_cards(3)
+      hand.put_cards(1)
+      expect(hand.deck.cards.length).to eq(50)
+    end
+
   end
 end

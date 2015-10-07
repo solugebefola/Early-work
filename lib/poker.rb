@@ -16,7 +16,7 @@ class Deck
   end
 
   def remove(card)
-
+    cards.delete(card)
   end
 
 private
@@ -45,13 +45,31 @@ class Hand
 
   def get_cards(num_cards)
     cards = []
+
     num_cards.times do
-      drawn_card = deck.cards.sample(1)
+      drawn_card = deck.cards.sample
       cards << drawn_card
       deck.remove(drawn_card)
     end
 
-    cards
+    cards.each do |card|
+      cards_in_hand << card
+    end
+    nil
+  end
+
+  def put_cards(*indices)
+    discarded_cards = []
+
+    indices.each do |index|
+      discarded_cards << cards_in_hand[index]
+      cards_in_hand.delete_at(index)
+    end
+
+    discarded_cards.each do |card|
+      deck.cards << card
+    end
+    nil
   end
 
 end
