@@ -46,7 +46,17 @@ describe Array do
   end
 
   describe '#my_transpose' do
-    
+    it "returns an empty array when operating on an empty array" do
+      expect([].my_transpose).to eq([])
+    end
+    it "works on a square array" do
+      arr = [[1,2],
+             [3,4]]
+      expect(arr.my_transpose).to eq([[1,3],
+                                      [2,4]])
+    end
+    it "works on a rectangular array"
+    it "does not modify the original"
   end
 
 

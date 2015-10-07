@@ -21,4 +21,17 @@ class Array
 
     pair_indices
   end
+
+  def my_transpose
+    return self if self.empty?
+    transposed = Array.new(self.first.size) { Array.new(self.size) }
+
+    self.each_with_index do |row, row_idx|
+      row.each_with_index do |element, col_idx|
+        transposed[col_idx][row_idx] = element
+      end
+    end
+
+    transposed
+  end
 end
