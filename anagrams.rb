@@ -19,6 +19,7 @@ def first_anagram(str) # O(n!)
 
 end
 
+#refactor and fix duplicat char error
 def second_anagram?(str1, str2) # O(n^2)
   word1, word2 = str1.split(""), str2.split("")
   str1.each_char.with_index do |char1, idx1|
@@ -36,7 +37,7 @@ def third_anagram?(str1, str2) # O(n * log (n))
   str1.sort == str2.sort
 end
 
-def fourth_anagram?(str1, str2)
+def fourth_anagram?(str1, str2) # O(n)
   letters = Hash.new(0)
   str1.each_char do |let|
     letters[let] += 1
