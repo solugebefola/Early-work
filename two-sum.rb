@@ -30,3 +30,8 @@ def hash_two_sum?(nums, target)
   end
   false
 end
+
+def hash_four_sum?(nums, target)
+  raise "too few numbers" if nums.count < 4
+
+end

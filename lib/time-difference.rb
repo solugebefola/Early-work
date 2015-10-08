@@ -67,25 +67,3 @@ def fast_max_sub_sum(arr)
   #   end
 
 end
-
-def new_fast_sub(arr)
-  best_tot = arr.first
-  worst_since = 0
-  best_since = 0
-  arr.drop(1).each do |el|
-    best_since += el if el > 0
-    worst_since += el if el < 0
-
-    if best_since + worst_since > 0
-      best_tot += best_since + worst_since
-      best_since = 0
-      worst_since = 0
-    elsif best_since > best_tot
-      best_tot = best_since
-      best_since = 0
-      worst_since = 0
-    end
-
-  end
-  best_tot
-end
