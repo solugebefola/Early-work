@@ -30,3 +30,31 @@ def max_sub_sum(arr)  #Big-O(n^2)
   end
   sub_arrs.max
 end
+
+def fast_max_sub_sum(arr)
+  current_max = arr.first
+  hole = 0
+  local_max = 0
+  arr.drop(1).each do |el|
+    local_max = 0 if local_max < 0
+
+    hole += el if hole < 0 || el < 0
+    local_max += el
+
+    if hole > 0
+      current_max += hole
+      local_max = 0
+      hole = 0
+    else
+      if local_max >= current_max
+        current_max = local_max
+        hole = 0
+        local_max = 0
+      end
+    end
+
+  end
+
+
+  current_max
+end
