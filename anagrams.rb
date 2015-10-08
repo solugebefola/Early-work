@@ -2,7 +2,7 @@ def anagrams(str1, str2)
   first_anagram(str1).include? (str2)
 end
 
-def first_anagram(str)
+def first_anagram(str) # O(n!)
   return [str] if str.length == 1
   letters = str.chars
   anagrams = []
@@ -17,4 +17,32 @@ def first_anagram(str)
   anagrams.uniq
 
 
+end
+
+def second_anagram?(str1, str2) # O(n^2)
+  word1, word2 = str1.split(""), str2.split("")
+  str1.each_char.with_index do |char1, idx1|
+    str2.each_char.with_index do |char2, idx2|
+      if char1 == char2
+        word1[idx1] = nil
+        word2[idx2] = nil
+      end
+    end
+  end
+  word1.compact.empty? && word2.compact.empty?
+end
+
+def third_anagram?(str1, str2) # O(n * log (n))
+  str1.sort == str2.sort
+end
+
+def fourth_anagram?(str1, str2)
+  letters = Hash.new(0)
+  str1.each_char do |let|
+    letters[let] += 1
+  end
+  str2.each_char do |let|
+    letters[let] -= 1
+  end
+  letters.values.all?(&:zero?)
 end
