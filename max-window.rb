@@ -12,7 +12,24 @@ def windowed_max_range(arr, window) #O(n * w)?
 end
 
 
-def queue_max_range
+def queue_max_range(arr, window)
+  disp_arr = arr.dup
+  queue = StackQueue.new
+
+  window.times do
+    queue.enqueue(disp_arr.pop)
+  end
+
+  max_range = queue.max - queue.min
+
+  until disp_arr.empty?
+    queue.enqueue(disp_arr.pop)
+    queue.dequeue
+    current_range = (queue.max - queue.min)
+    max_range = current_range if current_range > max_range
+  end
+
+  max_range
 end
 
 class StackElement
@@ -35,6 +52,7 @@ class MyStack
   end
 
   def pop
+    return nil if empty?
     @store.pop.val
   end
 
@@ -60,6 +78,10 @@ class MyStack
     @store.last.min
   end
 
+  def size
+    @store.size
+  end
+
 
 end
 
@@ -74,6 +96,7 @@ class StackQueue
   end
 
   def dequeue()
+    return nil if empty?
     if @out_stack.empty?
       fill_out_stack
     end
@@ -92,6 +115,14 @@ class StackQueue
 
   def empty?
     size.zero?
+  end
+
+  def min
+    [@in_stack.min, @out_stack.min].compact.min
+  end
+
+  def max
+    [@in_stack.max, @out_stack.max].compact.max
   end
 
 end
