@@ -1,3 +1,5 @@
+require 'benchmark'
+
 def windowed_max_range(arr, window) #O(n * w)?
   current_max_range = nil
   (arr.count - window + 1).times do |idx|
@@ -95,7 +97,7 @@ class StackQueue
     @in_stack.push(element)
   end
 
-  def dequeue()
+  def dequeue
     return nil if empty?
     if @out_stack.empty?
       fill_out_stack
@@ -124,5 +126,16 @@ class StackQueue
   def max
     [@in_stack.max, @out_stack.max].compact.max
   end
+
+end
+
+
+if __FILE__ == $PROGRAM_NAME
+  array = (1..1_000_000).to_a.shuffle
+
+Benchmark.bmbm do |x|
+  x.report("dumb: ") { windowed_max_range(array, 5) }
+  x.report("queue:") { queue_max_range(array, 5) }
+end
 
 end
