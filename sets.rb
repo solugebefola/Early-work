@@ -32,12 +32,17 @@ class IntSet
   end
 
   def insert(num)
-
+    i = num % max
+    @store[i] << num
   end
 
   def remove(num)
+    i = num % max
+    @store[i].delete(num)
   end
 
   def include?(num)
+    i = num % max
+    @store[i].include?(num)
   end
 end
