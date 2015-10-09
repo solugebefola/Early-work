@@ -46,3 +46,48 @@ class IntSet
     @store[i].include?(num)
   end
 end
+
+class ResizingIntSet
+  def initialize(max)
+    @store = Array.new(max) { Array.new }
+    @num_elements = 0
+  end
+
+  def insert(num)
+    resize! if size == num_elements
+    i = num % size
+    @store[i] << num
+    @num_elements += 1
+  end
+
+  def remove(num)
+    i = num % size
+    @store[i].delete(num)
+  end
+
+  def include?(num)
+    i = num % size
+    @store[i].include?(num)
+  end
+
+  def size
+    store.size
+  end
+
+  def resize!
+    old_store = store
+    @num_elements = 0
+    @store = Array.new(size * 2) { Array.new }
+    old_store.each do |bucket|
+      bucket.each do |element|
+        insert(element)
+      end
+    end
+
+  end
+
+  private
+  attr_reader :store, :num_elements
+
+
+end
