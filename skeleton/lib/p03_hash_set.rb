@@ -27,7 +27,7 @@ class HashSet
 
   def [](num)
     # optional but useful; return the bucket corresponding to `num`
-    @store[key.hash % num_buckets]
+    @store[num.hash % num_buckets]
   end
 
   def num_buckets
