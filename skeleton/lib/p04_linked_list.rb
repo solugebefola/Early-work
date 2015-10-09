@@ -16,7 +16,7 @@ class LinkedList
   attr_reader :head
 
   def initialize
-    @head = Link.new
+    @head = nil
   end
 
   def [](i)
@@ -47,14 +47,14 @@ class LinkedList
 
   def insert(key, val)
     if empty?
-      @head.key, @head.val = key, val
+      @head = Link.new(key, val, nil)
     else
       last.next = Link.new(key, val, nil)
     end
   end
 
   def empty?
-    head.key.nil?
+    head.nil?
   end
 
   def remove(key)

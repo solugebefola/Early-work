@@ -30,7 +30,6 @@ class HashMap
   end
 
   def each(&blk)
-    p self
 
     store.each do |bucket|
       bucket.each do |link|
