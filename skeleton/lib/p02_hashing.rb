@@ -4,21 +4,23 @@ HASH_PREFIX =   '4'
 
 class Fixnum
   # Fixnum#hash already implemented for you
-  def hash
-    self
-  end
+  # def hash
+  #   self
+  # end
 end
 
 class Array
   def hash
-    return 0 if empty?
-    (ARRAY_PREFIX + map(&:hash).join).to_i
+    element_hashes = self.map.with_index do |el, idx|
+      el.hash.abs.to_s + idx.to_s
+    end
+    (ARRAY_PREFIX + element_hashes.join).to_i
   end
 end
 
 class String
   def hash
-    (STRING_PREFIX + split('').map(&:ord).map(&:hash).join).to_i
+    (STRING_PREFIX + split('').map { |el| el.ord.hash.abs }.join).to_i
   end
 end
 
