@@ -158,10 +158,6 @@ def prolific_actors
       COUNT(lead_casting.movie_id) >= 15
     ORDER BY
       lead_actors.name
-
-
-
-
   SQL
 end
 
@@ -188,5 +184,27 @@ end
 def colleagues_of_garfunkel
   # List all the people who have played alongside 'Art Garfunkel'.
   execute(<<-SQL)
+    SELECT
+      co_stars.name
+    FROM
+      actors AS art
+    JOIN
+      castings AS art_castings
+    ON
+      art_castings.actor_id = art.id
+    JOIN
+      movies AS art_movies
+    ON
+      art_movies.id = art_castings.movie_id
+    JOIN
+      castings as co_star_castings
+    ON
+      co_star_castings.movie_id = art_movies.id
+    JOIN
+      actors AS co_stars
+    ON
+      co_star_castings.actor_id = co_stars.id
+    WHERE
+      art.name = 'Art Garfunkel' AND NOT co_stars.name = 'Art Garfunkel'
   SQL
 end

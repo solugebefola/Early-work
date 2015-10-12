@@ -118,9 +118,9 @@ def casablanca_cast
   FROM
     actors
   INNER JOIN
-    castings
-  ON
-    movie_id = 27 AND actors.id = actor_id
+    castings ON actors.id = actor_id
+  WHERE
+    movie_id = 27
   SQL
 end
 
