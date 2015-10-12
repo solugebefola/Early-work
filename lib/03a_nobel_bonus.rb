@@ -14,5 +14,8 @@ require_relative './sqlzoo.rb'
 def physics_no_chemistry
   # In which years was the Physics prize awarded, but no Chemistry prize?
   execute(<<-SQL)
+    SELECT
+    FROM
+    WHERE
   SQL
 end
