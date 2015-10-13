@@ -47,29 +47,6 @@ class Reply < ModelBase
     results.values_at('id', 'question_id', 'user_id', 'parent_reply_id', 'body')
   end
 
-  def save
-    case id
-    when nil
-      QuestionsDatabase.instance.execute(
-        <<-SQL, question_id, user_id, parent_reply_id, body)
-      INSERT INTO
-        replies(question_id, user_id, parent_reply_id, body)
-      VALUES
-        (?, ?, ?, ?)
-      SQL
-    else
-      QuestionsDatabase.instance.execute(
-        <<-SQL, question_id, user_id, parent_reply_id, body, id)
-      UPDATE
-        replies
-      SET
-        question_id = ?, user_id = ?, parent_reply_id = ?, body = ?
-      WHERE
-        id = ?
-      SQL
-    end
-  end
-
   def author
     User::find_by_id(user_id)
   end

@@ -55,27 +55,6 @@ class Question < ModelBase
     results.values_at('id', 'title', 'body', 'author_id')
   end
 
-  def save
-    case id
-    when nil
-      QuestionsDatabase.instance.execute(<<-SQL, title, body, author_id)
-      INSERT INTO
-        questions(title, body, author_id)
-      VALUES
-        (?, ?, ?)
-      SQL
-    else
-      QuestionsDatabase.instance.execute(<<-SQL, title, body, author_id, id)
-      UPDATE
-        questions
-      SET
-        title = ?, body = ?, author_id = ?
-      WHERE
-        id = ?
-      SQL
-    end
-  end
-
   def author
     User::find_by_id(author_id)
   end

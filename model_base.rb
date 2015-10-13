@@ -38,10 +38,11 @@ class ModelBase
       QuestionsDatabase.instance.execute(
         <<-SQL, get_variables.drop(1))
       INSERT INTO
-        #{self.class::TABLE_NAME}(fname, lname)
+        #{self.class::TABLE_NAME} (#{self.instance_variables.drop(1).map { |iv| iv.to_s[1..-1]}.join(", ")})
       VALUES
         (#{(['?'] * (self.instance_variables.count - 1)).join(", ")})
       SQL
+      @id = QuestionsDatabase.instance.last_insert_row_id
     else
       QuestionsDatabase.instance.execute(
         <<-SQL, get_variables.drop(1), id)
