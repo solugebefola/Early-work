@@ -25,6 +25,37 @@ class QuestionFollow
     results.map { |result| QuestionFollow.new(result) }
   end
 
+  def self.followers_for_question_id(question_id)
+    results = QuestionsDatabase.instance.execute(<<-SQL, question_id)
+      SELECT
+        users.*
+      FROM
+        users
+      JOIN
+        question_follows
+      ON users.id = question_follows.user_id
+        AND question_follows.question_id = ?
+
+    SQL
+
+    results.map { |result| User.new(result) }
+  end
+
+  def self.followed_questions_for_user_id(user_id)
+    results = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+      SELECT
+        questions.*
+      FROM
+        questions
+      JOIN
+        question_follows
+      ON questions.id = question_follows.question_id
+        AND question_follows.user_id = ?
+    SQL
+
+    results.map { |result| Question.new(result) }
+  end
+
   def self.find_by_question_id(question_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, question_id)
       SELECT
