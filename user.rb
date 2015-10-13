@@ -25,7 +25,8 @@ class User
     results.map { |result| User.new(result) }
   end
 
-  attr_reader :id, :fname, :lname
+  attr_reader :id
+  attr_accessor :fname, :lname
 
   def initialize(results)
     @id, @fname, @lname =
@@ -46,5 +47,41 @@ class User
 
   def liked_questions
     QuestionLike.liked_questions_for_user_id(id)
+  end
+
+  def average_karma
+    results = QuestionsDatabase.instance.execute(<<-SQL, id)
+      SELECT
+        COALESCE(COUNT(question_likes.id), 0) / CAST(COUNT(DISTINCT questions.id) AS FLOAT) AS karma
+      FROM
+        questions
+      LEFT OUTER JOIN
+        question_likes
+        ON questions.id = question_likes.question_id
+      WHERE
+        questions.author_id = ?
+    SQL
+    results.first["karma"].nil? ? 0 : results.first["karma"]
+  end
+
+  def save
+    case id
+    when nil
+      QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
+      INSERT INTO
+        users(fname, lname)
+      VALUES
+        (?, ?)
+      SQL
+    else
+      QuestionsDatabase.instance.execute(<<-SQL, fname, lname, id)
+      UPDATE
+        users
+      SET
+        fname = ?, lname = ?
+      WHERE
+        id = ?
+      SQL
+    end
   end
 end
