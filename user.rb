@@ -1,16 +1,5 @@
-class User
-  def self.find_by_id(id)
-    results = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        id = ?
-    SQL
-
-    User.new(results.first)
-  end
+class User < ModelBase
+  TABLE_NAME = "users"
 
   def self.find_by_name(fname, lname)
     results = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)

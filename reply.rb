@@ -1,16 +1,5 @@
-class Reply
-  def self.find_by_id(id)
-    results = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        replies
-      WHERE
-        id = ?
-    SQL
-
-    Reply.new(results.first)
-  end
+class Reply < ModelBase
+  TABLE_NAME = 'replies'
 
   def self.find_by_question_id(question_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, question_id)
@@ -56,6 +45,29 @@ class Reply
   def initialize(results)
     @id, @question_id, @user_id, @parent_reply_id, @body =
     results.values_at('id', 'question_id', 'user_id', 'parent_reply_id', 'body')
+  end
+
+  def save
+    case id
+    when nil
+      QuestionsDatabase.instance.execute(
+        <<-SQL, question_id, user_id, parent_reply_id, body)
+      INSERT INTO
+        replies(question_id, user_id, parent_reply_id, body)
+      VALUES
+        (?, ?, ?, ?)
+      SQL
+    else
+      QuestionsDatabase.instance.execute(
+        <<-SQL, question_id, user_id, parent_reply_id, body, id)
+      UPDATE
+        replies
+      SET
+        question_id = ?, user_id = ?, parent_reply_id = ?, body = ?
+      WHERE
+        id = ?
+      SQL
+    end
   end
 
   def author

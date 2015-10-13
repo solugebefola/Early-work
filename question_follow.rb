@@ -1,16 +1,5 @@
-class QuestionFollow
-  def self.find_by_id(id)
-    results = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        question_follows
-      WHERE
-        id = ?
-    SQL
-
-    QuestionFollow.new(results.first)
-  end
+class QuestionFollow < ModelBase
+  TABLE_NAME = 'question_follows'
 
   def self.find_by_user_id(user_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, user_id)

@@ -1,16 +1,5 @@
-class QuestionLike
-  def self.find_by_id(id)
-    results = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        question_likes
-      WHERE
-        id = ?
-    SQL
-
-    QuestionLike.new(results.first)
-  end
+class QuestionLike < ModelBase
+  TABLE_NAME = 'question_likes'
 
   def self.find_by_user_id(user_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, user_id)
