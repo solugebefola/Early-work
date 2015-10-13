@@ -62,3 +62,30 @@ INSERT INTO
   questions(title, body, author_id)
 VALUES
   ('sql', 'How does SQL work?', (SELECT id FROM users WHERE fname = 'Solar'));
+
+INSERT INTO
+  question_follows(user_id, question_id)
+VALUES
+  ((SELECT id FROM users WHERE fname = 'Solar'),
+   (SELECT id FROM questions WHERE title = 'sql'));
+
+INSERT INTO
+  replies(question_id, user_id, body)
+VALUES
+  ((SELECT id FROM questions WHERE title = 'sql'),
+   (SELECT id FROM users WHERE fname = 'Justin'),
+    'Please be more specific.');
+
+INSERT INTO
+  replies(question_id, user_id, parent_reply_id, body)
+VALUES
+  ((SELECT id FROM questions WHERE title = 'sql'),
+   (SELECT id FROM users WHERE fname = 'Solar'),
+   (SELECT id FROM replies WHERE user_id = 'Justin'),
+    'I do not understand COALESCE!!');
+
+INSERT INTO
+  question_likes(user_id, question_id)
+VALUES
+  ((SELECT id FROM users WHERE fname = 'Justin'),
+   (SELECT id FROM questions WHERE title = 'sql'));
