@@ -53,24 +53,24 @@ class User < ModelBase
     results.first["karma"].nil? ? 0 : results.first["karma"]
   end
 
-  def save
-    case id
-    when nil
-      QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
-      INSERT INTO
-        users(fname, lname)
-      VALUES
-        (?, ?)
-      SQL
-    else
-      QuestionsDatabase.instance.execute(<<-SQL, fname, lname, id)
-      UPDATE
-        users
-      SET
-        fname = ?, lname = ?
-      WHERE
-        id = ?
-      SQL
-    end
-  end
+  # def save
+  #   case id
+  #   when nil
+  #     QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
+  #     INSERT INTO
+  #       users(fname, lname)
+  #     VALUES
+  #       (?, ?)
+  #     SQL
+  #   else
+  #     QuestionsDatabase.instance.execute(<<-SQL, fname, lname, id)
+  #     UPDATE
+  #       users
+  #     SET
+  #       fname = ?, lname = ?
+  #     WHERE
+  #       id = ?
+  #     SQL
+  #   end
+  # end
 end
