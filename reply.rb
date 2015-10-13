@@ -51,9 +51,28 @@ class Reply
 
   end
 
+  attr_reader :id, :question_id, :user_id, :parent_reply_id, :body
+
   def initialize(results)
     @id, @question_id, @user_id, @parent_reply_id, @body =
     results.values_at('id', 'question_id', 'user_id', 'parent_reply_id', 'body')
   end
+
+  def author
+    User::find_by_id(user_id)
+  end
+
+  def question
+    Question::find_by_id(question_id)
+  end
+
+  def parent_reply
+    Reply::find_by_id(parent_reply_id)
+  end
+
+  def child_replies
+    Reply::find_by_parent_reply_id(id)
+  end
+
 
 end
