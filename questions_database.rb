@@ -1,6 +1,6 @@
 require 'singleton'
 require 'sqlite3'
-require 'byebug'
+# require 'byebug'
 
 require_relative 'model_base'
 require_relative 'user'

@@ -59,13 +59,12 @@ class ModelBase
   def self.opts_to_s(opts)
     str = []
     opts.each do |column, value|
-      str << "#{column} = #{value}"
+      str << "#{column} = \"#{value}\""
     end
     str.join(" AND ")
   end
 
   def self.where(opts)
-
     results = QuestionsDatabase.instance.execute(<<-SQL)
       SELECT
         *
@@ -76,5 +75,14 @@ class ModelBase
     SQL
 
     results.map { |result| self.new(result) }
+  end
+
+  def self.method_missing(method_sym, *search_terms)
+    method = method_sym.to_s
+    return nil unless method.include?("find_by")
+    columns = method.gsub("find_by_", "").gsub("_and_", " ").split(" ")
+    return nil unless columns.count == search_terms.count
+    sql_where_opts = columns.zip(search_terms).to_h
+    where(sql_where_opts)
   end
 end
