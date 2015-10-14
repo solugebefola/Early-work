@@ -58,6 +58,7 @@ class ModelBase
 
   def self.opts_to_s(opts)
     str = []
+    return opts if opts.is_a?(String)
     opts.each do |column, value|
       str << "#{column} = \"#{value}\""
     end
