@@ -8,10 +8,20 @@ class Response < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_one(
+    :question,
+    through: :answer_choice,
+    source: :question
+  )
+
   belongs_to(
     :respondent,
     class_name: "User",
     foreign_key: :user_id,
     primary_key: :id
   )
+
+  def sibling_responses
+
+  end
 end
