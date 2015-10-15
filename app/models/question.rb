@@ -40,11 +40,10 @@ class Question < ActiveRecord::Base
   end
 
   def results_best
-    results = Hash.new(0)
-      reses = answer_choices
-      .joins('LEFT OUTER JOIN responses ON responses.answer_id = answer_choices.id')
-      .where('answer_choices.question_id = ?', id)
-      .group('answer_choices.answer_body')
-      .count('responses.id')
+    answer_choices
+    .joins('LEFT OUTER JOIN responses ON responses.answer_id = answer_choices.id')
+    .where('answer_choices.question_id = ?', id)
+    .group('answer_choices.answer_body')
+    .count('responses.id')
   end
 end
