@@ -1,6 +1,7 @@
 class Response < ActiveRecord::Base
   validates :user_id, :answer_id, presence: true
   validate :check_repeat_responses
+  validate :author_self_response
 
   belongs_to(
     :answer_choice,
@@ -8,6 +9,7 @@ class Response < ActiveRecord::Base
     foreign_key: :answer_id,
     primary_key: :id
   )
+
 
   has_one(
     :question,
@@ -28,15 +30,18 @@ class Response < ActiveRecord::Base
     else
       siblings = question.responses.where("id != ?", id)
     end
-
-    #siblings.reject { |sibling| sibling == self }
   end
 
-  # private
+  private
   def check_repeat_responses
     unless sibling_responses.where("user_id = ? AND answer_id = ?", user_id, answer_id).empty?
       errors[:response] << "user cannot respond to answer more than once"
     end
   end
 
+  def author_self_response
+    if self.question.poll.author_id == user_id
+      errors[:response] << "user cannot respond to own poll"
+    end
+  end
 end
