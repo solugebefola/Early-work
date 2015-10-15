@@ -1,5 +1,6 @@
 class Response < ActiveRecord::Base
   validates :user_id, :answer_id, presence: true
+  validate :check_repeat_responses
 
   belongs_to(
     :answer_choice,
@@ -22,7 +23,20 @@ class Response < ActiveRecord::Base
   )
 
   def sibling_responses
-    siblings = question.responses
-    siblings.reject { |sibling| sibling == self }
+    if id.nil?
+      question.responses
+    else
+      siblings = question.responses.where("id != ?", id)
+    end
+
+    #siblings.reject { |sibling| sibling == self }
   end
+
+  # private
+  def check_repeat_responses
+    unless sibling_responses.where("user_id = ? AND answer_id = ?", user_id, answer_id).empty?
+      errors[:response] << "user cannot respond to answer more than once"
+    end
+  end
+
 end
