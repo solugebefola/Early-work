@@ -1,6 +1,6 @@
 class AnswerChoice < ActiveRecord::Base
-  validates :answer_id, :question_id, presence: true
-  
+  validates :answer_body, :question_id, presence: true
+
   belongs_to(
     :question,
     class_name: "Question",

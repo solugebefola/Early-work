@@ -22,6 +22,7 @@ class Response < ActiveRecord::Base
   )
 
   def sibling_responses
-
+    siblings = question.responses
+    siblings.reject { |sibling| sibling == self }
   end
 end
