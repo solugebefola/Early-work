@@ -29,7 +29,7 @@ class Question < ActiveRecord::Base
     results
   end
 
-  def results_best
+  def results_better
     results = Hash.new(0)
     answers = answer_choices.includes(:responses)
     answers.each do |answer|
@@ -39,4 +39,12 @@ class Question < ActiveRecord::Base
     results
   end
 
+  def results_best
+    results = Hash.new(0)
+      reses = answer_choices
+      .joins('LEFT OUTER JOIN responses ON responses.answer_id = answer_choices.id')
+      .where('answer_choices.question_id = ?', id)
+      .group('answer_choices.answer_body')
+      .count('responses.id')
+  end
 end
