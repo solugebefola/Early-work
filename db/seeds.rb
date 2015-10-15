@@ -26,6 +26,9 @@ end
 end
 
 AnswerChoice.create!([{question_id: Question.all[0].id, answer_body: "Elephant"}, {question_id: Question.all[1].id, answer_body: "Empire State"}, {question_id: Question.all[2].id, answer_body: "Rock Climbing"}])
-
+AnswerChoice.create!({question_id: Question.first.id, answer_body: "Double Elephant"})
+AnswerChoice.create!({question_id: Question.first.id, answer_body: "Triple Elephant"})
 
 Response.create!([{user_id: User.all[1].id, answer_id: AnswerChoice.all[0].id}, {user_id: User.all[1].id, answer_id: AnswerChoice.all[1].id}, {user_id: User.all[1].id, answer_id: AnswerChoice.all[2].id}])
+Response.create!({user_id: User.all[2].id, answer_id: AnswerChoice.find(4).id})
+Response.create!({user_id: User.all[3].id, answer_id: AnswerChoice.find(5).id})

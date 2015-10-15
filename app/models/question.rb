@@ -20,4 +20,23 @@ class Question < ActiveRecord::Base
     through: :answer_choices,
     source: :responses
   )
+
+  def results_worst
+    results = Hash.new(0)
+    answer_choices.each do |answer|
+      results[answer.answer_body] += answer.responses.count
+    end
+    results
+  end
+
+  def results_best
+    results = Hash.new(0)
+    answers = answer_choices.includes(:responses)
+    answers.each do |answer|
+      results[answer.answer_body] += answer.responses.length
+    end
+
+    results
+  end
+
 end
