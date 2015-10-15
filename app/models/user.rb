@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     responses
   end
 
-  def completed_polls
+  def completed_polls_sql
     polls = Poll.find_by_sql ['SELECT
     polls.*, COUNT(questions.id) AS num_questions, COUNT(responses.id) as num_responses
     FROM
@@ -39,14 +39,24 @@ class User < ActiveRecord::Base
       responses
       ON
       answer_choices.id = responses.answer_id
-      WHERE
+    WHERE
     responses.user_id = ?
     GROUP BY
-    polls.id', id]
-
-    polls.select { |poll| poll.num_questions == poll.num_responses }
-
-
-
+    polls.id
+    HAVING
+    num_questions = num_responses', id]
   end
+
+  def completed_polls
+    Poll
+    .select('polls.*, COUNT(questions.id) AS num_questions, COUNT(responses.id) as num_responses')
+    .joins('JOIN questions ON polls.id = questions.poll_id')
+    .joins('JOIN answer_choices ON questions.id = answer_choices.question_id')
+    .joins('JOIN responses ON answer_choices.id = responses.answer_id')
+    .where('responses.user_id = ?', id)
+    .group('polls.id')
+    .having('num_questions = num_responses')
+  end
+
+
 end
