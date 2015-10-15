@@ -23,31 +23,45 @@ class User < ActiveRecord::Base
   end
 
   def completed_polls_sql
-    polls = Poll.find_by_sql ['SELECT
-    polls.*, COUNT(questions.id) AS num_questions, COUNT(responses.id) as num_responses
-    FROM
-      polls
+    query = <<-SQL
+      SELECT
+        polls.*
+      FROM
+        polls
       JOIN
-      questions
-      ON
-      polls.id = questions.poll_id
+        questions
+        ON polls.id = questions.poll_id
       JOIN
-      answer_choices
-      ON
-      questions.id = answer_choices.question_id
-      JOIN
-      responses
-      ON
-      answer_choices.id = responses.answer_id
-    WHERE
-    responses.user_id = ?
-    GROUP BY
-    polls.id
-    HAVING
-    num_questions = num_responses', id]
+        answer_choices
+        ON questions.id = answer_choices.question_id
+      LEFT JOIN
+        (SELECT
+          *
+        FROM
+          responses
+        WHERE
+          user_id = ?) as responses
+        ON answer_choices.id = responses.answer_id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(DISTINCT questions.id) = COUNT(responses.id)
+    SQL
+    polls = Poll.find_by_sql [query,id]
+
   end
 
   def completed_polls
+    Poll
+    .select('polls.*')
+    .joins('JOIN questions ON polls.id = questions.poll_id')
+    .joins('JOIN answer_choices ON questions.id = answer_choices.question_id')
+    .joins('LEFT JOIN (SELECT * FROM responses WHERE user_id = ?) as responses ON answer_choices.id = responses.answer_id', id)
+    .group('polls.id')
+    .having('COUNT(questions.id) = COUNT(responses.id)')
+  end
+
+  def uncompleted_polls
     Poll
     .select('polls.*, COUNT(questions.id) AS num_questions, COUNT(responses.id) as num_responses')
     .joins('JOIN questions ON polls.id = questions.poll_id')
@@ -55,7 +69,7 @@ class User < ActiveRecord::Base
     .joins('JOIN responses ON answer_choices.id = responses.answer_id')
     .where('responses.user_id = ?', id)
     .group('polls.id')
-    .having('num_questions = num_responses')
+    .having('num_questions != num_responses AND num_responses > 0')
   end
 
 

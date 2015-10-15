@@ -32,3 +32,6 @@ AnswerChoice.create!({question_id: Question.first.id, answer_body: "Triple Eleph
 Response.create!([{user_id: User.all[1].id, answer_id: AnswerChoice.all[0].id}, {user_id: User.all[1].id, answer_id: AnswerChoice.all[1].id}, {user_id: User.all[1].id, answer_id: AnswerChoice.all[2].id}])
 Response.create!({user_id: User.all[2].id, answer_id: AnswerChoice.find(4).id})
 Response.create!({user_id: User.all[3].id, answer_id: AnswerChoice.find(5).id})
+
+# Question.create!(question_body: "Huh?", poll_id: 2)
+# AnswerChoice.create!({question_id: 4, answer_body: "Whoo!"})
