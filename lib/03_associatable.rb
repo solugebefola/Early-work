@@ -44,12 +44,13 @@ class BelongsToOptions < AssocOptions
 end
 
 class HasManyOptions < AssocOptions
-  def initialize(name, self_class_name, options = {})
-    name_id = "#{self_class_name.underscore}_id".to_sym
+  def initialize(name, self_name, options = {})
+    self_name_id = "#{self_name.underscore}_id".to_sym
+    puts "#{self_name_id}  SELF NAME ID"
     classy_name = "#{name}".camelize.singularize
 
     defaults = {
-      foreign_key: name_id,
+      foreign_key: self_name_id,
       primary_key: :id,
       class_name: classy_name
     }
@@ -66,18 +67,26 @@ end
 module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
-    opts = BelongsToOptions(name, options)
-    define_method(name) do ||
-      foreign = send(opts.foreign_key)
+    opts = BelongsToOptions.new(name, options)
+
+    define_method(name) do
+      foreign = self.send(opts.foreign_key)
       model_class = opts.model_class
-      models = self.class.where(primary_key: foreign,
-                     model_class: model_class,
-                     )
+
+      models = model_class.where(id: foreign).first
     end
+
   end
 
   def has_many(name, options = {})
-    # ...
+    opts = HasManyOptions.new(name, self.to_s, options)
+    model_class = opts.class_name.constantize
+    define_method(name) do
+
+      model_class = opts.class_name.constantize
+      foreign = self.send(opts.primary_key)
+      models = model_class.where({opts.foreign_key => foreign})
+    end
   end
 
   def assoc_options
@@ -87,4 +96,5 @@ end
 
 class SQLObject
   # Mixin Associatable here...
+  extend Associatable
 end
