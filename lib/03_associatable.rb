@@ -46,7 +46,6 @@ end
 class HasManyOptions < AssocOptions
   def initialize(name, self_name, options = {})
     self_name_id = "#{self_name.underscore}_id".to_sym
-    puts "#{self_name_id}  SELF NAME ID"
     classy_name = "#{name}".camelize.singularize
 
     defaults = {
@@ -68,7 +67,7 @@ module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
     opts = BelongsToOptions.new(name, options)
-
+    self.assoc_options[name] = opts
     define_method(name) do
       foreign = self.send(opts.foreign_key)
       model_class = opts.model_class
@@ -90,8 +89,11 @@ module Associatable
   end
 
   def assoc_options
-    # Wait to implement this in Phase IVa. Modify `belongs_to`, too.
+    @assoc_options ||= {}
   end
+
+
+
 end
 
 class SQLObject
