@@ -10,23 +10,31 @@ class AssocOptions
   )
 
   def model_class
-    # ...
+    class_name.constantize
   end
 
   def table_name
-    # ...
+    class_name.tableize
   end
 end
 
 class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
+    name_id = "#{name}_id".to_sym
+    classy_name = "#{name}".camelize
+
     defaults = {
-      
+      foreign_key: name_id,
+      primary_key: :id,
+      class_name: classy_name
     }
-    @foreign_key
-    @class_name
-    @primary_key
+    new_keys = defaults.merge(options)
+
+    @foreign_key = new_keys[:foreign_key]
+    @class_name = new_keys[:class_name]
+    @primary_key = new_keys[:primary_key]
   end
+
 end
 
 class HasManyOptions < AssocOptions
