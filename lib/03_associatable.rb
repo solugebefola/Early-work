@@ -14,8 +14,12 @@ class AssocOptions
   end
 
   def table_name
-    class_name.tableize
+    model_class.table_name || class_name.tableize
   end
+
+  # def self.table_name=(value)
+  #   self.class.table_name = value
+  # end
 end
 
 class BelongsToOptions < AssocOptions
@@ -29,10 +33,12 @@ class BelongsToOptions < AssocOptions
       class_name: classy_name
     }
     new_keys = defaults.merge(options)
+
     @name = name
     @foreign_key = new_keys[:foreign_key]
     @class_name = new_keys[:class_name]
     @primary_key = new_keys[:primary_key]
+
   end
 
 end
@@ -47,7 +53,9 @@ class HasManyOptions < AssocOptions
       primary_key: :id,
       class_name: classy_name
     }
+
     new_keys = defaults.merge(options)
+
     @name = name
     @foreign_key = new_keys[:foreign_key]
     @class_name = new_keys[:class_name]
@@ -58,7 +66,14 @@ end
 module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
-    # ...
+    opts = BelongsToOptions(name, options)
+    define_method(name) do ||
+      foreign = send(opts.foreign_key)
+      model_class = opts.model_class
+      models = self.class.where(primary_key: foreign,
+                     model_class: model_class,
+                     )
+    end
   end
 
   def has_many(name, options = {})

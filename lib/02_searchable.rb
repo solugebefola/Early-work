@@ -6,17 +6,19 @@ module Searchable
     where_line = params.keys.map do |key|
       "#{key} = ?"
     end.join(" AND ")
-    DBConnection.execute(<<-SQL, params.values)
+    insts = DBConnection.execute(<<-SQL, params.values)
       SELECT
         *
       FROM
-        #{self.class.table_name}
+        #{self.table_name}
       WHERE
         #{where_line}
     SQL
+    insts.map { |inst| self.new(inst) }
   end
 end
 
 class SQLObject
   # Mixin Searchable here...
+  extend Searchable
 end
