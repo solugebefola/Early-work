@@ -20,7 +20,12 @@ end
 
 class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
-    # ...
+    defaults = {
+      
+    }
+    @foreign_key
+    @class_name
+    @primary_key
   end
 end
 
