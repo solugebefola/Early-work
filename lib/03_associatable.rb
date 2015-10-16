@@ -20,7 +20,7 @@ end
 
 class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
-    name_id = "#{name}_id".to_sym
+    name_id = "#{name.to_s.underscore}_id".to_sym
     classy_name = "#{name}".camelize
 
     defaults = {
@@ -29,7 +29,7 @@ class BelongsToOptions < AssocOptions
       class_name: classy_name
     }
     new_keys = defaults.merge(options)
-
+    @name = name
     @foreign_key = new_keys[:foreign_key]
     @class_name = new_keys[:class_name]
     @primary_key = new_keys[:primary_key]
@@ -39,7 +39,19 @@ end
 
 class HasManyOptions < AssocOptions
   def initialize(name, self_class_name, options = {})
-    # ...
+    name_id = "#{self_class_name.underscore}_id".to_sym
+    classy_name = "#{name}".camelize.singularize
+
+    defaults = {
+      foreign_key: name_id,
+      primary_key: :id,
+      class_name: classy_name
+    }
+    new_keys = defaults.merge(options)
+    @name = name
+    @foreign_key = new_keys[:foreign_key]
+    @class_name = new_keys[:class_name]
+    @primary_key = new_keys[:primary_key]
   end
 end
 
