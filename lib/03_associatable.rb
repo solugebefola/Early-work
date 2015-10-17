@@ -1,5 +1,6 @@
 require_relative '02_searchable'
 require 'active_support/inflector'
+require 'byebug'
 
 # Phase IIIa
 class AssocOptions
@@ -67,12 +68,12 @@ module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
     opts = BelongsToOptions.new(name, options)
-    self.assoc_options[name] = opts
+    self.assoc_options[name] = opts #reference to BelongsToOptions instance
     define_method(name) do
       foreign = self.send(opts.foreign_key)
-      model_class = opts.model_class
+      bind = {opts.primary_key => foreign}
 
-      models = model_class.where(id: foreign).first
+      models = opts.model_class.where(bind).first
     end
 
   end
