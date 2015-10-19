@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
-  resources :users, only: [:index, :show, :create, :update, :destroy]
-  resources :contacts, only: [:index, :show, :create, :update, :destroy]
+  resources :users, only: [:index, :show, :create, :update, :destroy] do
+      resources :contacts, only: [:index]
+      resources :comments
+  end
+
+  resources :contacts, only: [:show, :create, :update, :destroy] do
+    resources :comments
+  end
+  
+  resources :contact_shares, only: [:create, :destroy]
 
   # get '/users/', to: 'users#index', as: 'users'
   # post '/users(.:format)', to: 'users#create'

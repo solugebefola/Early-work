@@ -1,8 +1,8 @@
 class ContactsController < ApplicationController
 
   def index
-    contacts = Contact.all
-    render json: contacts
+    user = User.find(params[:user_id])
+    render json: user.contacts + user.received_contacts
   end
 
   def show
