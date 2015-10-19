@@ -37,10 +37,16 @@ def create_user
     path: '/users.json'
   ).to_s
 
-  puts RestClient.post(url, user: { name: "Greenland", email: "green@land.com"})
+  puts RestClient.post(url, user: { email: "ice@land.com"})
 end
 
-create_user
+begin
+  create_user
+rescue StandardError => e
+  puts e.message
+end
+
+
 # puts RestClient.get(url)
 # puts RestClient.get(url_show)
 # puts RestClient.get(url_key)
