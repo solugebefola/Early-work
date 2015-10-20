@@ -2,5 +2,5 @@
 
 <ul>
 <% @cats.each do |cat| %>
-<li> <%= link_to cat_url(cat.id), cat.name %></li>
+<li> <%= link_to cat.name, cat_url(cat.id) %></li>
 <% end %>
