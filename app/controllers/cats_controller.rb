@@ -33,7 +33,7 @@ class CatsController < ApplicationController
   end
 
   def update
-    @cat = Cat.fine(params[:id])
+    @cat = Cat.find(params[:id])
     if @cat.update!(cat_params)
       redirect_to cat_url(@cat.id)
     else
