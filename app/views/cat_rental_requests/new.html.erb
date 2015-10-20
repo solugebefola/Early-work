@@ -1,6 +1,6 @@
 <h1>RENT A CAT!!!!</h1>
 
-<form action="cat_rental_requests_url" method="POST">
+<form action="<%= cat_rental_requests_url %> " method="POST">
   <select name="cat_rental_request[cat_id]" ><br>
     <option value=""></option>
     <% @cats.each do |cat| %>
