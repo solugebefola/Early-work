@@ -1,9 +1,10 @@
 <h1>Hello! My name is <%= @cat.name %></h1>
 
-<ul>
+<table>
+
 
   <% @cat.attributes.each do |k,v| %>
-    <li> <%= "#{k.capitalize} = #{v}" %></li>
+  <tr><td><%= "#{k.capitalize}" %><td> <%= "#{v}" %>
   <% end %>
 
-</ul>
+</table>
