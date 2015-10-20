@@ -11,8 +11,16 @@
 
 <h3>Rental Requests for <%= @cat.name %></h3>
 <table>
-  <tr><td>START DATE<td>END DATE
+  <tr><td>START DATE<td>END DATE<td>
   <% @cat_r_r.each do |rental| %>
-    <tr><td> <%= rental.start_date %> <td> <%= rental.end_date %>
+    <tr><td> <%= rental.start_date %> <td> <%= rental.end_date %> <td> <%= rental.status %><td>
+      <% if rental.pending? %>
+        <form action="<%= approve_cat_rental_request_url(rental.id) %>">
+          <input type="submit" value="Approve Rental">
+        </form><td>
+        <form action="<%= deny_cat_rental_request_url(rental.id) %>">
+          <input type="submit" value="Deny Rental">
+        </form>
+      <% end %>
   <% end %>
-</table>  
+</table>
