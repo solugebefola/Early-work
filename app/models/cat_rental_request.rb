@@ -2,6 +2,7 @@ class CatRentalRequest < ActiveRecord::Base
 validates :cat_id, :start_date, :end_date, presence:true
 validates :status, inclusion: { in: %w(PENDING APPROVED DENIED)}
 validate :rentals_do_not_conflict
+validate :start_date_before_end_date
 
 belongs_to :cat
 
@@ -20,4 +21,11 @@ private
       date.between?(other_request.start_date, other_request.end_date)
     end
   end
+
+  def start_date_before_end_date
+    if self.start_date > self.end_date
+      errors[:cat_rental_request] << "start date occurs after end date"
+    end
+  end
+
 end
