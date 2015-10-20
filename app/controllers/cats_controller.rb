@@ -32,6 +32,15 @@ class CatsController < ApplicationController
     render :edit
   end
 
+  def update
+    @cat = Cat.fine(params[:id])
+    if @cat.update!(cat_params)
+      redirect_to cat_url(@cat.id)
+    else
+      render :edit
+    end
+  end
+
   private
   def cat_params
     params.require(:cat).permit(:name, :color, :sex, :birth_date, :description)
