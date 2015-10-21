@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
   def log_in_user!(user)
     user.reset_session_token!
     session[:session_token] = user.session_token
-    redirect_to cats_url
+    token = Token.create!()
+    redirect_to user_url(user.id)
   end
 
   def log_out
@@ -35,5 +36,10 @@ class ApplicationController < ActionController::Base
 
   def owned_by_user?
     !current_user.cats.where(id: params[:id]).empty?
+  end
+
+  def get_token_parameters
+    user_agent = request.env['HTTP_USER_AGENT']
+    user_agent
   end
 end
