@@ -2,8 +2,14 @@ class User < ActiveRecord::Base
   attr_reader :password
   validates :user_name, :password_digest, :session_token, presence: true
   validates :session_token, :user_name, uniqueness: true
-
   after_initialize :set_session_token
+
+  has_many(
+    :cats,
+    class_name: "Cat",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
 
   def set_session_token
     self.session_token ||= SecureRandom::urlsafe_base64

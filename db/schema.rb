@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021155911) do
+ActiveRecord::Schema.define(version: 20151021194010) do
 
   create_table "cat_rental_requests", force: :cascade do |t|
     t.integer "cat_id"
@@ -21,12 +21,15 @@ ActiveRecord::Schema.define(version: 20151021155911) do
   end
 
   create_table "cats", force: :cascade do |t|
-    t.date   "birth_date"
-    t.string "color"
-    t.string "name"
-    t.string "sex",         limit: 1
-    t.text   "description"
+    t.date    "birth_date"
+    t.string  "color"
+    t.string  "name"
+    t.string  "sex",         limit: 1
+    t.text    "description"
+    t.integer "user_id"
   end
+
+  add_index "cats", ["user_id"], name: "index_cats_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "user_name",       null: false
