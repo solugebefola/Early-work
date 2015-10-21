@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "User #{@user.user_name} created"
-      redirect_to cats_url
+      log_in_user!(@user)
     else
       flash.now[:errors] = @user.errors.full_messages
       render :new

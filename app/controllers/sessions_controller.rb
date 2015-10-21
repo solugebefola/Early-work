@@ -9,9 +9,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by_credentials(params[:user][:user_name],params[:user][:password])
     if @user
-      @user.reset_session_token!
-      session[:session_token] = @user.session_token
-      redirect_to cats_url
+      log_in_user!(@user)
     else
       flash[:errors] = ["User name or Password is invalid"]
       redirect_to new_session_url
