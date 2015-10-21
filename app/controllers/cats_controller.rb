@@ -10,7 +10,7 @@ before_action :owned_by_user, only: [:edit, :update]
 
   def show
     @cat = Cat.find(params[:id])
-    @cat_r_r = @cat.cat_rental_requests.order(:start_date)
+    @cat_r_r = @cat.cat_rental_requests.includes(:user).order(:start_date)
     render :show
   end
 
@@ -51,5 +51,5 @@ before_action :owned_by_user, only: [:edit, :update]
     params.require(:cat).permit(:name, :color, :sex, :birth_date, :description)
   end
 
-  
+
 end
