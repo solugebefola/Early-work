@@ -1,5 +1,4 @@
 <h1>Hello! My name is <%= @cat.name %></h1>
-
 <table>
 
 
@@ -16,6 +15,11 @@
     <tr><td> <%= rental.start_date %> <td> <%= rental.end_date %> <td> <%= rental.status %><td>
       <% if rental.pending? %>
         <form action="<%= approve_cat_rental_request_url(rental.id) %>">
+          <input
+            type="hidden"
+            name="authenticity_token"
+            value="<%= form_authenticity_token  %>">
+            
           <input type="submit" value="Approve Rental">
         </form><td>
         <form action="<%= deny_cat_rental_request_url(rental.id) %>">

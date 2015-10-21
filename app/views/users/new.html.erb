@@ -1,12 +1,12 @@
 <h1>Create User!!!</h1>
 
-<% if flash.now[:errors] %>
-  <% flash.now[:errors].each do |flash| %>
-    <%= flash %>
-  <% end %>
-<% end %>
 
 <form action="<%= users_url %>" method="post">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+    
   <label>
     <input
       type="text"
