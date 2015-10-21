@@ -18,3 +18,13 @@ def password=(password)
   @password = password
   self.password_digest = BCrypt::Password.create(password)
 end
+
+def is_password?(password)
+  BCrypt::Password.new(password_digest).is_password?(password)
+end
+
+def self.find_by_credentials(user_name, password)
+  user = User.find(user_name: user_name)
+  return nil unless user
+  user.is_password?(password) ? user : nil
+end
