@@ -6,13 +6,18 @@
     name="authenticity_token"
     value="<%= form_authenticity_token %>">
 
+  <label for="cat_rental_request_cat_id">Cat Name</label>
   <select name="cat_rental_request[cat_id]" ><br>
     <option value=""></option>
     <% @cats.each do |cat| %>
       <option value="<%= cat.id %>"> <%= cat.name %> </option>
     <% end %>
   </select>
-  <br><br><input type="date" name="cat_rental_request[start_date]" value="<%= @cat_rental_request.start_date %>"><br>
+
+  <br><br>
+  <label for="cat_rental_request_start_date">Start Date</label>
+  <input type="date" name="cat_rental_request[start_date]" value="<%= @cat_rental_request.start_date %>"><br>
+  <label for="cat_rental_request_end_date">End Date</label>
   <input type="date" name="cat_rental_request[end_date]" value="<%= @cat_rental_request.end_date %>"><br><br>
   <input type="submit" value="Submit rental request">
 </form>

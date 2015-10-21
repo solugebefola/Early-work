@@ -6,21 +6,21 @@
     type="hidden"
     name="authenticity_token"
     value="<%= form_authenticity_token %>">
-    
-  <label>
+
+  <label>User Name
     <input
       type="text"
       name="user[user_name]"
       id="user_user_name"
-      value="<%= @user.user_name %>">User Name
+      value="<%= @user.user_name %>">
   </label>
 <br><br>
-  <label>
+  <label>Password
     <input
       type="password"
       name="user[password]"
       id="user_password"
-      value="<%= @user.password %>">Password
+      value="<%= @user.password %>">
   </label><br><br>
   <input type="Submit" name="Create User">
 </form>
