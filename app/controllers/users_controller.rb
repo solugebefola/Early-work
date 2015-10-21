@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :require_signed_out
+  before_action :require_signed_out, only: [:create, :new]
 
   def create
+    fail
     @user = User.new(user_params)
 
     if @user.save
@@ -17,6 +18,14 @@ class UsersController < ApplicationController
     @user = User.new
     render :new
   end
+
+  def show
+    @user = User.find(params[:id])
+    @cats = @user.cats
+
+    render :show
+  end
+
   private
   def user_params
     params.require(:user).permit(:user_name, :password)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021203448) do
+ActiveRecord::Schema.define(version: 20151021212427) do
 
   create_table "cat_rental_requests", force: :cascade do |t|
     t.integer "cat_id"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20151021203448) do
   end
 
   add_index "cats", ["user_id"], name: "index_cats_on_user_id"
+
+  create_table "token_environments", force: :cascade do |t|
+    t.string   "token"
+    t.string   "browser"
+    t.string   "device"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "token_environments", ["user_id"], name: "index_token_environments_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "user_name",       null: false
