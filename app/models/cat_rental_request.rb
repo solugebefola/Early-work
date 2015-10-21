@@ -1,10 +1,11 @@
 class CatRentalRequest < ActiveRecord::Base
-  validates :cat_id, :start_date, :end_date, presence:true
+  validates :cat_id, :start_date, :end_date, :user_id, presence:true
   validates :status, inclusion: { in: %w(PENDING APPROVED DENIED)}
   # validate :rentals_do_not_conflict
   validate :start_date_before_end_date
 
   belongs_to :cat
+  belongs_to :user
 
   def approve!
     self.status = 'APPROVED'

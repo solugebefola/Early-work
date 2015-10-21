@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many :cat_rental_requests
+
   def set_session_token
     self.session_token ||= SecureRandom::urlsafe_base64
   end

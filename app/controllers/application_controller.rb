@@ -34,6 +34,6 @@ class ApplicationController < ActionController::Base
   end
 
   def owned_by_user?
-    current_user.cats.find(params[:id])
+    !current_user.cats.where(id: params[:id]).empty?
   end
 end
