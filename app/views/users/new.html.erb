@@ -1,0 +1,26 @@
+<h1>Create User!!!</h1>
+
+<% if flash.now[:errors] %>
+  <% flash.now[:errors].each do |flash| %>
+    <%= flash %>
+  <% end %>
+<% end %>
+
+<form action="<%= users_url %>" method="post">
+  <label>
+    <input
+      type="text"
+      name="user[user_name]"
+      id="user_user_name"
+      value="<%= @user.user_name %>">User Name
+  </label>
+<br><br>
+  <label>
+    <input
+      type="password"
+      name="user[password]"
+      id="user_password"
+      value="<%= @user.password %>">Password
+  </label><br><br>
+  <input type="Submit" name="Create User">
+</form>
