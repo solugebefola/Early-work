@@ -5,6 +5,12 @@
 
 </head>
 <body>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <%= error %><br>
+  <% end %>
+<% end %>
+
 <% if current_user  %>
   <%= "logged in as #{current_user.user_name}" %>
 <% end %>

@@ -17,4 +17,11 @@ class ApplicationController < ActionController::Base
   def log_out
   end
 
+  def require_signed_out
+    if current_user
+      flash[:errors] = ["Already Signed In!!!!"]
+      redirect_to cats_url
+    end
+  end
+
 end

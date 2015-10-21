@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_signed_out
+
   def create
     @user = User.new(user_params)
 
