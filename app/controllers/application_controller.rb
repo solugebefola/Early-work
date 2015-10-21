@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_user
+  helper_method :current_user, :owned_by_user?
+
 
   def current_user
     return nil unless session[:session_token]
@@ -25,4 +26,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def owned_by_user
+    if current_user.cats.where(id: params[:id]).empty?
+      flash[:errors] = ["Cat not owned by user"]
+      redirect_to cats_url
+    end
+  end
+
+  def owned_by_user?
+    current_user.cats.find(params[:id])
+  end
 end

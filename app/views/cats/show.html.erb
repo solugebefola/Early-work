@@ -13,13 +13,13 @@
   <tr><td>START DATE<td>END DATE<td>
   <% @cat_r_r.each do |rental| %>
     <tr><td> <%= rental.start_date %> <td> <%= rental.end_date %> <td> <%= rental.status %><td>
-      <% if rental.pending? %>
+      <% if rental.pending? && owned_by_user? %>
         <form action="<%= approve_cat_rental_request_url(rental.id) %>">
           <input
             type="hidden"
             name="authenticity_token"
             value="<%= form_authenticity_token  %>">
-            
+
           <input type="submit" value="Approve Rental">
         </form><td>
         <form action="<%= deny_cat_rental_request_url(rental.id) %>">

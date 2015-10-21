@@ -51,10 +51,5 @@ before_action :owned_by_user, only: [:edit, :update]
     params.require(:cat).permit(:name, :color, :sex, :birth_date, :description)
   end
 
-  def owned_by_user
-    unless current_user.cats.find(params[:id])
-      flash[:errors] << "Cat is not owned by user"
-      redirect_to cats_url
-    end
-  end
+  
 end
