@@ -2,11 +2,24 @@
 <html>
 <head>
   <title>Cats99</title>
-  
+
 </head>
 <body>
+<% if current_user  %>
+  <%= "logged in as #{current_user.user_name}" %>
+<% end %>
 
 <%= yield %>
 
+<% if current_user %>
+  <form action="/session" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="Submit" value="log out">
+  </form>
+<% else %>
+  <form action="<%= new_session_url %>" method="get">
+    <input type="Submit" value="log in">
+  </form>
+<% end %>
 </body>
 </html>

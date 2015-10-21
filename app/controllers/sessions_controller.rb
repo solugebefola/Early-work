@@ -13,11 +13,14 @@ class SessionsController < ApplicationController
       session[:session_token] = @user.session_token
       redirect_to cats_url
     else
-      flash.now[:errors] = @user.errors.full_messages
-      render :new
+      flash[:errors] = ["User name or Password is invalid"]
+      redirect_to new_session_url
     end
   end
 
   def destroy
+    current_user.reset_session_token! if current_user
+    session[:session_token] = nil
+    redirect_to new_session_url
   end
 end
