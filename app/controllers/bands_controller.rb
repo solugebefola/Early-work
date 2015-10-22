@@ -38,12 +38,16 @@ class BandsController < ApplicationController
 
   def update
     @band = Band.find(params[:id])
-    if @band.update!
+    if @band.update!(band_params)
       redirect_to bands_url
     else
       flash.now[:errors] = @band.errors.full_messages
       render :edit
     end
+  end
+  private
+  def band_params
+    params.require(:band).permit(:name)
   end
 
 end
