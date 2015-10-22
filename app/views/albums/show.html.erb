@@ -1,0 +1,10 @@
+<%#= show_title %>
+<ul>
+<% @album.tracks.each do |track| %>
+  <li><a href="<%= track_url(track.id) %>"><%= track.name %></a></li>
+<% end %>
+
+<form action="<%= edit_album_url(@album.id) %>" method="get">
+  <input type="Submit" value="Edit album">
+</form>
+</ul>

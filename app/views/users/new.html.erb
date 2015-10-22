@@ -1,0 +1,18 @@
+<% if flash.now[:errors] %>
+  <% flash.now[:errors].each do |error| %>
+    <%= error %>
+  <% end %>
+<% end %>
+
+<h1>Sign up for the music app</h1>
+<form action="<%= users_url  %>" method="post">
+  <%= auth_token %>
+  <label for="user_email">Email
+    <input type="text" name="user[email]" id="user_email">
+  </label>
+  <label for="user_password">Password
+    <input type="text" name="user[password]" id="user_password">
+  </label>
+
+  <input type="submit" value="Sign up!">
+</form>

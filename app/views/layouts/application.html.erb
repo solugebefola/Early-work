@@ -2,13 +2,18 @@
 <html>
 <head>
   <title>MusicApp</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
 </head>
 <body>
 
 <%= yield %>
 
+<br><br>
+  <% if signed_in? %>
+    <form action="<%= session_url %>" method="post">
+      <input name="_method" type="hidden" method="delete">
+      <%= auth_token %>
+      <input type="Submit" value="Sign out">
+    </form>
+  <% end %>
 </body>
 </html>
