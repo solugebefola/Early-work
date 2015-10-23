@@ -1,10 +1,10 @@
 <h1>Track</h1>
 <ul>
-  <li><b>Track name</b> <br><%= @track.name %></li>
-<li><b>Lyrics</b> <br><%= @track.lyrics %></li>
+  <li><b>Track name:</b><br><%= @track.name %></li>
+<li><b>Lyrics:</b> <br><%= @track.lyrics %></li>
 <br>
 
-<li>Album Name<br><a href="<% album_url(@track.album_id) %>">
+<li>Album Name:<br><a href="<% album_url(@track.album_id) %>">
   <%=@track.album.name%>
 </a></li>
 
