@@ -17,13 +17,16 @@
       id="post_content">
     </textarea>
   </label>
-
+<br><br>
   <label>URL (optional)
     <input
       type="text"
       name="post[url]"
       id="post">
   </label>
+
+<br><br>
+  <%= render "checkbox", subs: @subs %>
 
   <input type="submit" value="Add post">
 </form>

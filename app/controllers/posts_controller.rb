@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 
 
     def new
+      @subs = Sub.all
       @post = Post.new
       @post.sub_id = params[:sub_id]
       render :new
@@ -16,7 +17,8 @@ class PostsController < ApplicationController
 
     def create
       @post = Post.new(post_params)
-      @post.sub_id = params[:post][:sub_id]
+      @post.sub_ids = params[:post][:sub_ids]
+      @post.sub_id = @post.sub_ids.first
       @post.author_id = current_user.id
       if @post.save!
         redirect_to post_url(@post.id)
@@ -27,6 +29,7 @@ class PostsController < ApplicationController
     end
 
     def edit
+      @subs = Sub.all
       @post = Post.find(params[:id])
       render :edit
     end

@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
-  validates :author_id, :sub_id, :title, presence: true
+  validates :author_id, :title, presence: true
+  # validate :at_least_one_sub
 
   belongs_to(
     :sub,
@@ -17,7 +18,7 @@ class Post < ActiveRecord::Base
 
   has_many(
     :sub_posts,
-    class_name: "SubPost",
+    class_name: "PostSub",
     foreign_key: :post_id,
     primary_key: :id
   )
@@ -28,5 +29,8 @@ class Post < ActiveRecord::Base
     source: :sub
   )
 
-
+  # private
+  # def at_least_one_sub
+  #   return true unless self.sub_ids.empty?
+  # end
 end

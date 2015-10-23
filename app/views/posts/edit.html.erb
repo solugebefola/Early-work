@@ -20,7 +20,7 @@
 <%= @post.content %>
     </textarea>
   </label>
-
+<br><br>
   <label>URL (optional)
     <input
       type="text"
@@ -28,6 +28,8 @@
       id="post"
       value="<%= @post.url %>">
   </label>
+
+  <%= render "checkbox", subs: @subs %>
 
 <input type="submit" value="Edit post">
 </form>

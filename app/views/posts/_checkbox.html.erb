@@ -1,0 +1,9 @@
+<label>Related Subs<br>
+  <% subs.each do |sub| %>
+  <label>
+    <input
+      type="checkbox"
+      name="post[sub_ids][]"
+      value="<%= sub.id %>"><%=sub.title%><br>
+  </label>
+  <% end %>
