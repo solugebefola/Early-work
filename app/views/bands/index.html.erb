@@ -2,7 +2,21 @@
 
 <ul>
 <% @bands.each do |band| %>
-    <li><h2><a href="<%= band_url(band.id) %>"><%= band.name %></a></h2></li>
+
+    <li><h3>
+      <a href="<%= band_url(band.id) %>"><%= band.name %></a>
+    </h3></li>
+      <ul>
+        <% band.albums.each do |album| %>
+          <li>
+            <a href="<%= album_url(album.id) %>">
+              <%= album.name %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+
+
 <% end %>
 </ul>
 
