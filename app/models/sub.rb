@@ -15,15 +15,15 @@ class Sub < ActiveRecord::Base
   )
 
   has_many(
-    :sub_posts,
-    class_name: "SubPost",
+    :post_subs,
+    class_name: "PostSub",
     foreign_key: :sub_id,
     primary_key: :id
   )
 
   has_many(
     :posts,
-    through: :sub_posts,
+    through: :post_subs,
     source: :post
   )
 
