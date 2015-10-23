@@ -11,7 +11,7 @@ class Sub < ActiveRecord::Base
     :posts,
     class_name: "Post",
     foreign_key: :sub_id,
-    primary_key: :id  
+    primary_key: :id
   )
 
 

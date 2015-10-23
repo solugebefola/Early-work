@@ -1,6 +1,21 @@
 class User < ActiveRecord::Base
   validates :email, :password_digest, presence: true, uniqueness: true
 
+
+  has_many(
+    :posts,
+    class_name: "Post",
+    foreign_key: :author_id,
+    primary_key: :id
+  )
+
+  has_many(
+    :subs,
+    class_name: "Sub"
+    foreign_key: :mod_id,
+    primary_key: :id
+  )
+
   def self.generate_session_token
     SecureRandom::urlsafe_base64
   end
