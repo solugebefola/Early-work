@@ -10,7 +10,7 @@
 <br><br>
   <% if signed_in? %>
     <form action="<%= session_url %>" method="post">
-      <input name="_method" type="hidden" method="delete">
+      <input name="_method" type="hidden" value="delete">
       <%= auth_token %>
       <input type="Submit" value="Sign out">
     </form>
