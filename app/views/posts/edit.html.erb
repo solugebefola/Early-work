@@ -1,13 +1,15 @@
-<h1>Make a new Post</h1>
+<h1>Edit <%=@post.title%> On <%=@post.sub.title%> </h1>
 
-<form action="<%= posts_url %>" method="POST">
-  <input type="hidden" name="post[sub_id]" value="<%=@post.sub_id%>">
+<form action="<%= post_url(@post)%>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
   <%= auth_token %>
   <label>Title
     <input
       type="text"
       name="post[title]"
-      id="post_title">
+      id="post_title"
+      value="<%= @post.title %>">
+
   </label>
   <br><br>
 
@@ -15,6 +17,7 @@
     <textarea
       name="post[content]"
       id="post_content">
+<%= @post.content %>
     </textarea>
   </label>
 
@@ -22,8 +25,9 @@
     <input
       type="text"
       name="post[url]"
-      id="post">
+      id="post"
+      value="<%= @post.url %>">
   </label>
 
-  <input type="submit" value="Add post">
+<input type="submit" value="Edit post">
 </form>

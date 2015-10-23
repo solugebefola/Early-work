@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
     def is_author?
       @post = Post.find(params[:id])
-      current_user.id == post.author_id
+      current_user.id == @post.author_id
     end
 
 
@@ -15,19 +15,31 @@ class PostsController < ApplicationController
     end
 
     def create
-
+      @post = Post.new(post_params)
+      @post.sub_id = params[:post][:sub_id]
+      @post.author_id = current_user.id
+      if @post.save!
+        redirect_to post_url(@post.id)
+      else
+        flash.now[:errors] = "Invalid Post"
+        render :new
+      end
     end
 
     def edit
-
+      @post = Post.find(params[:id])
+      render :edit
     end
 
     def show
-
+      @post = Post.find(params[:id])
+      render :show
     end
 
     def update
-
+      @post = Post.find(params[:id])
+      @post.update(post_params)
+      render :show
     end
 
     def destroy
@@ -37,8 +49,11 @@ class PostsController < ApplicationController
 
     private
       def post_params
-        params.require(:post).permit(:sub_id,:author_id,:title,:content,
-        :url)
+        params.require(:post).permit( :sub_id,
+                                      :author_id,
+                                      :title,
+                                      :content,
+                                      :url)
       end
 
 end

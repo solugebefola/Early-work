@@ -16,7 +16,7 @@ class SubsController < ApplicationController
     @sub = Sub.new(sub_params)
     @sub.mod_id = current_user.id
     if @sub.save!
-      render :show
+      redirect_to sub_url(@sub)
     else
       flash.now[:errors] = "Invalid input"
       render :new

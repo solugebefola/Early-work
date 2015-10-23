@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   resource :session
 
   resources :subs do
-      resources :posts, except: [:index]
+    resources :posts, only: [:new]
   end
+
+  resources :posts, except: [:index]
 
 
 end
