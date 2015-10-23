@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "Signed in!"
       redirect_to user_url(@user.id)
     else
-      flash.now[:errors] = @user.errors.full_messages
+      flash.now[:errors] = "Email password combo invalid"
       render :new
     end
   end
