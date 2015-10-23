@@ -14,6 +14,18 @@ class Sub < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :sub_posts,
+    class_name: "SubPost",
+    foreign_key: :sub_id,
+    primary_key: :id
+  )
+
+  has_many(
+    :posts,
+    through: :sub_posts,
+    source: :post
+  )
 
 
 end

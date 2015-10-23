@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023181553) do
+ActiveRecord::Schema.define(version: 20151023200929) do
+
+  create_table "post_subs", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "sub_id"
+  end
+
+  add_index "post_subs", ["post_id"], name: "index_post_subs_on_post_id"
+  add_index "post_subs", ["sub_id"], name: "index_post_subs_on_sub_id"
 
   create_table "posts", force: :cascade do |t|
     t.integer  "sub_id"
