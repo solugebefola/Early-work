@@ -12,17 +12,17 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true} #check this
 
 
-  def generate_session_token
+  def self.generate_session_token
     SecureRandom::urlsafe_base64
   end
 
   def reset_session_token!
-    self.session_token = generate_session_token
+    self.session_token = User.generate_session_token
     self.save
   end
 
   def ensure_session_token
-    self.session_token ||= generate_session_token
+    self.session_token ||= User.generate_session_token
     self.save
   end
 
