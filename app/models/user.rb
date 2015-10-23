@@ -2,11 +2,12 @@ class User < ActiveRecord::Base
   validates :email, :password_digest, presence: true, uniqueness: true
 
   def self.generate_session_token
-    SecureRandom::urlsafe_base64.new
+    SecureRandom::urlsafe_base64
   end
 
   def reset_token!
     self.session_token = User.generate_session_token
+    self.save!
   end
 
   def password=(password)

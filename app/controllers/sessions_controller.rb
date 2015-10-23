@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
     if @user
       sign_in(@user)
       flash[:notice] = "Signed in!"
-      redirect_to user_url(@user.id)
+      # redirect_to user_url(@user.id)
+      render json: "you're in"
     else
       flash.now[:errors] = "Email password combo invalid"
       render :new

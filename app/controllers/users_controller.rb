@@ -11,7 +11,8 @@ class UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       flash[:notice] = "Welcome to da clone"
-      redirect_to user_url(@user.id)
+      render json: "You're in"
+      # redirect_to user_url(@user.id)
     else
       flash.now[:errors] = @user.errors.full_messages
     end
