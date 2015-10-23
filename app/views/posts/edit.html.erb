@@ -1,4 +1,4 @@
-<h1>Edit <%=@post.title%> On <%=@post.sub.title%> </h1>
+<h1>Edit <%=@post.title%></h1>
 
 <form action="<%= post_url(@post)%>" method="POST">
   <input type="hidden" name="_method" value="PATCH">
@@ -29,7 +29,7 @@
       value="<%= @post.url %>">
   </label>
 
-  <%= render "checkbox", subs: @subs %>
+  <%= render "checkbox", subs: @subs, post: @post %>
 
 <input type="submit" value="Edit post">
 </form>

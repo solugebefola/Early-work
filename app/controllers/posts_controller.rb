@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     def new
       @subs = Sub.all
       @post = Post.new
-      @post.sub_id = params[:sub_id]
+      @post.sub_ids = params[:sub_id]
       render :new
     end
 
@@ -56,7 +56,8 @@ class PostsController < ApplicationController
                                       :author_id,
                                       :title,
                                       :content,
-                                      :url)
+                                      :url,
+                                      :sub_ids)
       end
 
 end
