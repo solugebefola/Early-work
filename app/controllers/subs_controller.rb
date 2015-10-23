@@ -1,6 +1,8 @@
 class SubsController < ApplicationController
   before_action :user_is_mod?, only: [:edit,:update]
 
+  before_action :signed_in?
+
   def user_is_mod?
     current_user.id == params[:mod_id]
   end

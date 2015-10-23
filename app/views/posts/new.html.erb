@@ -1,0 +1,28 @@
+<h1>Make a new Post On <%=@post.sub.title%> </h1>
+
+<form action="<%= new_post_url%>" method="POST">
+  <%= auth_token %>
+  <label>Title
+    <input
+      type="text"
+      name="post[title]"
+      id="post_title">
+  </label>
+  <br><br>
+
+  <label>Content (optional)
+    <textarea
+      name="post[content]"
+      id="post_content">
+    </textarea>
+  </label>
+
+  <label>URL (optional)
+    <input
+      type="text"
+      name="post[url]"
+      id="post_url">
+  </label>
+
+<input type="submit" value="Add post">
+</form>

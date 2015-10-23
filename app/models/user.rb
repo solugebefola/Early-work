@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   has_many(
     :subs,
-    class_name: "Sub"
+    class_name: "Sub",
     foreign_key: :mod_id,
     primary_key: :id
   )

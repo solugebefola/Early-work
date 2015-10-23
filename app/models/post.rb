@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  validates :author_id, :sub_id, :title, presence: true 
 
   belongs_to(
     :sub,
