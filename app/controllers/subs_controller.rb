@@ -7,10 +7,18 @@ class SubsController < ApplicationController
 
   def new
     @sub = Sub.new
-    @sub.mod_id = current_user.id
+    render :new
   end
 
   def create
+    @sub = Sub.new(sub_params)
+    @sub.mod_id = current_user.id
+    if @sub.save!
+      render :show
+    else
+      flash.now[:errors] = "Invalid input"
+      render :new
+    end
   end
 
   def edit
@@ -28,7 +36,14 @@ class SubsController < ApplicationController
     end
   end
 
+  def show
+    @sub = Sub.find(params[:id])
+    render :show
+  end
+
   def index
+    @subs = Sub.all
+    render :index
   end
 
 
