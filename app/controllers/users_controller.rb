@@ -15,8 +15,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    byebug
-    @user.password = params[:password]
+    @user.password = params[:user][:password]
     if @user.save
       sign_in!(@user)
       redirect_to user_url(@user.id)
@@ -52,7 +51,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email)
   end
 
 end
