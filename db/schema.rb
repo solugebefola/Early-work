@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023161926) do
+ActiveRecord::Schema.define(version: 20151023174705) do
 
   create_table "subs", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20151023161926) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "subs", ["mod_id"], name: "index_subs_on_mod_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

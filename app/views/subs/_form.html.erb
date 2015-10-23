@@ -1,0 +1,29 @@
+<% var = subby.persisted? %>
+
+<form action="<%= var ? sub_url(subby) : subs_url %>" method="POST">
+  <% if var %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <%= auth_token %>
+
+  <label>Title<br>
+    <input
+      type="text"
+      name="sub[title]"
+      id="sub_title" value ="<%= subby.title %>">
+  </label>
+
+<br><br><br>
+
+  <label>description<br>
+    <textarea
+      name="sub[description]"
+      id="sub_description">
+      <%= subby.description%>
+    </textarea>
+  </label>
+
+<br>
+  <input type="submit" value="<%= var ? "Edit" : "Create"%>">
+</form>

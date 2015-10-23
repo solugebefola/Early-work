@@ -1,5 +1,5 @@
 class SubsController < ApplicationController
-  before_action :user_is_mod?, only: [:edit]
+  before_action :user_is_mod?, only: [:edit,:update]
 
   def user_is_mod?
     current_user.id == params[:mod_id]
@@ -14,6 +14,18 @@ class SubsController < ApplicationController
   end
 
   def edit
+    @sub = Sub.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @sub = Sub.find(params[:id])
+    if @sub.update(sub_params)
+      render :show
+    else
+      flash.now[:errors] = "Invalid edit"
+      render :edit
+    end
   end
 
   def index
