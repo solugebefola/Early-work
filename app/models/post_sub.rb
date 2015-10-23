@@ -1,5 +1,5 @@
 class PostSub < ActiveRecord::Base
-  validates :sub_id, :post_id, presence: true
+  validates :sub, :post, presence: true
   # validate_uniqueness_of :post_id, scope: [:sub_id]
 
   belongs_to(
