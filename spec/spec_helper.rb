@@ -116,3 +116,8 @@ end
 def sign_out
   click_button("Sign Out")
 end
+
+def make_a_comment(string)
+  fill_in "Comment", with: string
+  click_button("Leave a Comment")
+end

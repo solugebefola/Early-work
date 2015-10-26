@@ -9,6 +9,22 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
+  has_many(
+    :comments,
+    class_name: "UserComment",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+
+  has_many(
+    :authored_comments,
+    class_name: "UserComment",
+    foreign_key: :commenter_id,
+    primary_key: :id
+  )
+
+
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
