@@ -10,7 +10,7 @@
   <% end %>
   <% if show %>
       <%= link_to "Edit", edit_goal_url(goal) %>
-    <form action="<%= goals_url %>" method="POST">
+    <form action="<%= goal_url(goal) %>" method="POST">
       <%= auth_token %>
       <input type="hidden" name="_method" value="DELETE">
       <button>Delete</button></li>

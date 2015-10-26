@@ -7,7 +7,9 @@ feature "the show page" do
     5.times do |eye|
       user.goals.create!(title: "jump high" + eye.to_s, exposure: "public")
     end
-    Goal.last.exposure = "private"
+    g = Goal.last
+    g.exposure = "private"
+    g.save!
     sign_in_as_bobert
     visit user_url(user)
   end
@@ -24,9 +26,8 @@ feature "the show page" do
   end
 
   scenario "it does not display private goals to other users" do
-    user = User.find_by(username: "bobert")
     sign_up("boberta")
-    visit user_url(user)
+    visit user_url(User.first)
     expect(page).to have_content("jump high0")
     expect(page).to_not have_content("jump high4")
   end
@@ -40,8 +41,8 @@ feature "the show page" do
   end
 
   scenario "should not have edit goal links on other user's page" do
-    sign_in("boberta")
-    visit user_url(user)
+    sign_up("boberta")
+    visit user_url(User.first)
     expect(page).to_not have_content("Edit")
   end
 
