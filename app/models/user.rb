@@ -16,6 +16,15 @@ class User < ActiveRecord::Base
     self.session_token = User.generate_token
   end
 
+  def self.find_by_credentials(username, password)
+    user = User.find_by(username: username)
+    return nil unless user
+    user.valid_password?(password) ? user : nil
+  end
+
+  def valid_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
+  end
 
   private
     def ensure_session_token
