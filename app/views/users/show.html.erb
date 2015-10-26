@@ -1,12 +1,20 @@
+<% show = (current_user.id == @user.id) %>
+
 <h1><%= @user.username %></h1>
 
-<%= link_to "Add a New Goal", new_goal_url %>
-
+<%= link_to "Add a New Goal", new_goal_url %><br><br>
+<ul>
 <% @user.goals.each do |goal| %>
-  <%= goal.title %>
-  <%= link_to "Edit", edit_goal_url(goal) %>
-  <form action="<%= goals_url %>" method="POST">
-    <input type="hidden" name="_method" value="DELETE">
-    <button>Delete</button>
-  </form>
+  <% if show || goal.exposure == "public" %>
+    <li><%= goal.title %>
+  <% end %>
+  <% if show %>
+      <%= link_to "Edit", edit_goal_url(goal) %>
+    <form action="<%= goals_url %>" method="POST">
+      <%= auth_token %>
+      <input type="hidden" name="_method" value="DELETE">
+      <button>Delete</button></li>
+    </form>
+  <% end %>
 <% end %>
+</ul>
