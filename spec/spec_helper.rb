@@ -112,3 +112,7 @@ end
 def sign_in_as_bobert
   sign_in("bobert")
 end
+
+def sign_out
+  click_button("Sign Out")
+end
