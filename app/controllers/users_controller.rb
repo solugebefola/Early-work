@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+  before_action only: [:show] do
+    redirect_to new_session_url unless logged_in?
+  end
 
   def new
     @user = User.new

@@ -17,6 +17,10 @@ class SessionsController < ApplicationController
       flash.now[:errors] = ["Invalid username and/or password"]
       render :new
     end
+  end
 
+  def destroy
+    logout
+    redirect_to new_session_url
   end
 end

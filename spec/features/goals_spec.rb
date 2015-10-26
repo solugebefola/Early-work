@@ -12,12 +12,19 @@ feature "the show page" do
     visit user_url(user)
   end
 
+  scenario "does not show the goal page unless signed in" do
+    sign_out
+    visit user_url(User.first)
+    expect(page).to have_content "Sign In"
+  end
+
   scenario "it displays all the user's goals to the user" do
     expect(page).to have_content("jump high0")
     expect(page).to have_content("jump high4")
   end
 
   scenario "it does not display private goals to other users" do
+    user = User.find_by(username: "bobert")
     sign_up("boberta")
     visit user_url(user)
     expect(page).to have_content("jump high0")
@@ -54,7 +61,7 @@ feature "the show page" do
   end
 
   scenario "clicking delete should remove goal" do
-    page.first(:link,"Delete").click
+    page.first(:button,"Delete").click
     expect(page).to_not have_content("jump high0")
   end
 end

@@ -92,7 +92,7 @@ RSpec.configure do |config|
 end
 
 def sign_up(username)
-  visit "users/new"
+  visit new_user_url
   fill_in "Username", with: username
   fill_in "Password", with: 'password'
   click_button 'Sign Up'
@@ -103,7 +103,7 @@ def sign_up_as_bobert
 end
 
 def sign_in(username)
-  visit "/session/new"
+  visit new_session_url
   fill_in "Username", with: username
   fill_in "Password", with: 'password'
   click_button 'Sign In'
