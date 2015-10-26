@@ -65,4 +65,9 @@ feature "the show page" do
     page.first(:button,"Delete").click
     expect(page).to_not have_content("jump high0")
   end
+
+  scenario "clicking 'Complete' marks a goal as complete" do
+    page.first(:button, "Mark as Completed!").click
+    expect(page).to have_content("Complete!")
+  end
 end

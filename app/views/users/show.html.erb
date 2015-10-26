@@ -6,14 +6,23 @@
 <ul>
 <% @user.goals.each do |goal| %>
   <% if show || goal.exposure == "public" %>
-    <li><%= goal.title %>
+    <li><%= goal.title %><%= goal.completed ? " Complete!" : "" %>
   <% end %>
+
   <% if show %>
-      <%= link_to "Edit", edit_goal_url(goal) %>
+    <%= link_to "Edit", edit_goal_url(goal) %>
+
     <form action="<%= goal_url(goal) %>" method="POST">
       <%= auth_token %>
       <input type="hidden" name="_method" value="DELETE">
       <button>Delete</button></li>
+    </form>
+
+    <form action="<%= goal_url(goal) %>" method="POST">
+      <%= auth_token %>
+      <input type="hidden" name="_method" value="PATCH">
+      <input type="hidden" name="goal[completed]" value="true">
+      <button>Mark as Completed!</button></li>
     </form>
   <% end %>
 <% end %>

@@ -29,7 +29,7 @@ class GoalsController < ApplicationController
     else
       flash.now[:errors] = @goal.errors.full_messages
       render :edit
-    end	
+    end
   end
 
   def destroy
@@ -40,6 +40,6 @@ class GoalsController < ApplicationController
 
   private
     def goal_params
-      params.require(:goal).permit(:title, :exposure)
+      params.require(:goal).permit(:title, :exposure, :completed)
     end
 end
