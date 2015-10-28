@@ -4,32 +4,38 @@
     type="hidden"
     name="authenticity_token"
     value="<%= form_authenticity_token %>">
+
   <% if cat.persisted? %>
   <input type="hidden" name="_method" value="PATCH">
   <% end %>
-  <label for="cat_name">Cat's Name</label>
-  <input type="text" name="cat[name]" value="<%= cat.name %>" id="cat_name">
-  <br><br>
-  <label for="cat_birth_date">Cat's Birthday</label>
-  <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>" id="cat_birth_date">
-  <br><br>
-  <label for="cat_sex">Male or Female?</label>
-  <br>
+
+  <label>Cat's Name
+  <input type="text" name="cat[name]" value="<%= cat.name %>">
+  </label><br><br>
+
+  <label>Cat's Birthday
+  <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>">
+  </label><br><br>
+
+  <label>Female
   <input type="radio" name="cat[sex]" id="cat_sex_female" value="F" <%= cat.sex == "F" ? "checked" : "" %>>
-  <label for="cat_sex_female">Female</label>
+  </label>
+  <label>Male
   <input type="radio" name="cat[sex]" id="cat_sex_male" value="M" <%= cat.sex == "M" ? "checked" : "" %>>
-  <label for="cat_sex_male">Male</label>
-  <br><br>
-  <label for="cat_color">Cat's Color</label>
-  <select name="cat[color]" id="cat_color" value="<%= cat.color %>">
+  </label><br><br>
+
+  <label>Cat's Color
+  <select name="cat[color]" value="<%= cat.color %>">
     <option value="" selected="selected"></option>
     <% Cat::COLOR.each do |color| %>
       <option value=<%= color %> <%= cat.color == color ? "selected" : "" %>><%= color.capitalize %></option>
     <% end %>
   </select>
-  <br><br>
-  <label for="cat_description">Describe your Cat</label>
+  </label><br><br>
+
+  <label>Describe your Cat
   <input type="textarea" name="cat[description]" value="<%= cat.description %>" id="cat_description"></textarea>
-  <br> <br>
+  </label><br><br>
+  
   <input type="submit" value=<%= cat.persisted? ? "Edit cat" : "Create Cat" %>>
 </form>

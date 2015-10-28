@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
   def log_in_user!(user)
     user.reset_session_token!
     session[:session_token] = user.session_token
-    token = Token.create!()
     redirect_to user_url(user.id)
   end
 
