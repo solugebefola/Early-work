@@ -11,9 +11,7 @@ module Phase5
     # passed in as a hash to `Params.new` as below:
     def initialize(req, route_params = {})
       @req = req
-      @route_params = route_params
-      @params = {}
-      @params = @params.merge(@route_params)
+      @params = route_params
       parse_www_encoded_form(@req.query_string) if @req.query_string
       parse_www_encoded_form(@req.body) if @req.body
     end
