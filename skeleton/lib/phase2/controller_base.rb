@@ -28,7 +28,7 @@ module Phase2
       @res.status = 302
       @res["Location"] = url
     end
-    
+
     private
     def check_if_response_built
       raise "Content already rendered" if already_built_response?
