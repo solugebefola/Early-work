@@ -13,13 +13,13 @@ module Phase5
       @req = req
       @route_params = route_params
       @params = {}
-      parse_www_encoded_form(req.query_string)
-      parse_www_encoded_form(req.body)
+      @params = @params.merge(@route_params)
+      parse_www_encoded_form(@req.query_string) if @req.query_string
+      parse_www_encoded_form(@req.body) if @req.body
     end
 
     def [](key)
-      key = key.to_s
-      @params[key]
+      @params[key.to_s] || @params[key.to_sym]
     end
 
     # this will be useful if we want to `puts params` in the server log
@@ -36,21 +36,13 @@ module Phase5
     # should return
     # { "user" => { "address" => { "street" => "main", "zip" => "89436" } } }
     def parse_www_encoded_form(www_encoded_form)
+
       decoded = URI.decode_www_form(www_encoded_form)
-      nested = {}
       decoded.each do |(key, value)|
-        key_array = parse(key)
-
-        nested[key_array.first] ||= {}
-        previous_key = key_array.first
-
-        key_array.drop(1).each do |real_key|
-          previous_key[real_key] ||= {}
-          previous_key = real_key
-        end
-        key_array.last 
-
+        keys = parse_key(key)
+        nested = nested_hash(keys, value, @params)
       end
+
     end
 
     # this should return an array
@@ -58,6 +50,21 @@ module Phase5
     def parse_key(key)
       key.gsub(/(\[|\])/, " ").split(/\s+/)
     end
+
+    def nested_hash(key_array, value, hash)
+      nested = hash
+      outer_nest = nested
+      kal = key_array.length - 1
+
+        key_array.take(kal).each do |key|
+          outer_nest[key] ||= {}
+          outer_nest = outer_nest[key]
+        end
+        outer_nest[key_array.last] = value
+
+      nested
+    end
+
 
 
   end
