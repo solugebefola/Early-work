@@ -1,9 +1,6 @@
 
 <form action="<%= cat.persisted? ? cat_url : cats_url  %>" method="POST">
-  <input
-    type="hidden"
-    name="authenticity_token"
-    value="<%= form_authenticity_token %>">
+  <%= auth_token %>
 
   <% if cat.persisted? %>
   <input type="hidden" name="_method" value="PATCH">
@@ -18,10 +15,10 @@
   </label><br><br>
 
   <label>Female
-  <input type="radio" name="cat[sex]" id="cat_sex_female" value="F" <%= cat.sex == "F" ? "checked" : "" %>>
+  <input type="radio" name="cat[sex]"value="F" <%= cat.sex == "F" ? "checked" : "" %>>
   </label>
   <label>Male
-  <input type="radio" name="cat[sex]" id="cat_sex_male" value="M" <%= cat.sex == "M" ? "checked" : "" %>>
+  <input type="radio" name="cat[sex]"value="M" <%= cat.sex == "M" ? "checked" : "" %>>
   </label><br><br>
 
   <label>Cat's Color
@@ -34,8 +31,8 @@
   </label><br><br>
 
   <label>Describe your Cat
-  <input type="textarea" name="cat[description]" value="<%= cat.description %>" id="cat_description"></textarea>
+  <input type="textarea" name="cat[description]" value="<%= cat.description %>"></textarea>
   </label><br><br>
-  
+
   <input type="submit" value=<%= cat.persisted? ? "Edit cat" : "Create Cat" %>>
 </form>
