@@ -1,27 +1,31 @@
 <h1>Hello! My name is <%= @cat.name %></h1>
+
 <table>
-
-
   <% @cat.attributes.each do |k,v| %>
     <tr><td><%= "#{k.capitalize}" %><td> <%= "#{v}" %>
   <% end %>
-
 </table>
 
 <h3>Rental Requests for <%= @cat.name %></h3>
 <table>
   <tr><td>START DATE<td>END DATE<td>REQUESTING USER<td>
+
   <% @cat_r_r.each do |rental| %>
-    <tr><td> <%= rental.start_date %> <td> <%= rental.end_date %> <td> <%= rental.user.user_name %><td> <%= rental.status %><td>
+
+    <tr><td> <%= rental.start_date %>     <td> <%= rental.end_date %>
+        <td> <%= rental.user.user_name %> <td> <%= rental.status %><td>
+
       <% if rental.pending? && owned_by_user? %>
         <form action="<%= approve_cat_rental_request_url(rental.id) %>">
             <%= auth_token %>
-
-          <input type="submit" value="Approve Rental">
+          <button>Approve Rental"</button>
         </form><td>
+
         <form action="<%= deny_cat_rental_request_url(rental.id) %>">
-          <input type="submit" value="Deny Rental">
+          <%= auth_token %>
+          <button>"Deny Rental"</button>
         </form>
+
       <% end %>
   <% end %>
 </table>

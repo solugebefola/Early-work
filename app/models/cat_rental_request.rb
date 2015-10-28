@@ -9,7 +9,11 @@ class CatRentalRequest < ActiveRecord::Base
 
   def approve!
     self.status = 'APPROVED'
-    requests = CatRentalRequest.where("(cat_id = ? AND id != ? AND status != 'DENIED') AND (start_date <= ? AND end_date >= ?)", self.cat_id, self.id, self.end_date, self.start_date)
+    requests = CatRentalRequest.where("cat_id = ?", self.cat_id)
+                                .where("id != ?", self.id)
+                                .where("status != 'DENIED'")
+                                .where("start_date <= ?", self.end_date)
+                                .where("end_date >= ?", self.start_date)
     requests.each do |request|
       if request.status == 'PENDING'
         request.status = 'DENIED'
