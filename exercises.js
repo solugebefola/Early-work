@@ -312,15 +312,18 @@ var merge = function (larr, rarr) {
 var subsets = function (arr){
   var subs = [];
   if(arr.length == 0){
-    return [];
+    return [[]];
   }
   else{
-    for(var i = 0; i < arr.length; i++){
-      var arrDup = arr.slice(0);
-      arrDup.splice(i,1);
-      subs.push(subsets(arrDup));
+    for(var j = 0; j < arr.length; j++){
+      var ardup = arr.slice();
+      var lastval = ardup.splice(j,1);
+      var arr2 = subsets(ardup)
+      for (var i = 0; i < arr2.length; i++){
+        arr2[i] = arr2[i].concat(lastval);
+      }
+      subs = arr2.concat(subsets(ardup))
     }
-    subs.push(arr);
   }
   return subs;
 };
