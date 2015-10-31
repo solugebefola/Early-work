@@ -28,8 +28,10 @@ Board = function(){
     var xCount = 0;
     var oCount = 0;
     for(var i=0; i < 3; i++){
-      
+
     }
   }
 
 }
+
+module.exports = Board;
