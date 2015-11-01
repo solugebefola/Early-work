@@ -121,4 +121,4 @@ Board.prototype.wonBackwardDiagonal = function() {
 
 
 
-// module.exports = Board;
+module.exports = Board;
