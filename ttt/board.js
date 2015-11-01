@@ -48,4 +48,28 @@ Board.prototype.wonColumn = function() {
   return "_";
 };
 
+Board.prototype.wonRow = function() {
+  var xCount = 0;
+  var oCount = 0;
+  for(var i=0; i < 3; i++){
+    for(var j=0; j < 3; j++){
+      if(this.grid[i][j] == "x"){
+        xCount += 1;
+      }else if (this.grid[i][j] == "o"){
+        oCount += 1;
+      }
+    }if(xCount === 3){
+      return "x";
+    }else if (oCount === 3){
+      return "o";
+    }else{
+      xCount = 0;
+      oCount = 0;
+    }
+  }
+  return "_";
+};
+
+
+
 // module.exports = Board;
