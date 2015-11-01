@@ -1,18 +1,7 @@
 Board = function(){
-  this.grid = [["_", "_", "_"],["_", "_", "_"],["_", "_", "_"]],
+  this.grid = [["_", "_", "_"],["_", "_", "_"],["_", "_", "_"]]
 
-  this.placeMark = function(pos, mark){
-  },
-
-  this.checkColumns = function() {
-    var xCount = 0;
-    var oCount = 0;
-    for(var i=0; i < 3; i++){
-
-    }
-  }
-
-}
+};
 Board.prototype.won = function(){
 
 };
@@ -37,5 +26,26 @@ Board.prototype.placeMark = function(pos, mark){
   }
 }
 
+Board.prototype.wonColumn = function() {
+  var xCount = 0;
+  var oCount = 0;
+  for(var i=0; i < 3; i++){
+    for(var j=0; j < 3; j++){
+      if(this.grid[j][i] == "x"){
+        xCount += 1;
+      }else if (this.grid[j][i] == "o"){
+        oCount += 1;
+      }
+    }if(xCount === 3){
+      return "x";
+    }else if (oCount === 3){
+      return "o";
+    }else{
+      xCount = 0;
+      oCount = 0;
+    }
+  }
+  return "_";
+};
 
-module.exports = Board;
+// module.exports = Board;
