@@ -38,3 +38,30 @@ var curriedSum = function (numArgs) {
 
   return _curriedSum.myBind(this);
 };
+
+Function.prototype.inherits = function (ParentClass){
+  var args = Array.prototype.slice.call(arguments);
+  var Surrogate = function(){  };
+  Surrogate.prototype = ParentClass.prototype;
+  this.prototype = new Surrogate();
+  this.prototype.constructor = this;
+
+  ParentClass.apply(this.prototype, args.slice(1));
+}
+
+function MovingObject (pos) {
+  this.pos = pos;
+};
+
+function Ship () {};
+Ship.inherits(MovingObject, 2);
+
+function Asteroid () {};
+Asteroid.inherits(MovingObject);
+
+MovingObject.prototype.move = function () {this.pos += 1;};
+
+aShip = new Ship();
+console.log(aShip.pos)
+aShip.move()
+console.log(aShip.pos)
