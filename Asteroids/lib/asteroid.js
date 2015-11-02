@@ -3,7 +3,7 @@
   window.Asteroids = {};
   }
   var Asteroid = Asteroids.Asteroid = function(obj) {
-    var velo = Asteroids.Util.randomVec(Math.random() * 100);
+    var velo = Asteroids.Util.randomVec(Math.random() * 10);
     this.COLOR = "#0ee";
     this.RADIUS = 100;
 
