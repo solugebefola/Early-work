@@ -3,6 +3,7 @@
   window.Asteroids = {};
   }
 
+
   var Game = Asteroids.Game = function (DIM_X, DIM_Y, NUM_ASTEROIDS) {
     this.DIM_X = DIM_X;
     this.DIM_Y = DIM_Y;
@@ -40,5 +41,6 @@
       asty.move();
     })
   }
+
 
 })();

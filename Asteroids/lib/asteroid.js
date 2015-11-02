@@ -4,7 +4,7 @@
   }
   var Asteroid = Asteroids.Asteroid = function(obj) {
     var velo = Asteroids.Util.randomVec(Math.random() * 100);
-    this.COLOR = "#eee";
+    this.COLOR = "#0ee";
     this.RADIUS = 100;
 
     Asteroids.MovingObject.call(this,
