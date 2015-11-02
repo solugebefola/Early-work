@@ -3,11 +3,24 @@ Board = function(){
 
 };
 Board.prototype.won = function(){
-
+  var wonCheck = [
+    this.wonColumn,
+    this.wonRow,
+    this.wonForwardDiagonal,
+    this.wonBackwardDiagonal
+  ];
+  for(var i = 0; i < 4; i++){
+    if( wonCheck[i].bind(this)() != "_"){
+      return wonCheck[i].bind(this)();
+    }
+  }
+  return false;
 };
 
 Board.prototype.winner = function(){
-
+  if (this.won()){
+    return this.won();
+  }
 };
 
 Board.prototype.isEmpty = function(){
@@ -121,4 +134,4 @@ Board.prototype.wonBackwardDiagonal = function() {
 
 
 
-module.exports = Board;
+// module.exports = Board;
