@@ -3,18 +3,18 @@
   window.Asteroids = {};
   }
   var Asteroid = Asteroids.Asteroid = function(obj) {
-    var velo = Util.randomVec(Math.random() * 100);
-    this.COLOR = #eee;
+    var velo = Asteroids.Util.randomVec(Math.random() * 100);
+    this.COLOR = "#eee";
     this.RADIUS = 100;
 
-    MovingObject.call(this,
+    Asteroids.MovingObject.call(this,
        {
         pos: obj.pos,
         vel: velo,
         radius: this.RADIUS,
         color: this.COLOR
-      })
-  }
+      });
+  };
 
-  Util.inherits(Asteroid, Asteroids.MovingObject)
+  Asteroids.Util.inherits(Asteroid, Asteroids.MovingObject);
 })();
