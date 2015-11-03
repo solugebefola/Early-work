@@ -3,11 +3,11 @@
 .content {
   min-height: 200px;
   background: #fff;
-  border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   width: 900px;
   margin: auto;
+  position: relative;
 }
 
 .content-sidebar {
@@ -22,5 +22,15 @@
   float: right;
   width: 620px;
   padding: 20px;
-  background: blue;
+}
+
+.content:before {
+  content: "";
+  display: block;
+  width: 1px;
+  background: #ccc;
+  position: absolute;
+  left: 240px;
+  top: 0;
+  bottom: 0;
 }
