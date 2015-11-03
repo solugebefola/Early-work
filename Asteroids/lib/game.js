@@ -21,15 +21,9 @@
   };
 
   Game.prototype.addOneAsteroid = function () {
-    var asty = new Asteroids.Asteroid(
-      { pos:
-        [
-          (Math.random() * this.DIM_X),
-          (Math.random() * this.DIM_Y)
-        ]
-      }
+    return new Asteroids.Asteroid(
+      { pos: this.randomPosition() }
     );
-    return asty;
   };
 
   Game.prototype.draw = function (ctx) {
@@ -75,4 +69,12 @@
       return (typeof element !== "number");
     });
   };
+
+  Game.prototype.randomPosition = function () {
+    return [
+      (Math.random() * this.DIM_X),
+      (Math.random() * this.DIM_Y)
+    ];
+  };
+
 })();
