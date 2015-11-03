@@ -6,8 +6,8 @@
   var Ship = Asteroids.Ship = function () {
     this.RADIUS = 10;
     this.COLOR = "#000";
-    this.vel = [0,0]; 
-  }
+    this.vel = [0,0];
+  };
 
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
 

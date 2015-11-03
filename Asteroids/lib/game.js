@@ -15,19 +15,23 @@
     var allAsteroids = [];
     var that = this;
     for(var i = 0; i < this.NUM_ASTEROIDS; i++){
-      allAsteroids.push(function() {
-        var asty = new Asteroids.Asteroid(
-          { pos:
-              [
-                (Math.random() * that.DIM_X),
-                (Math.random() * that.DIM_Y)
-              ]
-          });
-        return asty;
-      }());
+      allAsteroids.push(this.addOneAsteroid());
     }
     return allAsteroids;
   };
+
+  Game.prototype.addOneAsteroid = function () {
+    var asty = new Asteroids.Asteroid(
+      { pos:
+        [
+          (Math.random() * this.DIM_X),
+          (Math.random() * this.DIM_Y)
+        ]
+      }
+    );
+    return asty;
+  };
+
   Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
     this.allAsteroids = this.CheckCollisions();
@@ -50,30 +54,20 @@
             (pos[1] + this.DIM_Y) % (this.DIM_Y)];
   };
 
-  Game.prototype.distanceBetween = function (pos1, pos2) {
-    return Math.sqrt(
-              Math.pow((pos1[0] - pos2[0]), 2) +
-              Math.pow((pos1[1] - pos2[1]), 2)
-            );
-  };
+
 
   Game.prototype.CheckCollisions = function () {
     var asties = this.allAsteroids;
     for( var i = 0; i < this.allAsteroids.length; i++){
       for( var j = 0; j < this.allAsteroids.length; j++){
-        var asty1 = asties[i];
-        var asty2 = asties[j];
-        if (i != j &&
-          typeof asty1 !== "number" &&
-          typeof asty2 !== "number") {
-            if ((asty1.radius + asty2.radius) >=
-                this.distanceBetween(asty1.pos, asty2.pos)) {
-                  asties[i] = -1;
-                  asties[j] = -1;
-            }
-
-        }else{
-
+        if (
+          i != j &&
+          asties[i] != -1 &&
+          asties[j] != -1 &&
+          asties[i].CollideWith(asties[j])
+        ) {
+          asties[i] = -1;
+          asties[j] = -1;
         }
       }
     }
