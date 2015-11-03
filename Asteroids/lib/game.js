@@ -66,8 +66,7 @@
           asties[j] != -1 &&
           asties[i].CollideWith(asties[j])
         ) {
-          asties[i] = -1;
-          asties[j] = -1;
+        
         }
       }
     }
