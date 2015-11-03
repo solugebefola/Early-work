@@ -4,7 +4,7 @@
   border-radius: 5px;
   border: 1px solid #000;
   position: relative;
-  margin-top: -50%;
+  margin-top: -125px;
 }
 
 .profile-nav ul {
@@ -16,5 +16,19 @@
 .profile-nav a {
   border-top: 1px solid #ccc;
   display: block;
-  padding: 5px 0px;
+  padding: 5px;
+}
+
+.profile-name {
+  font-weight: 700;
+  margin: 25px 0;
+}
+
+.profile-info {
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.profile-nav a:hover {
+  background: #eee;
 }
