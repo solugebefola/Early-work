@@ -5,6 +5,7 @@ body {
   font-weight: 400;
   font-size: 24px;
   border-top: 1px solid #ccc;
+  background: #eee;
 }
 
 .header {
@@ -12,6 +13,8 @@ body {
   color: #fff;
   font-size: 16px;
   border-bottom: 1px solid #ccc;
+  position: relative;
+  z-index: 1;
 }
 
 .header-logo {
@@ -37,11 +40,11 @@ body {
   background: #000;
 }
 
-.header-nav a:hover > ul {
+.notifications-link:hover .notifications-list {
   display: block;
 }
 
-.header-nav a:hover > .badge {
+.notifications-link:hover .badge {
   background: #f00;
 }
 
