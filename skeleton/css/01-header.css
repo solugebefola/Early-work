@@ -4,25 +4,23 @@ body {
   font-family: Roboto;
   font-weight: 400;
   font-size: 24px;
+  border-top: 1px solid #ccc;
 }
 
-header {
+.header {
   background: #f00;
   color: #fff;
   font-size: 16px;
   border-bottom: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-
 }
 
-
-header h1 {
+.header-logo {
   font-weight: 700;
   float: left;
   border-right: 1px solid #ccc;
 }
 
-header-nav {
+.header-nav {
   width: 900px;
   margin: auto;
   display: block;
@@ -30,16 +28,29 @@ header-nav {
   border-right: 1px solid #ccc;
 }
 
-header a {
+.header-nav a {
   padding: 10px 20px;
   display: block;
 }
 
-header ul {
+.header-nav a:hover {
+  background: #000;
+}
+
+.header-nav a:hover > ul {
+  display: block;
+}
+
+.header-nav a:hover > .badge {
+  background: #f00;
+}
+
+.header-list {
   float: right;
 }
 
-header li {
+.header-list > li {
+  position: relative;
   float: left;
   border-left: 1px solid #ccc;
 }
