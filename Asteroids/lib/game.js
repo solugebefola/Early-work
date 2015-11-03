@@ -9,7 +9,7 @@
     this.DIM_Y = DIM_Y;
     this.NUM_ASTEROIDS = NUM_ASTEROIDS;
     this.allAsteroids = this.addAsteroids();
-  }
+  };
 
   Game.prototype.addAsteroids = function() {
     var allAsteroids = [];
@@ -26,17 +26,14 @@
         return asty;
       }());
     }
-    return allAsteroids
-  }
-
+    return allAsteroids;
+  };
   Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
-    this.CheckCollisions()
+    this.allAsteroids = this.CheckCollisions();
     this.allAsteroids.forEach(function (asty) {
-      if (typeof(asty) !== "number") {
-        asty.pos = this.wrap(asty.pos);
-        asty.draw(ctx);
-      }
+      asty.pos = this.wrap(asty.pos);
+      asty.draw(ctx);
     }.bind(this));
   };
 
@@ -45,20 +42,20 @@
       if (typeof(asty) !== "number"){
         asty.move();
       }
-    })
-  }
+    });
+  };
 
   Game.prototype.wrap = function (pos) {
     return [(pos[0] + this.DIM_X) % (this.DIM_X),
-            (pos[1] + this.DIM_Y) % (this.DIM_Y)]
-  }
+            (pos[1] + this.DIM_Y) % (this.DIM_Y)];
+  };
 
   Game.prototype.distanceBetween = function (pos1, pos2) {
     return Math.sqrt(
               Math.pow((pos1[0] - pos2[0]), 2) +
               Math.pow((pos1[1] - pos2[1]), 2)
-            )
-  }
+            );
+  };
 
   Game.prototype.CheckCollisions = function () {
     var asties = this.allAsteroids;
@@ -80,5 +77,8 @@
         }
       }
     }
-  }
+    return asties.filter(function(element){
+      return (typeof element !== "number");
+    });
+  };
 })();
