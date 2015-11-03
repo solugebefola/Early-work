@@ -7,6 +7,7 @@
     this.RADIUS = 10;
     this.COLOR = "#000";
     this.vel = [0,0];
+    this.pos = Asteroids.Game.prototype.randomPosition();
   };
 
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);

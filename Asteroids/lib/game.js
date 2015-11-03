@@ -8,7 +8,13 @@
     this.DIM_X = DIM_X;
     this.DIM_Y = DIM_Y;
     this.NUM_ASTEROIDS = NUM_ASTEROIDS;
-    this.allAsteroids = this.addAsteroids();
+    this.gameObjects = this.allObjects();
+  };
+
+  Game.prototype.allObjects = function () {
+    var newShip = new Asteroids.Ship();
+    var gameObjects = this.addAsteroids().push(newShip);
+    return gameObjects;
   };
 
   Game.prototype.addAsteroids = function() {
