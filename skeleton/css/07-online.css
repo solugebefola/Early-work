@@ -3,6 +3,7 @@
   position: absolute;
   background: #0c0;
   left: -22%;
+  top: 5px;
   transform: rotate(-45deg);
   font-size: 12px;
   width: 150px;

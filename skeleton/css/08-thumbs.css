@@ -7,11 +7,10 @@
 }
 
 .friends-nav li {
-  width: 58px;
+  width: 60px;
   display: block;
   float: left;
   position: relative;
-  /*overflow: hidden;*/
 }
 
 .friends-nav li:nth-child(3n+2) {
@@ -25,12 +24,13 @@
   border: 1px solid #000;
   position: relative;
   display: block;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .friends-nav a {
-  display: block;
+  /*display: block;*/
   /*position: relative;*/
+  /*width: auto;*/
 }
 
 
@@ -40,7 +40,7 @@
   background: #000;
   color: #fff;
   position: absolute;
-  top: -10px;
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 12px;
@@ -50,13 +50,15 @@
   border-radius: 5px;
 }
 
-.friends-nav a:after {
-  content: "s";
-  border: 10px solid #green;
+.friends-nav li:before {
+  content: "";
+  /*display: block;*/
+  background: #000;
+  color: black;
   position: absolute;
-  display: block;
-  width: 1px;
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
-  background: transparent;
+  top: -50px;
+  font-size: 12px;
+  border: 10px solid #green;
+  width: 10px;
+  z-index: 13;
 }
