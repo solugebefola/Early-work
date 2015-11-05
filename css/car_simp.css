@@ -60,8 +60,10 @@ button {
 
 .items .right {
   left: -100%;
+  display: block;
 }
 
 .items .left {
   left: 100%;
+  display: block;
 }

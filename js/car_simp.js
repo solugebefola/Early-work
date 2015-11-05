@@ -8,6 +8,7 @@ $.Carousel = function(el){
   this.$el = $(el);
   this.activeIdx = 0;
   this.$listItems = this.$el.find(".items").children();
+  this.transitioning = false;
   var slideLeft = $(document).find(".slide-left");
   var slideRight =$(document).find(".slide-right");
   $(this.$listItems[0]).addClass("active");
@@ -23,9 +24,13 @@ $.Carousel = function(el){
 }
 
 $.Carousel.prototype.slide = function(dir){
-  // $(this.$listItems[this.activeIdx]).removeClass("active right left");
+  if(this.transitioning === true){
+    return;
+  }
+  this.transitioning = true;
   var prevIdx = this.activeIdx;
-  this.activeIdx = (this.activeIdx + dir + this.$listItems.length) % this.$listItems.length;
+  this.activeIdx = (this.activeIdx + dir + this.$listItems.length) %
+    this.$listItems.length;
 
   if(dir < 0){
     $(this.$listItems[this.activeIdx]).addClass("right");
@@ -34,14 +39,17 @@ $.Carousel.prototype.slide = function(dir){
     $(this.$listItems[this.activeIdx]).addClass("left");
     $(this.$listItems[prevIdx]).addClass("right");
   }
-  $(this.$listItems[this.activeIdx]).addClass("active");
 
-    window.setTimeout(function(){
-      $(this.$listItems[this.activeIdx]).removeClass("right left");
-    }.bind(this), 0);
+  $(this.$listItems[this.activeIdx]).addClass("active");
+  window.setTimeout(function(){
+    $(this.$listItems[this.activeIdx]).removeClass("right left");
+
     $(this.$listItems[prevIdx]).one("transitionend", function(e){
       $(this.$listItems[prevIdx]).removeClass("active right left");
+      this.transitioning = false;
     }.bind(this));
+  }.bind(this), 0);
+
 };
 
 $.fn.carousel = function () {
