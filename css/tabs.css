@@ -13,6 +13,16 @@ html, body, {
 
 body {
   font-family: sans-serif;
+  background: #aaa;
+}
+
+h1 {
+  font-size: 75px;
+  color: black;
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
 }
 
 .group:after {
@@ -22,10 +32,11 @@ body {
 }
 
 .tabs {
-  width: 600px;
+  width: 400px;
   margin: auto;
   display: block;
   list-style: none;
+  padding: 0;
 }
 
 .tabs li {
@@ -35,37 +46,49 @@ body {
 
 a {
   text-decoration: none;
-  color: white;
-  width: 150px;
-  background: green;
+  color: black;
+  width: 100px;
+  background: transparent;
   display: block;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px 0;
 }
-
-.section {
-  width: 600px;
-  display: block;
-  margin: auto;
-  background: blue;
-  word-wrap: normal;
+a:hover {
+  color: blue;
 }
 
 .tabs .active{
   font-weight: bold;
-  background: black;
-  color: white;
+  background: white;
+  color: black;
 }
 
-article {
+.section {
+  width: 400px;
+  display: block;
+  margin: auto;
+  background: white;
+  word-wrap: normal;
+}
+
+
+section article {
   display: none;
-  width: 580px;
+  width: 380px;
   padding: 10px;
   margin: auto;
-  background: blue;
+  background: white;
 }
 
 section .active {
-  display:block;
+  display: block;
+  opacity: 100;
+  transition: opacity 0.2s linear;
+}
+
+section .transitioning {
+  display: block;
+  opacity: 0;
+  transition: opacity 200ms linear;
 }
