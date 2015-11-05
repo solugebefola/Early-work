@@ -11,9 +11,61 @@ html, body, {
   background: transparent;
 }
 
+body {
+  font-family: sans-serif;
+}
+
 .group:after {
   content: "";
   display: block;
   clear: both;
-  
+}
+
+.tabs {
+  width: 600px;
+  margin: auto;
+  display: block;
+  list-style: none;
+}
+
+.tabs li {
+  float: left;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  width: 150px;
+  background: green;
+  display: block;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  padding: 10px;
+}
+
+.section {
+  width: 600px;
+  display: block;
+  margin: auto;
+  background: blue;
+  word-wrap: normal;
+}
+
+.tabs .active{
+  font-weight: bold;
+  background: black;
+  color: white;
+}
+
+article {
+  display: none;
+  width: 580px;
+  padding: 10px;
+  margin: auto;
+  background: blue;
+}
+
+section .active {
+  display:block;
 }
