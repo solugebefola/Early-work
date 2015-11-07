@@ -30,7 +30,9 @@ $.UsersSearch.prototype.renderResults = function (returned) {
   this.$ul.empty();
 
   for (var i = 0; i < users.length; i++) {
-    $li = "<li>" + users[i].username + "</li>";
+    var $userAnchor = $("a")
+    var $li = "<li>" + users[i].username + "</li>";
+    var $button = $("button").followToggle();
     this.$ul.append($li);
   }
 };
