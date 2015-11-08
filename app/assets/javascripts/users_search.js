@@ -26,14 +26,15 @@ $.UsersSearch.prototype.handleInput = function (e) {
 
 $.UsersSearch.prototype.renderResults = function (returned) {
   var users = returned;
+  var userLi;
   console.log(users);
   this.$ul.empty();
 
-  for (var i = 0; i < users.length; i++) {
-    var $userAnchor = $("a")
-    var $li = "<li>" + users[i].username + "</li>";
-    var $button = $("button").followToggle();
-    this.$ul.append($li);
+  for (var i = 0; i < users.length; i++){
+    userLi = "<li><a href=\"/users/"+ users[i].id;
+    userLi += "/\">" + users[i].username + "</a></li>";
+    var followButton = "<button id=\"" + users[i].username + "\">";
+    $(userLi).appendTo(this.$ul);
   }
 };
 
