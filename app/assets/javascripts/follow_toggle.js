@@ -57,9 +57,9 @@ $.FollowToggle.prototype.handleClick = function (e) {
   });
 };
 
-$.fn.followToggle = function () {
+$.fn.followToggle = function (options) {
   return this.each(function () {
-    new $.FollowToggle(this);
+    new $.FollowToggle(this, options);
   });
 };
 
