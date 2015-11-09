@@ -16,6 +16,7 @@
 
     <div id="clock-widget"></div>
 
+    <div id="weather-widget"></div>
 
     <script type="text/jsx">
       React.render(
@@ -26,6 +27,11 @@
       React.render(
         <ClockWidget />,
         document.getElementById("clock-widget")
+      )
+
+      React.render(
+        <WeatherWidget />,
+        document.getElementById("weather-widget")
       )
     </script>
 

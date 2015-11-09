@@ -49,12 +49,12 @@ var ClockWidget = React.createClass({
     this.clockUpdate = setInterval(this.intervalTime, 1000);
   },
 
-  intervalTime: function () {
-    this.setState({ currentTime: new Date() });
-  },
-
   componentWillUnmount: function () {
     window.clearInterval(this.clockUpdate);
+  },
+
+  intervalTime: function () {
+    this.setState({ currentTime: new Date() });
   },
 
   render: function () {
@@ -65,4 +65,26 @@ var ClockWidget = React.createClass({
     )
   }
 
+});
+
+var WeatherWidget = React.createClass({
+
+  getInitialState: function () {
+    return ({ currentWeather: "", currentTemp: "" })
+  },
+
+  componentDidMount: function () {
+    this.geo = navigator.geolocation;
+    debugger
+    console.log(geo);
+  },
+
+  render: function () {
+
+    return (
+      <div>
+        <p>{ this.geo }</p>
+      </div>
+    )
+  }
 });
