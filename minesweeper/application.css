@@ -1,0 +1,37 @@
+html, body, div, p {
+  margin: 0;
+  border: 0;
+  padding: 0;
+
+  font: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.grid {
+  width: 260px;
+}
+
+.tile {
+  width: 20px;
+  height: 20px;
+  border: 3px;
+  float: left;
+  display:block;
+  border-style: outset;
+  text-align: center;
+  background: #fee;
+}
+
+.tile.revealed {
+  border-style: inset;
+  background: #faa;
+}

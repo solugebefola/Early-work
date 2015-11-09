@@ -28,7 +28,7 @@ var Board = React.createClass({
 
   render: function () {
     return (
-      <div>
+      <div className="grid">
         { this.props.board.grid.map( function (row, rowIdx) {
           return (<div>{
             row.map( function (el, colIdx) {
@@ -45,9 +45,34 @@ var Board = React.createClass({
 
 var Tile = React.createClass({
 
-  render: function () {
+  getInitialState: function () {
     return (
-      <p>T</p>
+      { appearance: "hidden" }
+    );
+  },
+
+  handleClick: function () {
+    this.setState({ appearance: "revealed" });
+  },
+
+  render: function () {
+
+
+    if (this.props.tile.explored) {
+      var numBombs = this.props.tile.adjacentBombCount();
+      this.display = numBombs.toString();
+    }
+
+    if (this.props.tile.flagged) {
+      this.display = "⚑";
+    }
+
+    if (this.props.tile.bombed) {
+      this.display = "💣";
+    }
+
+    return (
+      <div className={this.state.appearance +" tile"}>{ this.display }</div>
     );
   }
 });
