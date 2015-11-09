@@ -12,15 +12,23 @@
 
   <body>
 
-
-
     <div id="autocomplete"></div>
+
+    <div id="clock-widget"></div>
+
 
     <script type="text/jsx">
       React.render(
         <Autocomplete names={['bob','sara']}/>,
         document.getElementById("autocomplete")
       )
+
+      React.render(
+        <ClockWidget />,
+        document.getElementById("clock-widget")
+      )
     </script>
+
+
   </body>
 </html>

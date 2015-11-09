@@ -1,26 +1,25 @@
 var Autocomplete = React.createClass({
 
-  getInitialState: function(){
-    return({ text: "" })
+  getInitialState: function () {
+    return ({ text: "" });
   },
 
-  handleInput: function(e){
+  handleInput: function (e) {
     e.preventDefault();
     this.setState({text: e.target.value});
   },
 
-  handleClick: function(e){
+  handleClick: function (e) {
     e.preventDefault();
     this.setState({text: e.target.textContent});
-    document.getElementById("autovalue").value = e.target.textContent;
   },
 
 
-  render: function() {
+  render: function () {
     var matchedNames = [];
     var matcher = new RegExp("^" + this.state.text)
     this.props.names.forEach ( function (el) {
-      if (el.match(matcher)){
+      if (el.match(matcher)) {
         matchedNames.push(
           <li onClick={ this.handleClick }>{el}</li>
         );
@@ -30,12 +29,37 @@ var Autocomplete = React.createClass({
 
     return (
       <div>
-        <input type={"text"} onInput={ this.handleInput } id={"autovalue"} />
+        <input type="text" onInput={ this.handleInput } value={ this.state.text } className="autovalue" />
 
         <ul onClick={ this.handleClick }>
           { matchedNames }
         </ul>
       </div>
+    );
+  }
+});
+
+var ClockWidget = React.createClass({
+
+  getInitialState: function () {
+    debugger
+    return ({ currentTime: new Date() });
+  },
+
+  componentDidMount: function () {
+    this.clockUpdate = setInterval(this.intervalTime, 1000);
+  },
+
+  intervalTime: function () {
+    this.setState({ currentTime: new Date() });
+  },
+
+  render: function () {
+    return (
+      <div>
+        <p>{ this.state.currentTime.toString() }</p>
+      </div>
     )
   }
+
 });
