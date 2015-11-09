@@ -114,7 +114,6 @@ var WeatherWidget = React.createClass({
 
 
   render: function () {
-    // console.log(this.lat, this);
     return (
       <div>
         <p>weather: { this.state.currentWeather }</p>
@@ -122,4 +121,46 @@ var WeatherWidget = React.createClass({
       </div>
     )
   }
+});
+
+
+var Tabs = React.createClass({
+
+  getInitialState: function () {
+    return ({activeIndex: 0});
+  },
+
+  handleClick: function (e) {
+    e.preventDefault();
+    this.setState({ activeIndex: parseInt(e.target.id) })
+  },
+
+  render: function () {
+    var headers = [];
+
+    for (var i = 0; i < this.props.items.length ; i++) {
+      var isActive = ( this.state.activeIndex === i ? "active" : "" );
+
+      var header = <li id={i} className={isActive}>
+                      {this.props.items[i].header}
+                  </li>;
+                  debugger
+      if (isActive === "active") {
+        header = <strong>{header}</strong>;
+      }
+      headers.push(header);
+    }
+
+    return(
+      <div>
+        <ul onClick={ this.handleClick }>
+        { headers }
+        </ul>
+        <span>
+          { this.props.items[this.state.activeIndex].content }
+        </span>
+      </div>
+    );
+  }
+
 });

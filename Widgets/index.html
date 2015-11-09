@@ -18,6 +18,8 @@
 
     <div id="weather-widget"></div>
 
+    <div id="tabs"></div>
+
     <script type="text/jsx">
       React.render(
         <Autocomplete names={['bob','sara']}/>,
@@ -32,6 +34,15 @@
       React.render(
         <WeatherWidget />,
         document.getElementById("weather-widget")
+      )
+
+      React.render(
+        <Tabs items={[
+          {header:"happy times", content: "We love the world"},
+          {header:"sad times", content: "I am sooooo sad...."},
+          {header:"medium times", content: "it's allright."}
+        ]}/>,
+        document.getElementById("tabs")
       )
     </script>
 
