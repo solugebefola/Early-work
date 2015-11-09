@@ -36,13 +36,12 @@ $.UsersSearch.prototype.renderResults = function (returned) {
     user = users[i];
     followState = user.followed ? "followed" : "unfollowed";
     $userLi = $("<li></li>");
-    $userAnchor = $("<a></a>").appendTo($userLi);
-    $userAnchor.text(user.username);
-    $userAnchor.attr("href", "/users/" + user.id + "/");
-    console.log($userLi);
+    $("<a></a>").appendTo($userLi)
+      .text(user.username)
+      .attr("href", "/users/" + user.id + "/");
     var $followButton = $("<button></button>").attr("id", user.id);
     $userLi.appendTo(this.$ul).append($followButton);
-    $("#" + user.id).followToggle({userId: user.id, followState: followState});
+    $followButton.followToggle({userId: user.id, followState: followState});
   }
 };
 
