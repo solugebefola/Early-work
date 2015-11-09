@@ -26,7 +26,7 @@ $.UsersSearch.prototype.handleInput = function (e) {
 
 $.UsersSearch.prototype.renderResults = function (returned) {
   var users = returned;
-  var userLi;
+  var $userLi;
   var user;
   var followState;
   console.log(users);
@@ -35,11 +35,14 @@ $.UsersSearch.prototype.renderResults = function (returned) {
   for (var i = 0; i < users.length; i++){
     user = users[i];
     followState = user.followed ? "followed" : "unfollowed";
-    userLi = "<li><a href=\"/users/"+ user.id;
-    userLi += "/\">" + user.username + "</a> </li>";
-    var followButton = "<button id=\"" + user.username + "\">";
-    $(userLi).appendTo(this.$ul).append(followButton);
-    $("#"+user.username).followToggle({userId: user.id, followState: followState});
+    $userLi = $("<li></li>");
+    $userAnchor = $("<a></a>").appendTo($userLi);
+    $userAnchor.text(user.username);
+    $userAnchor.attr("href", "/users/" + user.id + "/");
+    console.log($userLi);
+    var $followButton = $("<button></button>").attr("id", user.id);
+    $userLi.appendTo(this.$ul).append($followButton);
+    $("#" + user.id).followToggle({userId: user.id, followState: followState});
   }
 };
 
