@@ -42,7 +42,6 @@ var Autocomplete = React.createClass({
 var ClockWidget = React.createClass({
 
   getInitialState: function () {
-    debugger
     return ({ currentTime: new Date() });
   },
 
@@ -52,6 +51,10 @@ var ClockWidget = React.createClass({
 
   intervalTime: function () {
     this.setState({ currentTime: new Date() });
+  },
+
+  componentWillUnmount: function () {
+    window.clearInterval(this.clockUpdate);
   },
 
   render: function () {
