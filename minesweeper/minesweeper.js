@@ -11,10 +11,10 @@
     this.bombed = false;
     this.explored = false;
     this.flagged = false;
-  }
+  };
 
   Tile.DELTAS = [[-1, -1], [-1,  0], [-1,  1], [ 0, -1],
-                 [ 0,  1], [ 1, -1], [ 1,  0], [ 1,  1]]
+                 [ 0,  1], [ 1, -1], [ 1,  0], [ 1,  1]];
 
   Tile.prototype.adjacentBombCount = function() {
     var bombCount = 0;

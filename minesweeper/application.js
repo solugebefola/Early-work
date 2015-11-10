@@ -13,7 +13,6 @@ var Game = React.createClass ({
   render: function () {
     return (
     <div>
-      <p>Wheee</p>
       <Board board={this.state.board} updateGame={this.state.updateGame}/>
     </div>
     );
@@ -51,28 +50,28 @@ var Tile = React.createClass({
     );
   },
 
-  handleClick: function () {
+  handleClick: function (e) {
+    e.preventDefault();
     this.setState({ appearance: "revealed" });
+    this.props.tile.explored = true;
   },
 
   render: function () {
 
-
     if (this.props.tile.explored) {
       var numBombs = this.props.tile.adjacentBombCount();
-      this.display = numBombs.toString();
+      if (this.props.tile.flagged) {
+        this.display = "⚑";
+      }else if (this.props.tile.bombed) {
+        this.display = "💣";
+      }else{
+        this.display = numBombs.toString();
+      }
     }
 
-    if (this.props.tile.flagged) {
-      this.display = "⚑";
-    }
-
-    if (this.props.tile.bombed) {
-      this.display = "💣";
-    }
 
     return (
-      <div className={this.state.appearance +" tile"}>{ this.display }</div>
+      <div className={this.state.appearance +" tile"} onClick={this.handleClick} >{ this.display }</div>
     );
   }
 });

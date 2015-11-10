@@ -35,3 +35,6 @@ group:after {
   border-style: inset;
   background: #faa;
 }
+
+.tile.hidden {
+}
