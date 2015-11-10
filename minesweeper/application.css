@@ -27,6 +27,7 @@ group:after {
   float: left;
   display:block;
   border-style: outset;
+  font-size: 10px;
   text-align: center;
   background: #fee;
 }

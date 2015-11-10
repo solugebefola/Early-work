@@ -6,14 +6,26 @@ var Game = React.createClass ({
     return {board: boardy, gameOver: false, gameWon: false };
   },
 
-  updateGame: function () {
+  updateGame: function (tile, flagging) {
+    if (flagging) {
+      tile.toggleFlag();
+    }else{
+      tile.explore();
+    }
+    debugger
+    if (this.state.board.won) {
+      console.log("winner!");
+    }else if (this.state.board.lost){
+      console.log("loser!");
+    }
 
   },
 
   render: function () {
     return (
     <div>
-      <Board board={this.state.board} updateGame={this.state.updateGame}/>
+      <Board board={this.state.board}
+        updateGame={this.updateGame}/>
     </div>
     );
   }
@@ -21,11 +33,8 @@ var Game = React.createClass ({
 
 var Board = React.createClass({
 
-  // getInitialState: function () {
-  //
-  // },
-
   render: function () {
+    self = this;
     return (
       <div className="grid">
         { this.props.board.grid.map( function (row, rowIdx) {
@@ -52,23 +61,25 @@ var Tile = React.createClass({
 
   handleClick: function (e) {
     e.preventDefault();
-    this.setState({ appearance: "revealed" });
-    this.props.tile.explored = true;
+    var flagging = e.altKey;
+    this.props.updateGame(this.props.tile, flagging);
+    if (!this.props.tile.flagged){
+      this.setState({ appearance: "revealed" });
+    }
   },
 
   render: function () {
 
-    if (this.props.tile.explored) {
+    if (this.props.tile.flagged && this.state.appearance === "hidden") {
+      this.display = "⚑";
+    }else if (this.props.tile.explored) {
       var numBombs = this.props.tile.adjacentBombCount();
-      if (this.props.tile.flagged) {
-        this.display = "⚑";
-      }else if (this.props.tile.bombed) {
+      if (this.props.tile.bombed) {
         this.display = "💣";
       }else{
         this.display = numBombs.toString();
       }
     }
-
 
     return (
       <div className={this.state.appearance +" tile"} onClick={this.handleClick} >{ this.display }</div>
