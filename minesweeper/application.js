@@ -12,11 +12,12 @@ var Game = React.createClass ({
     }else{
       tile.explore();
     }
-    debugger
     if (this.state.board.won) {
-      console.log("winner!");
+      this.setState({gameOver: true, gameWon: true});
     }else if (this.state.board.lost){
-      console.log("loser!");
+      this.setState({gameOver: true, gameWon: false});
+    }else{
+      this.setState({gameOver: false, gameWon: false});
     }
 
   },
@@ -41,7 +42,7 @@ var Board = React.createClass({
           return (<div>{
             row.map( function (el, colIdx) {
               var key = rowIdx.toString() + colIdx.toString();
-              return (<Tile tile={el} updateGame={this.props.updateGame} key={ key } />)
+              return (<Tile tile={el} updateGame={this.props.updateGame} key={ key }/>)
             }.bind(this))
           }</div>)
         }.bind(this))
@@ -63,26 +64,23 @@ var Tile = React.createClass({
     e.preventDefault();
     var flagging = e.altKey;
     this.props.updateGame(this.props.tile, flagging);
-    if (!this.props.tile.flagged){
-      this.setState({ appearance: "revealed" });
-    }
   },
 
   render: function () {
-
+    var tile = this.props.tile;
     if (this.props.tile.flagged && this.state.appearance === "hidden") {
       this.display = "⚑";
     }else if (this.props.tile.explored) {
       var numBombs = this.props.tile.adjacentBombCount();
       if (this.props.tile.bombed) {
         this.display = "💣";
-      }else{
+      }else if(numBombs > 0){
         this.display = numBombs.toString();
       }
     }
 
     return (
-      <div className={this.state.appearance +" tile"} onClick={this.handleClick} >{ this.display }</div>
+      <div className={(tile.explored ? "revealed" : "hidden") + " tile"} onClick={this.handleClick} >{ this.display }</div>
     );
   }
 });

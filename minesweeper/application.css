@@ -18,6 +18,9 @@ group:after {
 
 .grid {
   width: 260px;
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: center;
 }
 
 .tile {
@@ -27,15 +30,10 @@ group:after {
   float: left;
   display:block;
   border-style: outset;
-  font-size: 10px;
-  text-align: center;
-  background: #fee;
+  background: #aaf;
 }
 
 .tile.revealed {
   border-style: inset;
-  background: #faa;
-}
-
-.tile.hidden {
+  background: #aaa;
 }
