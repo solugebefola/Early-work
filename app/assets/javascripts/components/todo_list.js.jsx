@@ -45,7 +45,7 @@ var TodoListItem = React.createClass({
   render: function() {
     var details;
     if (this.state.detail) {
-      details = <MainView todo={this.props.todo}/>;
+      details = <DetailView todo={this.props.todo}/>;
     }
     return(
       <div className="list-item">
@@ -58,7 +58,7 @@ var TodoListItem = React.createClass({
   }
 });
 
-var MainView = React.createClass({
+var DetailView = React.createClass({
 
   getInitialState: function () {
 
@@ -95,6 +95,8 @@ var MainView = React.createClass({
   },
 
   render: function () {
+    var title = this.props.todo.title || "Title";
+    var body = this.props.todo.body || "Body";
 
     return(
       <div className="main">
