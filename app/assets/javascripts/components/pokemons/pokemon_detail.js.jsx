@@ -35,12 +35,13 @@
             <ul>
               {
                 Object.keys(this.state.pokemon).map(function (prop) {
-                  if (prop !== "image_url") {
+                  if (prop !== "image_url" && prop !== "toys") {
                     return <li key={prop} className="prop">{prop + ": " + this.state.pokemon[prop]}</li>;
                   }
                 }.bind(this))
               }
             </ul>
+            <ToysIndex toys={this.state.pokemon.toys} />
           </div>;
       }
 
