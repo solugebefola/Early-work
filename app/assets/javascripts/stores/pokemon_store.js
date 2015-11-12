@@ -16,6 +16,12 @@
       ApiUtil.fetchAllPokemons();
     },
 
+    find: function (id) {
+      return _pokemons.find(function (pokemon) {
+        return pokemon.id === id;
+      });
+    },
+
     addPokemonsIndexChangeListener: function (callback) {
       this.on(POKEMONS_INDEX_CHANGE_EVENT, callback);
     },
@@ -37,5 +43,7 @@
       }
     })
   });
+
+  PokemonStore.fetch();
 
 })();

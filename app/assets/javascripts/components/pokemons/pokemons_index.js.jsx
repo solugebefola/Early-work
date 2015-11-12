@@ -6,7 +6,7 @@
 
     componentDidMount: function () {
       PokemonStore.addPokemonsIndexChangeListener(this._onChange);
-      PokemonStore.fetch();
+      // PokemonStore.fetch();
     },
 
     componentWillUnmount: function () {
