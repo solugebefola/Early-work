@@ -21,8 +21,8 @@
       return (
         <ul>
         {
-          this.state.pokemons.map(function(pokemon, i){
-            return <li key={i}><PokemonIndexItem pokemon={pokemon} /></li>;
+          this.state.pokemons.map(function(pokemon){
+            return <PokemonIndexItem pokemon={pokemon} key={pokemon.id}/>;
           })
         }
         </ul>
