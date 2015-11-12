@@ -18,6 +18,19 @@
           ApiActions.receiveSinglePokemon(pokemon);
         }
       });
+    },
+
+    createPokemon: function (newPokemon, callback) {
+      $.ajax({
+        url: "api/pokemon",
+        type: "POST",
+        data: {pokemon: newPokemon},
+        dataType: "json",
+        success: function (pokemon) {
+          ApiActions.createNewPokemon(pokemon);
+          callback(pokemon);
+        }
+      });
     }
   };
 })();

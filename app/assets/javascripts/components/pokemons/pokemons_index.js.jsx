@@ -6,11 +6,12 @@
 
     componentDidMount: function () {
       PokemonStore.addPokemonsIndexChangeListener(this._onChange);
-      // PokemonStore.fetch();
+      PokemonStore.addNewPokemonChangeListener(this._onChange);
     },
 
     componentWillUnmount: function () {
       PokemonStore.removePokemonsIndexChangeListener(this._onChange);
+      PokemonStore.removeNewPokemonChangeListener(this._onChange);
     },
 
     _onChange: function () {
