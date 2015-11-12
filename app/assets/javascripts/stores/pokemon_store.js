@@ -5,7 +5,13 @@
     _pokemons = pokemons;
   };
 
+  var resetSinglePokemon = function (pokemon) {
+    var idx = _pokemons.findIndex(function (poke) { return poke.id === pokemon.id; });
+    _pokemons[idx] = pokemon;
+  };
+
   var POKEMONS_INDEX_CHANGE_EVENT = "change_event";
+  var POKEMON_DETAIL_CHANGE_EVENT = "detail_change";
 
   window.PokemonStore = $.extend({}, EventEmitter.prototype, {
     all: function () {
@@ -30,15 +36,27 @@
       this.removeListener(POKEMONS_INDEX_CHANGE_EVENT, callback);
     },
 
-    changed: function () {
-      this.emit(POKEMONS_INDEX_CHANGE_EVENT);
+    addPokemonDetailChangeListener: function (callback) {
+      this.on(POKEMON_DETAIL_CHANGE_EVENT, callback);
+    },
+
+    removePokemonDetailChangeListener: function (callback) {
+      this.removeListener(POKEMON_DETAIL_CHANGE_EVENT, callback);
+    },
+
+    changed: function (event) {
+      this.emit(event);
     },
 
     dispatcherID: AppDispatcher.register(function(payload){
       switch (payload.actionType) {
         case PokemonConstants.POKEMONS_RECEIVED:
           resetPokemons(payload.pokemons);
-          PokemonStore.changed();
+          PokemonStore.changed(POKEMONS_INDEX_CHANGE_EVENT);
+          break;
+        case PokemonConstants.SINGLE_POKEMON_RECEIVED:
+          resetSinglePokemon(payload.pokemon);
+          PokemonStore.changed(POKEMON_DETAIL_CHANGE_EVENT);
           break;
       }
     })

@@ -4,14 +4,32 @@
       return this.getStateFromStore();
     },
 
+    componentDidMount: function () {
+      PokemonStore.addPokemonDetailChangeListener(this._resetDetails);
+    },
+
+    componentWillUnmount: function () {
+      PokemonStore.removePokemonDetailChangeListener(this._resetDetails);
+    },
+
+    _resetDetails: function () {
+      this.setState(this.getStateFromStore());
+    },
+
     getStateFromStore: function () {
       var pokemonId = parseInt(this.props.params.pokemonId);
       return { pokemon: PokemonStore.find(pokemonId) };
     },
 
+    componentWillReceiveProps: function (nextProps) {
+      ApiUtil.getPokemonFromDatabase(nextProps.params.pokemonId);
+    },
+
     render: function () {
-      return (
-        <div>
+      var thePokemon;
+
+      if (this.state.pokemon) {
+        thePokemon =
           <div className="detail">
             <img src={this.state.pokemon.image_url} />
             <ul>
@@ -23,7 +41,12 @@
                 }.bind(this))
               }
             </ul>
-          </div>
+          </div>;
+      }
+
+      return (
+        <div>
+          {thePokemon}
         </div>
       );
     }
