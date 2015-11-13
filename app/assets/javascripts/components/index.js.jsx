@@ -14,12 +14,12 @@ var Index = React.createClass({
 
   render: function () {
     var benchList;
-    if(1===1){
-      benchList = 3;
-    }else{
+    if(this.state.benches){
       benchList = this.state.benches.map(function(bench){
-        return <li>{bench.lat}</li>;
+        return <li key={bench.lat}>{bench.description.toString()}</li>;
       });
+    }else{
+      benchList = 3;
     }
 
     return (

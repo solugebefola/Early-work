@@ -5,8 +5,7 @@ class Api::BenchesController < ApplicationController
   end
 
   def index
-    @benches = Bench.all()
-    # render "index.json.jbuilder"
+    @benches = Bench.in_bounds(params[:bounds])
   end
 
   private

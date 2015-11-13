@@ -7,7 +7,7 @@ var Map = React.createClass({
       zoom: 13
     };
     this.map = new google.maps.Map(map, mapOptions);
-    this.map.addListener('bounds_changed', ApiUtil.fetchBenches);
+    this.map.addListener('idle', this._mapIdle);
     BenchStore.addChangeListener(this._addMarkers);
   },
 
@@ -37,6 +37,18 @@ var Map = React.createClass({
       markers.push(marker);
     }.bind(this));
     this.markers = markers;
+  },
+
+  _mapIdle: function () {
+    var rawBounds = this.map.getBounds();
+    var northEast = rawBounds.getNorthEast();
+    var southWest = rawBounds.getSouthWest();
+    // bounds = {bounds: 123};
+    bounds = {bounds: {
+      SouthWest: {lat: southWest.lat(), lng: southWest.lng()},
+      NorthEast: {lat: northEast.lat(), lng: northEast.lng()}
+    }};
+    ApiUtil.fetchBenches(bounds);
   }
 });
 // Google maps api key: AIzaSyA3t2hfUoM68EPV23xoC-0PkyDAaa-2vhY
