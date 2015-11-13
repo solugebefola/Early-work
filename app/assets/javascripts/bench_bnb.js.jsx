@@ -1,7 +1,7 @@
 (function (){
   $(document).ready(function(){
     React.render(
-      <Index/>,
+      <Search/>,
       document.getElementById("content")
     );
   });

@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+html, body, div {
+  padding: 0;
+  border: 0;
+  margin: 0;
+
+  font: inherit;
+  type-decoration: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+div.map {
+  width: 500px;
+  height: 500px;
+}
