@@ -1,5 +1,9 @@
 var Map = React.createClass({
 
+  getInitialState: function () {
+    return {markerBenchPairs: {}};
+  }
+
   componentDidMount: function () {
     var map = React.findDOMNode(this.refs.map);
     var mapOptions = {
@@ -23,8 +27,8 @@ var Map = React.createClass({
 
   _addMarkers: function () {
     benches = BenchStore.all();
-    var markers = [];
     var marker;
+    var marks = [];
     var pos;
     benches.map(function(bench){
       pos = {lat: bench.lat, lng: bench.lng};
@@ -34,9 +38,9 @@ var Map = React.createClass({
         clickable: true
       });
       marker.setMap(this.map);
-      markers.push(marker);
+      marks.push(marker);
     }.bind(this));
-    this.markers = markers;
+    this.setState({markers: marks});
   },
 
   _mapIdle: function () {
