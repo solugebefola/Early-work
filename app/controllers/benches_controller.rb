@@ -1,0 +1,2 @@
+class BenchesController < ApplicationController
+end
