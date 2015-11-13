@@ -2,7 +2,7 @@
   ApiActions = root.ApiActions = {
     receiveAll: function (benches) {
       AppDispatcher.dispatch({
-        actionType: BENCHES_RECEIVED,
+        actionType: BenchConstants.BENCHES_RECEIVED,
         benches: benches
       });
     }

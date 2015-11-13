@@ -1,15 +1,13 @@
-class Api::BenchesController
+class Api::BenchesController < ApplicationController
 
   def create
     @bench = Bench.create!(bench_params)
-
-    render :json @bench
   end
 
   def index
     @benches = Bench.all()
 
-    render :json @benches
+    render json: @benches
   end
 
   private
