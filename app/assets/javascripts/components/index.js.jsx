@@ -6,7 +6,6 @@ var Index = React.createClass({
 
   componentDidMount: function () {
     BenchStore.addChangeListener(this._onChange);
-    ApiUtil.fetchBenches();
   },
 
   _onChange: function () {
@@ -19,13 +18,15 @@ var Index = React.createClass({
       benchList = 3;
     }else{
       benchList = this.state.benches.map(function(bench){
-        return <li>{bench.description}</li>;
+        return <li>{bench.lat}</li>;
       });
     }
 
     return (
       <div>
-        Hi there!
+        <ul>
+          {benchList}
+        </ul>
       </div>
     );
   }
