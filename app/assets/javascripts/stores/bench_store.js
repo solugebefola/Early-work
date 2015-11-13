@@ -28,6 +28,7 @@
       switch (payload.actionType){
         case BenchConstants.BENCHES_RECEIVED:
           resetBenches(payload.benches);
+          BenchStore.changed();
           break;
       }
     })

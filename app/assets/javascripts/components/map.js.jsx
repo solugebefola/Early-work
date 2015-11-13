@@ -43,7 +43,6 @@ var Map = React.createClass({
     var rawBounds = this.map.getBounds();
     var northEast = rawBounds.getNorthEast();
     var southWest = rawBounds.getSouthWest();
-    // bounds = {bounds: 123};
     bounds = {bounds: {
       SouthWest: {lat: southWest.lat(), lng: southWest.lng()},
       NorthEast: {lat: northEast.lat(), lng: northEast.lng()}
