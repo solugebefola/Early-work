@@ -18,9 +18,7 @@ var Index = React.createClass({
       benchList = this.state.benches.map(function(bench){
         return <li key={bench.lat}>{bench.description.toString()}</li>;
       });
-    }else{
-      benchList = 3;
-    }
+    }else{    }
 
     return (
       <div>

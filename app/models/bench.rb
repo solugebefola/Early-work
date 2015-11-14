@@ -13,11 +13,12 @@ class Bench < ActiveRecord::Base
     bigger_lng = [east_bound, west_bound].max
     smaller_lng = [east_bound, west_bound].min
 
-    puts @bounds
-    @benches = Bench.all.select do |bench|
-      bench['lat'].between?(smaller_lat, bigger_lat) &&
-      bench['lng'].between?(smaller_lng, bigger_lng)
-    end
+    @benches = Bench
+      .where(lat: smaller_lat..bigger_lat)
+      .where(lng: smaller_lng..bigger_lng)
+      # bench['lat'].between?(smaller_lat, bigger_lat) &&
+      # bench['lng'].between?(smaller_lng, bigger_lng)
+    # end
 
   end
 end

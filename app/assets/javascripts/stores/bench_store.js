@@ -4,6 +4,7 @@
 
   var resetBenches = function (benches) {
     _benches = benches;
+    BenchStore.changed();
   };
 
   root.BenchStore = $.extend({}, EventEmitter.prototype, {
@@ -28,7 +29,6 @@
       switch (payload.actionType){
         case BenchConstants.BENCHES_RECEIVED:
           resetBenches(payload.benches);
-          BenchStore.changed();
           break;
       }
     })

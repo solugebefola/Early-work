@@ -1,13 +1,13 @@
 var Map = React.createClass({
 
   getInitialState: function () {
-    return {markerBenchPairs: {}};
-  }
+    return { markerBenchPairs: {} };
+  },
 
   componentDidMount: function () {
     var map = React.findDOMNode(this.refs.map);
     var mapOptions = {
-      center: {lat: 37.7758, lng: -122.435},
+      center: { lat: 37.7758, lng: -122.435 },
       zoom: 13
     };
     this.map = new google.maps.Map(map, mapOptions);
@@ -28,19 +28,28 @@ var Map = React.createClass({
   _addMarkers: function () {
     benches = BenchStore.all();
     var marker;
-    var marks = [];
+    var marks = this.state.markerBenchPairs;
     var pos;
-    benches.map(function(bench){
-      pos = {lat: bench.lat, lng: bench.lng};
-      marker = new google.maps.Marker({
-        position: pos,
-        title: bench.description,
-        clickable: true
-      });
-      marker.setMap(this.map);
-      marks.push(marker);
+
+    for(var benchId in marks){
+      if(marks[benchId]){ marks[benchId].setMap(null); }
+    }
+
+    benches.forEach(function(bench){
+      if(marks[bench.id]){
+        marks[bench.id].setMap(this.map);
+      }else{
+        pos = {lat: bench.lat, lng: bench.lng};
+        marker = new google.maps.Marker({
+          position: pos,
+          title: bench.description,
+          clickable: true
+        });
+        marker.setMap(this.map);
+      }
+      marks[bench.id] = marker;
     }.bind(this));
-    this.setState({markers: marks});
+    this.setState({markerBenchPairs: marks});
   },
 
   _mapIdle: function () {
