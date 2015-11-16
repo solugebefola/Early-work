@@ -17,9 +17,9 @@ var Map = React.createClass({
   },
 
   handleMapClick: function (e) {
-    e.preventDefault();
     var lat = e.latLng.lat();
     var lng = e.latLng.lng();
+    this.props.clickHandler({lat: lat, lng: lng});
 
   },
 
