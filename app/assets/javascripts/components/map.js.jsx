@@ -52,7 +52,6 @@ var Map = React.createClass({
       marks[bench.id] = marker;
     }.bind(this));
     this.setState({markerBenchPairs: marks});
-    console.log(this.state.markerBenchPairs);
   },
 
   _mapIdle: function () {
