@@ -30,9 +30,11 @@ var Map = React.createClass({
     var marker;
     var marks = this.state.markerBenchPairs;
     var pos;
-
     for(var benchId in marks){
-      if(marks[benchId]){ marks[benchId].setMap(null); }
+      if(marks[benchId]){
+        marks[benchId].setMap(null);
+        delete marks[benchId];
+      }
     }
 
     benches.forEach(function(bench){
@@ -50,6 +52,7 @@ var Map = React.createClass({
       marks[bench.id] = marker;
     }.bind(this));
     this.setState({markerBenchPairs: marks});
+    console.log(this.state.markerBenchPairs);
   },
 
   _mapIdle: function () {
