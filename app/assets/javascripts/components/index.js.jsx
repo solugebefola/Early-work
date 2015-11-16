@@ -16,7 +16,7 @@ var Index = React.createClass({
     var benchList;
     if(this.state.benches){
       benchList = this.state.benches.map(function(bench){
-        return <li key={bench.lat}>{bench.description.toString()}</li>;
+        return <li key={bench.lat}>{bench.description.toString()} </li>;
       });
     }else{    }
 

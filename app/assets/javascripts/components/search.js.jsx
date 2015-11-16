@@ -15,6 +15,7 @@ var Search = React.createClass({
   render: function () {
     return (
       <div>
+        <FilterParams />
         <Map clickHandler={this.clickMapHandler}/>
         <Index />
       </div>

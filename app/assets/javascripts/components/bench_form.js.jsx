@@ -1,7 +1,7 @@
 var BenchForm = React.createClass({
 
   getInitialState: function () {
-    return {lat: 20, lng: 20, description: ""};
+    return {lat: 20, lng: 20, description: "", seating: 0};
   },
 
   componentDidMount: function () {
@@ -17,9 +17,6 @@ var BenchForm = React.createClass({
     e.preventDefault();
     var newState = {};
     var newVal = e.target.value;
-    // if (e.target.name === "lat" || e.target.name === "lng"){
-    //   newVal = parseFloat(newVal);
-    // }
     newState[e.target.name] = newVal;
     this.setState(newState);
   },
@@ -28,7 +25,8 @@ var BenchForm = React.createClass({
     e.preventDefault();
     this.setState({
       lat: parseFloat(this.state.lat),
-      lng: parseFloat(this.state.lng)
+      lng: parseFloat(this.state.lng),
+      seating: parseInt(this.state.seating)
     });
 
     ApiUtil.createBench(this.state);
@@ -63,6 +61,14 @@ var BenchForm = React.createClass({
             name="description"
             onChange={this.handleInput}
             value={this.state.description} />
+          </label>
+          <label>Seats
+          <input
+            type="number"
+            className="bench-input"
+            name="seating"
+            onChange={this.handleInput}
+            value={this.state.seating} />
           </label>
           <button type="Submit">Add Bench</button>
         </form>

@@ -5,6 +5,7 @@
     for(var key in newParams){
       _filterParams[key] = newParams[key];
     }
+    FilterParamsStore.changed();
   };
 
   FilterParamsStore = root.FilterParamsStore = $.extend({}, EventEmitter.prototype, {
@@ -33,7 +34,7 @@
       switch (payload.actionType){
         case FilterConstants.FILTER_PARAMS_RECEIVED:
           resetFilterParams(payload.filterParams);
-          FilterParamsStore.changed();
+
           break;
       }
     })
