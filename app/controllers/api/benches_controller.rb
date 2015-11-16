@@ -9,11 +9,11 @@ class Api::BenchesController < ApplicationController
   end
 
   def index
-    @benches = Bench.in_bounds(params[:bounds])
+    @benches = Bench.in_bounds(params[:filterParams])
   end
 
   private
     def bench_params
-      params.require(:bench).permit(:description, :lat, :lng)
+      params.require(:bench).permit(:description, :lat, :lng, :seating)
     end
 end

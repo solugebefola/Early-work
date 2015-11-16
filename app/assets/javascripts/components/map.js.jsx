@@ -61,6 +61,7 @@ var Map = React.createClass({
   },
 
   _mapIdle: function () {
+    console.log("string");
     var rawBounds = this.map.getBounds();
     var northEast = rawBounds.getNorthEast();
     var southWest = rawBounds.getSouthWest();
@@ -68,7 +69,7 @@ var Map = React.createClass({
       SouthWest: {lat: southWest.lat(), lng: southWest.lng()},
       NorthEast: {lat: northEast.lat(), lng: northEast.lng()}
     }};
-    ApiUtil.fetchBenches(bounds);
+    FilterParamsActions.paramsReceived(bounds);
   }
 });
 // Google maps api key: AIzaSyA3t2hfUoM68EPV23xoC-0PkyDAaa-2vhY
