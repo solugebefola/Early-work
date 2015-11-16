@@ -1,7 +1,7 @@
 var Search = React.createClass({
 
-  clickMapHandler: function (latLng) {
-    this.props.history.pushState(null, "benches/new");
+  clickMapHandler: function (coords) {
+    this.props.history.pushState(null, "benches/new", coords);
   },
 
   render: function () {

@@ -1,11 +1,16 @@
 var BenchForm = React.createClass({
 
   getInitialState: function () {
-    return {lat: 0, lng: 0, description: ""};
+    return {lat: 20, lng: 20, description: ""};
   },
 
-  componentWillReceiveProps: function (nextProps) {
-    this.setState({lat: nextProps.lat, lng: nextProps.lng});
+  componentDidMount: function () {
+    console.log(this.props.location.query);
+    if (this.props.location.query){
+      lat = this.props.location.query.lat;
+      lng = this.props.location.query.lng;
+      this.setState({lat: lat, lng: lng});
+    }
   },
 
   handleInput: function (e) {
