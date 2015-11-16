@@ -18,7 +18,6 @@ var ApiUtil = {
       data: {bench: newBench},
       dataType: "json",
       success: function(bench) {
-        debugger
         ApiActions.receiveBench(bench);
       }
     });

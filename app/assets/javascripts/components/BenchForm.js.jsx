@@ -32,6 +32,7 @@ var BenchForm = React.createClass({
     });
 
     ApiUtil.createBench(this.state);
+    this.props.history.pushState(null, "/");
   },
 
   render: function () {
