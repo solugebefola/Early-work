@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: "static_pages#root"
 
   namespace :api, format: 'json' do
-    resources :benches, only: [:index, :create]
+    resources :benches, only: [:index, :create, :new]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

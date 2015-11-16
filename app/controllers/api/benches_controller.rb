@@ -1,5 +1,9 @@
 class Api::BenchesController < ApplicationController
 
+  # def new
+  #   @bench = Bench.new(bench_params)
+  # end
+
   def create
     @bench = Bench.create!(bench_params)
   end
@@ -10,6 +14,6 @@ class Api::BenchesController < ApplicationController
 
   private
     def bench_params
-      params.permit(:bench).require(:description, :lat, :lng)
+      params.require(:bench).permit(:description, :lat, :lng)
     end
 end

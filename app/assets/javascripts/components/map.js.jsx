@@ -12,10 +12,16 @@ var Map = React.createClass({
     };
     this.map = new google.maps.Map(map, mapOptions);
     this.map.addListener('idle', this._mapIdle);
+    this.map.addListener('click', this.handleMapClick);
     BenchStore.addChangeListener(this._addMarkers);
   },
 
+  handleMapClick: function (e) {
+    e.preventDefault();
+    var lat = e.latLng.lat();
+    var lng = e.latLng.lng();
 
+  },
 
   render: function () {
     return (

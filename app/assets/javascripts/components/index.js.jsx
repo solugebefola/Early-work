@@ -23,7 +23,6 @@ var Index = React.createClass({
     return (
       <div>
         <ul>
-          <BenchForm />
           {benchList}
         </ul>
       </div>
