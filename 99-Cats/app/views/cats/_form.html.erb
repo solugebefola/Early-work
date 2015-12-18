@@ -1,0 +1,38 @@
+
+<form action="<%= cat.persisted? ? cat_url : cats_url  %>" method="POST">
+  <%= auth_token %>
+
+  <% if cat.persisted? %>
+  <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label>Cat's Name
+  <input type="text" name="cat[name]" value="<%= cat.name %>">
+  </label><br><br>
+
+  <label>Cat's Birthday
+  <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>">
+  </label><br><br>
+
+  <label>Female
+  <input type="radio" name="cat[sex]"value="F" <%= cat.sex == "F" ? "checked" : "" %>>
+  </label>
+  <label>Male
+  <input type="radio" name="cat[sex]"value="M" <%= cat.sex == "M" ? "checked" : "" %>>
+  </label><br><br>
+
+  <label>Cat's Color
+  <select name="cat[color]" value="<%= cat.color %>">
+    <option value="" selected="selected"></option>
+    <% Cat::COLOR.each do |color| %>
+      <option value=<%= color %> <%= cat.color == color ? "selected" : "" %>><%= color.capitalize %></option>
+    <% end %>
+  </select>
+  </label><br><br>
+
+  <label>Describe your Cat
+  <input type="textarea" name="cat[description]" value="<%= cat.description %>"></textarea>
+  </label><br><br>
+
+  <input type="submit" value=<%= cat.persisted? ? "Edit cat" : "Create Cat" %>>
+</form>
