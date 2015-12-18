@@ -1,0 +1,17 @@
+<% if flash.now[:errors] %>
+  <% flash.now[:errors].each do |error| %>
+    <%= error %>
+  <% end %>
+<% end %>
+
+
+<h1>Sign in to the Music App</h1>
+<form action="<%= session_url %>" method="post">
+  <%= auth_token %>
+
+  <%= render "/shared/form" %>
+
+  <input type="Submit" value="Sign in">
+</form>
+<br>
+  <a href="<%= new_user_url%>">Sign up as a new user</a>

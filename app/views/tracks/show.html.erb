@@ -1,0 +1,16 @@
+<h1>Track</h1>
+<ul>
+  <li><b>Track name:</b><br><%= @track.name %></li>
+<li><b>Lyrics:</b> <br><%= @track.lyrics %></li>
+<br>
+
+<li>Album Name:<br><a href="<% album_url(@track.album_id) %>">
+  <%=@track.album.name%>
+</a></li>
+
+</ul>
+
+
+<form action="<%= edit_track_url(@track.id) %>" method="get">
+  <input type="Submit" value="Edit track">
+</form>

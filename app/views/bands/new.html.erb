@@ -1,0 +1,12 @@
+<h1>Add a new band</h1>
+<form action="<%= bands_url %>" method="post">
+
+  <%= auth_token %>
+
+<%= render "newedit" %>
+
+  <input type="Submit" value="Submit">
+</form>
+
+<br>
+<a href="<%= bands_url %>"><< Back to bands</a>
