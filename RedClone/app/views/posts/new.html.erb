@@ -1,0 +1,32 @@
+<h1>Make a new Post</h1>
+
+<form action="<%= posts_url %>" method="POST">
+  <input type="hidden" name="post[sub_id]" value="<%=@post.sub_id%>">
+  <%= auth_token %>
+  <label>Title
+    <input
+      type="text"
+      name="post[title]"
+      id="post_title">
+  </label>
+  <br><br>
+
+  <label>Content (optional)
+    <textarea
+      name="post[content]"
+      id="post_content">
+    </textarea>
+  </label>
+<br><br>
+  <label>URL (optional)
+    <input
+      type="text"
+      name="post[url]"
+      id="post">
+  </label>
+
+<br><br>
+  <%= render "checkbox", subs: @subs, post: @post %>
+
+  <input type="submit" value="Add post">
+</form>

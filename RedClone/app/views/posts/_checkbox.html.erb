@@ -1,0 +1,10 @@
+<label>Related Subs<br>
+  <% subs.each do |sub| %>
+  <label>
+    <input
+      type="checkbox"
+      name="post[sub_ids][]"
+      <%= post.sub_ids.include?(sub.id) ? "checked='true'" : "" %>
+      value="<%= sub.id %>"><%=sub.title%><br>
+  </label>
+  <% end %>

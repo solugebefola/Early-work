@@ -1,0 +1,35 @@
+<h1>Edit <%=@post.title%></h1>
+
+<form action="<%= post_url(@post)%>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+  <%= auth_token %>
+  <label>Title
+    <input
+      type="text"
+      name="post[title]"
+      id="post_title"
+      value="<%= @post.title %>">
+
+  </label>
+  <br><br>
+
+  <label>Content (optional)
+    <textarea
+      name="post[content]"
+      id="post_content">
+<%= @post.content %>
+    </textarea>
+  </label>
+<br><br>
+  <label>URL (optional)
+    <input
+      type="text"
+      name="post[url]"
+      id="post"
+      value="<%= @post.url %>">
+  </label>
+
+  <%= render "checkbox", subs: @subs, post: @post %>
+
+<input type="submit" value="Edit post">
+</form>

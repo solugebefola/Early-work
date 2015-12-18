@@ -1,0 +1,7 @@
+<h1><%= @post.title %></h1>
+<h2> <%= @post.content %></h2>
+<h2> <%= @post.url %></h2>
+
+<a href="<%= edit_post_url(@post) %>">Edit Post</a>
+
+<a href="<%= new_post_comment_url(@post.id) %>">Add Comment</a>

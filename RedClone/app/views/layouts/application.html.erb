@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RedditClone</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+
+<% if signed_in? %>
+  <form action="<%= session_url %>" method="POST">
+    <input
+    type="hidden"
+    name="_method"
+    value="DELETE">
+
+    <input type="submit" value="Sign out">
+  </form>
+<% end %>
+
+</body>
+</html>

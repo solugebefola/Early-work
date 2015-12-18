@@ -1,0 +1,13 @@
+<h1>Post a comment</h1>
+<br>
+<form action="comments_url" method="POST">
+  <%= auth_token %>
+    <label>Comment
+      <textarea name="comments[content]">
+      </textarea>
+    </label>
+    <br>
+  <input
+    type="submit"
+    value="Submit your comment">
+  </form>
