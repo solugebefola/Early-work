@@ -1,0 +1,6 @@
+{
+  "browser": true,
+  "node": false,
+  "undef": true,
+  "predef": ["$", "MyGlobalNamespace"]  
+}
