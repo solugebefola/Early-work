@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Component Exercises</title>
+    <script src="https://fb.me/react-0.13.3.js" charset="utf-8"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js" charset="utf-8"></script>
+    <script type="text/jsx" src="./react_widgets.js">
+
+    </script>
+  </head>
+
+  <body>
+
+    <div id="autocomplete"></div>
+
+    <div id="clock-widget"></div>
+
+    <div id="weather-widget"></div>
+
+    <div id="tabs"></div>
+
+    <script type="text/jsx">
+      React.render(
+        <Autocomplete names={['bob','sara']}/>,
+        document.getElementById("autocomplete")
+      )
+
+      React.render(
+        <ClockWidget />,
+        document.getElementById("clock-widget")
+      )
+
+      React.render(
+        <WeatherWidget />,
+        document.getElementById("weather-widget")
+      )
+
+      React.render(
+        <Tabs items={[
+          {header:"happy times", content: "We love the world"},
+          {header:"sad times", content: "I am sooooo sad...."},
+          {header:"medium times", content: "it's allright."}
+        ]}/>,
+        document.getElementById("tabs")
+      )
+    </script>
+
+
+  </body>
+</html>
