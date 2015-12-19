@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/hanoi.css">
+    <title>Towers of Hanoi</title>
+  </head>
+  <body>
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../../hanoi-core-solution/hanoi-core.js"></script>
+    <script src="../js/hanoi_view.js"></script>
+
+    <main class="TOH-main group">
+
+    </main>
+
+    <script>
+      var newGame = new Hanoi.Game();
+      var newView = new Hanoi.View(newGame, $("main"));
+
+      $(document).on("ready", function() {
+        $("ul").on("click", function(e) {
+          var $target = $(e.currentTarget);
+          newView.clickTower($target);
+
+          if (newGame.isWon()) {
+            alert("SNAP you win!");
+          }
+        });
+      });
+    </script>
+
+  </body>
+</html>
