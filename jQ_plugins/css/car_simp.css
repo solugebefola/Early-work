@@ -1,0 +1,69 @@
+html, body, ul, li, figure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  font: inherit;
+  text-decoration: inherit;
+  text-align: inherit;
+  color: inherit;
+
+  background: transparent;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.carousel {
+  width: 400px;
+  position: relative;
+  border: 10px solid black;
+  display:block;
+  margin: auto;
+  overflow: hidden;
+}
+nav {
+  width: 250px;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  width: 100px;
+}
+
+.items > li{
+  display: none;
+  height: 300px;
+  width: 100%;
+}
+
+.items .active {
+  display: block;
+  position: absolute;
+  left: 0%;
+  transition: left 250ms linear;
+}
+
+.carousel ul{
+  height: 300px;
+  width:400px;
+  list-style: none;
+  overflow: hidden;
+}
+
+.items .right {
+  left: -100%;
+  display: block;
+}
+
+.items .left {
+  left: 100%;
+  display: block;
+}

@@ -1,0 +1,38 @@
+body, div, img, html {
+  padding: 0;
+  margin: 0;
+  border: 0;
+
+  font: inherit;
+  text-decoration: inherit;
+  text-align: inherit;
+  color: inherit;
+
+  background: transparent;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.gutter-images img {
+  width: 20%;
+  display: block;
+  float: left;
+
+}
+
+.active img {
+  width: 100%;
+}
+.gutter-images {
+
+}
+
+.thumbnails {
+  width: 400px;
+  display: block;
+  margin: auto;
+}

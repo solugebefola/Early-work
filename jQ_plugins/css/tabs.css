@@ -1,0 +1,93 @@
+html, body, {
+  margin: 0;
+  border: 0;
+  padding: 0;
+
+  font: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  color: inherit;
+
+  background: transparent;
+}
+
+body {
+  font-family: sans-serif;
+  background: #aaa;
+}
+
+h1 {
+  font-size: 75px;
+  color: black;
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.tabs {
+  width: 400px;
+  margin: auto;
+  display: block;
+  list-style: none;
+  padding: 0;
+}
+
+.tabs li {
+  float: left;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  width: 100px;
+  background: transparent;
+  display: block;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px 0;
+}
+a:hover {
+  color: blue;
+}
+
+.tabs .active{
+  font-weight: bold;
+  background: white;
+  color: black;
+}
+
+.section {
+  width: 400px;
+  display: block;
+  margin: auto;
+  background: white;
+  word-wrap: normal;
+}
+
+
+section article {
+  display: none;
+  width: 380px;
+  padding: 10px;
+  margin: auto;
+  background: white;
+  transition: opacity 0.2s linear;
+}
+
+section .active {
+  display: block;
+  opacity: 100;
+}
+
+section .transitioning {
+  display: block;
+  opacity: 0;
+}
