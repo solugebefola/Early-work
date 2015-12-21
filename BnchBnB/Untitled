@@ -1,0 +1,6 @@
+list of benches
+object with keys of bench ids and values of markers
+set each object marker to null
+iterate through bench list
+check for bench id inclusion in object
+if not included, make a new marker, place in object with bench id as key
